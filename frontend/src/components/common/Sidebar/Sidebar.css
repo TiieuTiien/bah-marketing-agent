@@ -1,23 +1,86 @@
 .sidebar {
-    display: flex;
-    flex-direction: column;
-    width: 15%;
-    height: 100%;
-    /* border-right: 1px solid #ccc; */
-    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
-    user-select: none;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 100vh;
+  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+  user-select: none;
+  margin: 0.2rem;
+  transition: width 0.3s ease-in-out;
+}
+
+.sidebar.collapsed {
+  width: 60px;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: flex-start;
+  padding: 12px;
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  padding: 10px 8px 5px 8px;
+  padding-top: 8px;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: rgba(105, 105, 105, 0.1);
+}
+
+.toggle-button:focus {
+  outline: none;
+}
+
+.sidebar-items {
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar-item {
-    display: flex;
-    text-align: left;
-    align-items: center;
-    padding-left: 1.5rem;
-    margin: 0.2rem;
+  display: flex;
+  text-align: left;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 0.8rem;
+  margin: 0 0.5rem;
+  border-radius: 15px;
+  transition: background-color 0.3s ease;
 }
 
 .sidebar-item:hover {
-    background-color: rgba(105, 105, 105, 0.1);
-    border-radius: 15px;
-    cursor: pointer;
+  background-color: rgba(105, 105, 105, 0.1);
+  cursor: pointer;
+}
+
+.sidebar-item .icon {
+  font-size: 20px;
+  margin-right: 15px;
+  transition: margin-right 0.3s ease-in-out;
+}
+
+.sidebar-item.collapsed .icon {
+  margin-right: 0;
+  transition: margin-right 0.3s ease-in-out;
+}
+
+.item-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar.collapsed .item-name {
+  opacity: 0;
+  width: 0;
+  pointer-events: none;
 }

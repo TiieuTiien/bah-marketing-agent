@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react';
 import './UserProfile.css';
-import '../../../hooks/useClickOutside'
 import { useClickOutside } from '../../../hooks/useClickOutside';
 
 interface UserProfileProps {
