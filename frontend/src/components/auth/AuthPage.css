@@ -37,6 +37,24 @@
   color: #333;
 }
 
+.error-messages {
+  background-color: #fee;
+  border: 1px solid #fcc;
+  border-radius: 4px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  color: #c33;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.error-message:last-child {
+  margin-bottom: 0;
+}
+
 .form-group {
   margin-bottom: 1rem;
 }
@@ -51,10 +69,11 @@
 
 .form-group input {
   width: 100%;
-  padding: 0.75rem 0;
+  padding: 0.75rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;
+  transition: border-color 0.2s;
 }
 
 .form-group input:focus {
@@ -62,8 +81,17 @@
   border-color: #007bff;
 }
 
+.form-group input.error {
+  border-color: #dc3545;
+}
+
+.form-group input:disabled {
+  background-color: #f8f9fa;
+  cursor: not-allowed;
+}
+
 button:focus {
-    outline: none;
+  outline: none;
 }
 
 .submit-btn {
@@ -76,10 +104,16 @@ button:focus {
   font-size: 1rem;
   cursor: pointer;
   margin-top: 1rem;
+  transition: background-color 0.2s;
 }
 
-.submit-btn:hover {
+.submit-btn:hover:not(:disabled) {
   background-color: #0056b3;
+}
+
+.submit-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
 }
 
 .mode-switch button {
@@ -88,8 +122,14 @@ button:focus {
   color: #007bff;
   cursor: pointer;
   text-decoration: underline;
+  transition: color 0.2s;
 }
 
-.mode-switch button:hover {
+.mode-switch button:hover:not(:disabled) {
   color: #0056b3;
+}
+
+.mode-switch button:disabled {
+  color: #6c757d;
+  cursor: not-allowed;
 }
