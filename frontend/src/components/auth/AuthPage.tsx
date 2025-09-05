@@ -23,7 +23,7 @@ export const AuthPage: React.FC = () => {
     <div className="auth-page">
       <div className="auth-container">
         <div className="auth-header">
-          <h1>BAH Marketing Agent</h1>
+          <h2>BAH Marketing Agent</h2>
           <p>Quản lý ý tưởng với AI</p>
         </div>
 
