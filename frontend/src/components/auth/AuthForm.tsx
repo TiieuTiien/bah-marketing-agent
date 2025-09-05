@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { AuthFormData, AuthMode } from "../../types/auth";
-import { validateAuthForm } from "../../utils/validation";
+import {
+  validateAuthForm,
+  validateEmail,
+  validateName,
+  validatePassword,
+} from "../../utils/validation";
 import "./AuthPage.css";
+import { useDebounce } from "../../hooks/useDebounce";
 
-// Explain about data: AuthFormData
 interface AuthFormProps {
   mode: AuthMode;
   onSubmit: (data: AuthFormData) => void;
@@ -11,7 +16,12 @@ interface AuthFormProps {
   loading?: boolean;
 }
 
-// When to export const, when to export default?
+interface FieldErrors {
+  name?: string[];
+  email?: string[];
+  password?: string[];
+}
+
 export const AuthForm: React.FC<AuthFormProps> = ({
   mode,
   onSubmit,
@@ -19,25 +29,62 @@ export const AuthForm: React.FC<AuthFormProps> = ({
   loading = false,
 }) => {
   const [formData, setFormData] = useState<AuthFormData>({
+    name: "",
     email: "",
     password: "",
-    name: "",
   });
 
-  const [errors, setErrors] = useState<string[]>([]);
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
+  const [submitErrors, setSubmitErrors] = useState<string[]>([]);
+
+  const debouncedFormData = useDebounce(formData, 500);
+
+  useEffect(() => {
+    const newFieldErrors: FieldErrors = {};
+
+    if (touched.name && debouncedFormData.name) {
+      const nameValidation = validateName(debouncedFormData.name);
+      if (!nameValidation.isValid) {
+        newFieldErrors.name = nameValidation.errors;
+      }
+    }
+
+    if (touched.email && debouncedFormData.email) {
+      const emailValidation = validateEmail(debouncedFormData.email);
+      if (!emailValidation.isValid) {
+        newFieldErrors.email = emailValidation.errors;
+      }
+    }
+
+    if (touched.password && debouncedFormData.password) {
+      const passwordValidation = validatePassword(debouncedFormData.password);
+      if (!passwordValidation.isValid) {
+        newFieldErrors.password = passwordValidation.errors;
+      }
+    }
+
+    setFieldErrors(newFieldErrors);
+  }, [debouncedFormData, touched, mode]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    setTouched({
+      name: true,
+      email: true,
+      password: true,
+    });
+
     const validation = validateAuthForm(formData, mode);
 
     if (!validation.isValid) {
-      setErrors(validation.errors);
+      setSubmitErrors(validation.errors);
       return;
     }
 
-    setErrors([]);
+    setSubmitErrors([]);
+    setFieldErrors({});
     onSubmit(formData);
   };
 
@@ -49,8 +96,15 @@ export const AuthForm: React.FC<AuthFormProps> = ({
       [name]: value,
     });
 
-    if (errors.length > 0) {
-      setErrors([]);
+    if (submitErrors.length > 0) {
+      setSubmitErrors([]);
+    }
+
+    if (fieldErrors[name as keyof FieldErrors]) {
+      setFieldErrors({
+        ...fieldErrors,
+        [name]: undefined,
+      });
     }
   };
 
@@ -64,22 +118,33 @@ export const AuthForm: React.FC<AuthFormProps> = ({
 
   const handleModeChange = (newMode: AuthMode) => {
     setFormData({
+      name: "",
       email: "",
       password: "",
-      name: "",
     });
-    setErrors([]);
+    setFieldErrors({});
+    setSubmitErrors([]);
     setTouched({});
     onModeChange(newMode);
   };
+
+  const hasFieldErrors = Object.values(fieldErrors).some(
+    (errors) => errors && Array.isArray(errors) && errors.length > 0
+  );
+
+  const isFormValid =
+    !hasFieldErrors &&
+    (mode === "login" || formData.name?.trim() !== "") &&
+    formData.email &&
+    formData.password;
 
   return (
     <div className="auth-form">
       <h2>{mode === "login" ? "Đăng nhập" : "Đăng ký"}</h2>
 
-      {errors.length > 0 && (
+      {submitErrors.length > 0 && (
         <div className="error-messages">
-          {errors.map((error, index) => (
+          {submitErrors.map((error, index) => (
             <div className="error-message" key={index}>
               {error}
             </div>
@@ -95,13 +160,23 @@ export const AuthForm: React.FC<AuthFormProps> = ({
               type="text"
               id="name"
               name="name"
-              value={formData.name}
+              value={formData.name || ""}
               onChange={handleInputChange}
               onBlur={handleInputBlur}
               disabled={loading}
-              className={touched.name && !formData.name ? "error" : ""}
-              required
+              className={
+                fieldErrors.name && fieldErrors.name.length > 0 ? "error" : ""
+              }
             />
+            {fieldErrors.name && fieldErrors.name.length > 0 && (
+              <div className="field-error">
+                {fieldErrors.name.map((error, index) => (
+                  <div className="field-error-message" key={index}>
+                    {error}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
@@ -115,9 +190,19 @@ export const AuthForm: React.FC<AuthFormProps> = ({
             onChange={handleInputChange}
             onBlur={handleInputBlur}
             disabled={loading}
-            className={touched.email && !formData.email ? "error" : ""}
-            required
+            className={
+              fieldErrors.email && fieldErrors.email.length > 0 ? "error" : ""
+            }
           />
+          {fieldErrors.email && fieldErrors.email.length > 0 && (
+            <div className="field-error">
+              {fieldErrors.email.map((error, index) => (
+                <div className="field-error-message" key={index}>
+                  {error}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="form-group">
@@ -130,12 +215,28 @@ export const AuthForm: React.FC<AuthFormProps> = ({
             onChange={handleInputChange}
             onBlur={handleInputBlur}
             disabled={loading}
-            className={touched.password && !formData.password ? "error" : ""}
-            required
+            className={
+              fieldErrors.password && fieldErrors.password.length > 0
+                ? "error"
+                : ""
+            }
           />
+          {fieldErrors.password && fieldErrors.password.length > 0 && (
+            <div className="field-error">
+              {fieldErrors.password.map((error, index) => (
+                <div className="field-error-message" key={index}>
+                  {error}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        <button className="submit-btn" type="submit" disabled={loading}>
+        <button
+          type="submit"
+          className={`submit-btn ${isFormValid ? "valid" : ""}`}
+          disabled={loading}
+        >
           {loading
             ? "Đang xử lý..."
             : mode === "login"
@@ -145,7 +246,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
       </form>
 
       <div className="mode-switch">
-        {mode === 'login' ? (
+        {mode === "login" ? (
           <p>
             Chưa có tài khoản?
             <button

@@ -8,7 +8,7 @@ export const validateEmail = (email: string): ValidationResult => {
 
     if (!email) {
         errors.push('Bạn cần nhập Email');
-    } else if (!/^[^\s@]+@[^\s@]+.[^\s@]+$/.test(email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         errors.push('Email không hợp lệ');
     }
 
@@ -23,8 +23,8 @@ export const validatePassword = (password: string): ValidationResult => {
 
     if (!password) {
         errors.push('Bạn cần nhập Mật khẩu');
-    } else if (password.length < 8) {
-        errors.push('Mật khẩu phải có ít nhất 8 ký tự');
+    } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
+        errors.push('Mật khẩu không hợp lệ');
     }
 
     return {
@@ -55,6 +55,13 @@ export const validateAuthForm = (data: {
 }, mode: 'login' | 'register'): ValidationResult => {
     const errors: string[] = [];
 
+    if (mode == 'register') {
+        const nameValidation = validateName(data.name || '');
+        if (!nameValidation.isValid) {
+            errors.push(...nameValidation.errors);
+        }
+    }
+
     const emailValidation = validateEmail(data.email);
     if (!emailValidation.isValid) {
         errors.push(...emailValidation.errors);
@@ -63,13 +70,6 @@ export const validateAuthForm = (data: {
     const passwordValidation = validatePassword(data.password);
     if (!passwordValidation.isValid) {
         errors.push(...passwordValidation.errors);
-    }
-
-    if (mode == 'register') {
-        const nameValidation = validateName(data.name || '');
-        if (!nameValidation.isValid) {
-            errors.push(...nameValidation.errors);
-        }
     }
 
     return {

@@ -37,6 +37,16 @@
   color: #333;
 }
 
+.field-error {
+  margin-top: 0.25rem;
+}
+
+.field-error-message {
+  color: #dc3545;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
 .error-messages {
   background-color: #fee;
   border: 1px solid #fcc;
@@ -69,11 +79,12 @@
 
 .form-group input {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.75rem 0 0.75rem 0.75rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.2s;
+  box-sizing: border-box;
 }
 
 .form-group input:focus {
@@ -114,6 +125,14 @@ button:focus {
 .submit-btn:disabled {
   background-color: #6c757d;
   cursor: not-allowed;
+}
+
+.submit-btn.valid {
+  background-color: #28a745;
+}
+
+.submit-btn.valid:hover:not(:disabled) {
+  background-color: #218838;
 }
 
 .mode-switch button {
