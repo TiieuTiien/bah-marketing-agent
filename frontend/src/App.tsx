@@ -1,17 +1,15 @@
+import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { AuthPage } from "./components/auth/AuthPage";
-import Header from "./components/common/Header/Header";
-import Sidebar from "./components/common/Sidebar/Sidebar";
+import { AuthPage } from "./pages/AuthPage";
+import MainApp from './pages/MainApp'
 
 function App() {
   return (
-    <>
-      <Header />
-      <div className="content-container">
-        <Sidebar />
-        <AuthPage />
-      </div>
-    </>
+    <Routes>
+      <Route path="/auth/*" element={<AuthPage />} />
+      <Route path="/app/*" element={<MainApp />} />
+      <Route path="*" element={<Navigate to="/auth/login" replace />} />
+    </Routes>
   );
 }
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import type { AuthFormData, AuthMode } from "../../types/auth";
-import { AuthForm } from "./AuthForm";
-import "./AuthPage.css";
+import type { AuthFormData, AuthMode } from "../types/auth";
+import { AuthForm } from "../components/auth/AuthForm";
+import '@/components/auth/auth.css';
 
 export const AuthPage: React.FC = () => {
   const [mode, setMode] = useState<AuthMode>("login");

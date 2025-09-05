@@ -6,7 +6,7 @@ import {
   validateName,
   validatePassword,
 } from "../../utils/validation";
-import "./AuthPage.css";
+import "./auth.css";
 import { useDebounce } from "../../hooks/useDebounce";
 
 interface AuthFormProps {
