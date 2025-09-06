@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import "./Sidebar.css";
-import { FaBars, FaCog, FaCubes, FaEdit, FaUser } from "react-icons/fa";
+import { FaBars, FaCog, FaCubes, FaUser } from "react-icons/fa";
 import { useHoverInside } from '../../../hooks/useHoverInside';
 
 interface SidebarItemProps {
@@ -22,28 +22,43 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ name, isCollapsed, children }
   );
 };
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  onCollapseChange?: (isCollapsed: boolean) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ onCollapseChange }) => {
   const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [isLockedOpen, setIsLockedOpen] = React.useState(false);
 
 
   const sidebarRef = useHoverInside((isHovering) =>  {
     if(!isLockedOpen){
-      setIsCollapsed(!isHovering);
+      const newCollapsed = !isHovering;
+      setIsCollapsed(newCollapsed);
+      onCollapseChange?.(newCollapsed);
     }
   });
 
   const toggleLockedState = () => {
     const newLockedState = !isLockedOpen;
     setIsLockedOpen(newLockedState);
-    setIsCollapsed(!newLockedState);
+    const newCollapsed = !newLockedState;
+    setIsCollapsed(newCollapsed);
+    onCollapseChange?.(newCollapsed);
   };
 
   useEffect(() => {
     if(isLockedOpen){
       setIsCollapsed(false);
+      onCollapseChange?.(false);
     }
-  }, [isLockedOpen]);
+  }, [isLockedOpen, onCollapseChange]);
+
+  // Notify parent of initial state
+  useEffect(() => {
+    onCollapseChange?.(isCollapsed);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run on mount
 
   return (
     <aside ref={sidebarRef} className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>

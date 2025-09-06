@@ -3,6 +3,7 @@ import './Header.css'; // Assuming you have some styles for the header
 import UserProfile from "../UserProfile/UserProfile";
 import avatarPlaceholder from '../../../assets/blonde_500.png';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface HeaderProps {}
 
 const Header: React.FC<HeaderProps> = () => {

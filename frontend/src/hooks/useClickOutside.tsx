@@ -5,13 +5,13 @@ export const useClickOutside = (
     callback: () => void,
     addEventListener: boolean = true    
 ) => {
-    const handleClick = (event: MouseEvent) => {
-        if (ref.current && !ref.current.contains(event.target as Node)) {
-            callback();
-        }
-    }
-
     useEffect(() => {
+        const handleClick = (event: MouseEvent) => {
+            if (ref.current && !ref.current.contains(event.target as Node)) {
+                callback();
+            }
+        }
+
         if (addEventListener) {
             document.addEventListener('click', handleClick);
         }

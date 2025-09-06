@@ -6,24 +6,33 @@ import { useHoverInside } from '../../../hooks/useHoverInside';
 const SidebarItem = ({ name, isCollapsed, children }) => {
     return (_jsx(_Fragment, { children: _jsxs("div", { className: `sidebar-item ${isCollapsed ? "collapsed" : ""}`, children: [_jsx("div", { className: "icon", children: children }), !isCollapsed && _jsx("span", { className: "item-name", children: name })] }) }));
 };
-const Sidebar = () => {
+const Sidebar = ({ onCollapseChange }) => {
     const [isCollapsed, setIsCollapsed] = React.useState(true);
     const [isLockedOpen, setIsLockedOpen] = React.useState(false);
     const sidebarRef = useHoverInside((isHovering) => {
         if (!isLockedOpen) {
-            setIsCollapsed(!isHovering);
+            const newCollapsed = !isHovering;
+            setIsCollapsed(newCollapsed);
+            onCollapseChange?.(newCollapsed);
         }
     });
     const toggleLockedState = () => {
         const newLockedState = !isLockedOpen;
         setIsLockedOpen(newLockedState);
-        setIsCollapsed(!newLockedState);
+        const newCollapsed = !newLockedState;
+        setIsCollapsed(newCollapsed);
+        onCollapseChange?.(newCollapsed);
     };
     useEffect(() => {
         if (isLockedOpen) {
             setIsCollapsed(false);
+            onCollapseChange?.(false);
         }
-    }, [isLockedOpen]);
+    }, [isLockedOpen, onCollapseChange]);
+    // Notify parent of initial state
+    useEffect(() => {
+        onCollapseChange?.(isCollapsed);
+    }, []); // Only run on mount
     return (_jsxs("aside", { ref: sidebarRef, className: `sidebar ${isCollapsed ? "collapsed" : ""}`, children: [_jsx("div", { className: `sidebar-header ${isCollapsed ? "collapsed" : ""}`, children: _jsx("button", { onClick: toggleLockedState, className: "toggle-button", children: _jsx(FaBars, {}) }) }), _jsxs("div", { className: "sidebar-items", children: [_jsx(SidebarItem, { name: "Dashboard", isCollapsed: isCollapsed, children: _jsx(FaCubes, {}) }), _jsx(SidebarItem, { name: "Settings", isCollapsed: isCollapsed, children: _jsx(FaCog, {}) }), _jsx(SidebarItem, { name: "Profile", isCollapsed: isCollapsed, children: _jsx(FaUser, {}) })] })] }));
 };
 export default Sidebar;

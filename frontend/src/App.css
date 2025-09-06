@@ -8,16 +8,33 @@
   text-align: center;
 }
 
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
 .content-container {
   display: flex;
   flex-direction: row;
-
   width: 100%;
-  height: 94vh;
+  height: calc(100vh - 6vh); /* Subtract header height */
+  position: relative;
 }
 
 .main-content {
-  width: 100%;
+  flex: 1;
+  padding: 1rem 2rem;
+  margin-left: 250px; /* Default sidebar width */
+  transition: margin-left 0.3s ease-in-out;
+  overflow-y: auto;
+  text-align: left;
+}
+
+/* Adjust main content when sidebar is collapsed using a more compatible approach */
+.main-content.sidebar-collapsed {
+  margin-left: 60px; /* Collapsed sidebar width */
 }
 
 @keyframes logo-spin {
