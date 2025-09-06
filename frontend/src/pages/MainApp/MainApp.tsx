@@ -4,11 +4,22 @@ import Dashboard from "@/components/dashboard/Dashboard";
 import { useState } from "react";
 import "@/pages/MainApp/MainApp.css";
 import Workspace from "@/components/workspace/Workspace";
+import IdeaList from "@/components/idealist/IdeaList";
+import { Idea } from "@/types/idea";
+import IdeaForm from "@/components/ideaform/IdeaForm";
 
-type View = "dashboard" | "workspace";
+type View = "dashboard" | "workspace" | "idealist";
 
 export default function MainApp() {
   const [currentView, setCurrentView] = useState<View>("workspace");
+
+  const [selectedIdea, setSelectedIdea] = useState<Idea | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const handleIdeaSelect = (idea: Idea) => {
+    setSelectedIdea(idea);
+    setIsFormOpen(true);
+  };
 
   return (
     <div className="mainapp-container">
@@ -16,7 +27,13 @@ export default function MainApp() {
       <div className="main-section">
         <Header />
         <main className="main-content">
-          {currentView === "dashboard" ? <Dashboard /> : <Workspace />}
+          {currentView === "workspace" && <Workspace />}
+          {currentView === "idealist" && (
+            <>
+              <IdeaList onIdeaSelect={handleIdeaSelect} />
+            </>
+          )}
+          {currentView === "dashboard" && <Dashboard />}
         </main>
       </div>
     </div>

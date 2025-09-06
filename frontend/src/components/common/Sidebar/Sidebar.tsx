@@ -3,14 +3,15 @@ import { useEffect, useRef } from "react";
 import {
   FaBars,
   FaEdit,
+  FaLightbulb,
   FaTachometerAlt,
 } from "react-icons/fa";
 import { useHoverInside } from "../../../hooks/useHoverInside";
 import "./Sidebar.css";
 
 interface SidebarProps {
-  currentView: "dashboard" | "workspace";
-  onViewChange: (view: "dashboard" | "workspace") => void;
+  currentView: "dashboard" | "workspace" | "idealist";
+  onViewChange: (view: "dashboard" | "workspace" | "idealist") => void;
 }
 
 interface SidebarItemProps {
@@ -91,6 +92,14 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) => {
           onClick={() => onViewChange("workspace")}
         >
           <FaEdit />
+        </SidebarItem>
+        <SidebarItem
+          name="Idea List"
+          isCollapsed={isCollapsed}
+          isActive={currentView === "idealist"}
+          onClick={() => onViewChange("idealist")}
+        >
+          <FaLightbulb />
         </SidebarItem>
       </div>
     </aside>
