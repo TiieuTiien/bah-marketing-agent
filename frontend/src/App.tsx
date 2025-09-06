@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { AuthPage } from "./pages/AuthPage";
-import MainApp from './pages/MainApp'
+import MainApp from './pages/MainApp/MainApp'
 
 function App() {
   return (
