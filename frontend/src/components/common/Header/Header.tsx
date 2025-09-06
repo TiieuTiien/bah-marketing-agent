@@ -1,4 +1,3 @@
-import React from "react";
 import './Header.css'; // Assuming you have some styles for the header
 import UserProfile from "../UserProfile/UserProfile";
 import avatarPlaceholder from '../../../assets/blonde_500.png';
