@@ -9,16 +9,16 @@ import "./IdeaList.css";
 import { Idea } from "@/types/idea";
 import { ideaApi } from "@/types/api";
 import { mockIdeas } from "@/mocks/mockIdeas";
+import IdeaForm from "../ideaform/IdeaForm";
 
-interface IdeaListProps {
-  onIdeaSelect: (idea: Idea) => void;
-}
-
-const IdeaList: React.FC<IdeaListProps> = ({ onIdeaSelect }) => {
+const IdeaList: React.FC = () => {
   const [ideas, setIdeas] = useState<Idea[]>(mockIdeas);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  const [selectedIdea, setSelectedIdea] = useState<Idea | undefined>(undefined);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
     loadIdeas();
@@ -35,6 +35,38 @@ const IdeaList: React.FC<IdeaListProps> = ({ onIdeaSelect }) => {
     } catch (error) {
       console.error("Error loading ideas:", error);
     }
+  };
+
+  const handleCreateIdea = () => {
+    setSelectedIdea(undefined);
+    setIsFormOpen(true);
+  };
+
+  const handleEditIdea = (idea: Idea) => {
+    setSelectedIdea(idea);
+    setIsFormOpen(true);
+  };
+
+  const handleDeleteIdea = async (id: string) => {
+    if (!window.confirm("Bạn có chắc muốn xóa ý tưởng này?")) return;
+    try {
+      await ideaApi.deleteIdea(id);
+      setIdeas(ideas.filter((idea) => idea.id !== id));
+    } catch (error) {
+      console.error("Error deleting idea:", error);
+      alert("Có lỗi khi xóa!");
+    }
+  };
+
+  const handleFormSubmit = async () => {
+    setIsFormOpen(false);
+    setSelectedIdea(undefined);
+    await loadIdeas();
+  };
+
+  const handleFormCancel = () => {
+    setIsFormOpen(false);
+    setSelectedIdea(undefined);
   };
 
   const handleDragEnd = (result: DropResult) => {
@@ -87,6 +119,9 @@ const IdeaList: React.FC<IdeaListProps> = ({ onIdeaSelect }) => {
             </label>
           ))}
         </div>
+        <button className="create-idea-btn" onClick={handleCreateIdea}>
+          + Tạo ý tưởng mới
+        </button>
       </div>
 
       <DragDropContext onDragEnd={handleDragEnd}>
@@ -105,7 +140,10 @@ const IdeaList: React.FC<IdeaListProps> = ({ onIdeaSelect }) => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       className={`idea-card ${idea.status}`}
-                      onClick={() => onIdeaSelect(idea)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEditIdea(idea);
+                      }}
                     >
                       <h3>{idea.title}</h3>
                       <p>{idea.description.substring(0, 100)}...</p>
@@ -121,6 +159,27 @@ const IdeaList: React.FC<IdeaListProps> = ({ onIdeaSelect }) => {
                             </span>
                           ))}
                         </div>
+
+                        <div className="idea-actions">
+                          <button
+                            className="edit-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleEditIdea(idea);
+                            }}
+                          >
+                            Sửa
+                          </button>
+                          <button
+                            className="delete-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeleteIdea(idea.id);
+                            }}
+                          >
+                            Xóa
+                          </button>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -131,6 +190,18 @@ const IdeaList: React.FC<IdeaListProps> = ({ onIdeaSelect }) => {
           )}
         </Droppable>
       </DragDropContext>
+
+      {isFormOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <IdeaForm
+              idea={selectedIdea}
+              onSubmit={handleFormSubmit}
+              onCancel={handleFormCancel}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -9,6 +9,7 @@
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .search-input {
@@ -50,12 +51,11 @@
   padding: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: box-shadow 0.2s;
 }
 
 .idea-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .idea-meta {
@@ -114,4 +114,83 @@
   border-radius: 12px;
   background: #f5f5f5;
   font-size: 0.8em;
+}
+
+.modal-overlay {
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 32px 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  min-width: 350px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.idea-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.create-idea-btn {
+  padding: 0.5rem 12px;
+  border: none;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  font-size: var(--font-size-md);
+  color: var(--color-gray-600);
+  transition: background-color 0.2s;
+  outline: none;
+  text-align: left;
+  box-shadow: none;
+}
+.create-idea-btn:hover {
+  background: var(--color-gray-200);
+}
+
+.edit-btn {
+  padding: 0.5rem 12px;
+  border: none;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  font-size: var(--font-size-md);
+  color: var(--color-gray-600);
+  transition: background-color 0.2s;
+  outline: none;
+  text-align: left;
+  box-shadow: none;
+}
+.edit-btn:hover {
+  background: var(--color-gray-200);
+}
+
+.delete-btn {
+  padding: 0.5rem 12px;
+  border: none;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  font-size: var(--font-size-md);
+  color: #dc3545;
+  transition: background-color 0.2s;
+  outline: none;
+  text-align: left;
+  box-shadow: none;
+}
+.delete-btn:hover {
+  background: #feeced;
 }
