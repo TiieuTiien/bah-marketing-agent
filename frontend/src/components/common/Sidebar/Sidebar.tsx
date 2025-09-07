@@ -1,17 +1,18 @@
 import * as React from "react";
 import { useEffect, useRef } from "react";
-import {
-  FaBars,
-  FaEdit,
-  FaLightbulb,
-  FaTachometerAlt,
-} from "react-icons/fa";
+import { FaBars, FaEdit, FaLightbulb, FaTachometerAlt } from "react-icons/fa";
 import { useHoverInside } from "../../../hooks/useHoverInside";
 import "./Sidebar.css";
+import { mockIdeas } from "@/mocks/mockIdeas";
+import { useNavigate } from "react-router-dom";
 
 interface SidebarProps {
-  currentView: "dashboard" | "workspace" | "idealist";
-  onViewChange: (view: "dashboard" | "workspace" | "idealist") => void;
+  onViewChange: (
+    view: "dashboard" | "workspace" | "idealist" | "ideaId"
+  ) => void;
+  currentView: string;
+  selectedIdea: string | null;
+  setSelectedIdea: (id: string | null) => void;
 }
 
 interface SidebarItemProps {
@@ -19,7 +20,7 @@ interface SidebarItemProps {
   isCollapsed: boolean;
   isActive: boolean;
   onClick: () => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const SidebarItem: React.FC<SidebarItemProps> = ({
@@ -27,7 +28,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   isCollapsed,
   isActive,
   onClick,
-  children,
+  children = null,
 }) => {
   return (
     <>
@@ -37,16 +38,25 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
         }`}
         onClick={onClick}
       >
-        <div className="icon">{children}</div>
+        {children ? <div className="icon">{children}</div> : <></>}
         {!isCollapsed && <span className="item-name">{name}</span>}
       </div>
     </>
   );
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  currentView,
+  onViewChange,
+  selectedIdea,
+  setSelectedIdea,
+}) => {
+  const navigate = useNavigate();
+
   const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [isLockedOpen, setIsLockedOpen] = React.useState(false);
+
+  const [visibleCount, setVisibleCount] = React.useState(10);
 
   const sidebarRef = useHoverInside((isHovering) => {
     if (!isLockedOpen) {
@@ -66,41 +76,73 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) => {
     }
   }, [isLockedOpen]);
 
+  const handleIdeaClick = (ideaId: string) => {
+    setSelectedIdea(ideaId);
+    onViewChange("ideaId");
+  };
+
   return (
     <aside
       ref={sidebarRef}
       className={`sidebar ${isCollapsed ? "collapsed" : ""}`}
     >
-      <div className={`sidebar-header ${isCollapsed ? "collapsed" : ""}`}>
-        <button onClick={toggleLockedState} className="toggle-button">
-          <FaBars />
-        </button>
+      <div>
+        <div className={`sidebar-header ${isCollapsed ? "collapsed" : ""}`}>
+          <button onClick={toggleLockedState} className="toggle-button">
+            <FaBars />
+          </button>
+        </div>
+        <div className="sidebar-items">
+          <SidebarItem
+            name="Dashboard"
+            isCollapsed={isCollapsed}
+            isActive={currentView === "dashboard"}
+            onClick={() => onViewChange("dashboard")}
+          >
+            <FaTachometerAlt />
+          </SidebarItem>
+          <SidebarItem
+            name="Workspace"
+            isCollapsed={isCollapsed}
+            isActive={currentView === "workspace"}
+            onClick={() => onViewChange("workspace")}
+          >
+            <FaEdit />
+          </SidebarItem>
+          <SidebarItem
+            name="Idea List"
+            isCollapsed={isCollapsed}
+            isActive={currentView === "idealist"}
+            onClick={() => onViewChange("idealist")}
+          >
+            <FaLightbulb />
+          </SidebarItem>
+        </div>
+        {!isCollapsed && <div className="sidebar-title">Ý tưởng của bạn</div>}
       </div>
-      <div className="sidebar-items">
-        <SidebarItem
-          name="Dashboard"
-          isCollapsed={isCollapsed}
-          isActive={currentView === "dashboard"}
-          onClick={() => onViewChange("dashboard")}
-        >
-          <FaTachometerAlt />
-        </SidebarItem>
-        <SidebarItem
-          name="Workspace"
-          isCollapsed={isCollapsed}
-          isActive={currentView === "workspace"}
-          onClick={() => onViewChange("workspace")}
-        >
-          <FaEdit />
-        </SidebarItem>
-        <SidebarItem
-          name="Idea List"
-          isCollapsed={isCollapsed}
-          isActive={currentView === "idealist"}
-          onClick={() => onViewChange("idealist")}
-        >
-          <FaLightbulb />
-        </SidebarItem>
+      <div className="scrollbar-outer">
+        <div className="sidebar-ideas">
+          {mockIdeas.slice(0, visibleCount).map((idea) => (
+            <SidebarItem
+              key={idea.id}
+              name={idea.title}
+              isCollapsed={isCollapsed}
+              isActive={idea.id === selectedIdea}
+              onClick={() => {
+                setSelectedIdea(null);
+                handleIdeaClick(idea.id);
+              }}
+            />
+          ))}
+          {!isCollapsed && visibleCount < mockIdeas.length && (
+            <button
+              className="sidebar-loadmore"
+              onClick={() => setVisibleCount(visibleCount + 10)}
+            >
+              Tải thêm...
+            </button>
+          )}
+        </div>
       </div>
     </aside>
   );

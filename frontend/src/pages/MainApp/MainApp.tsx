@@ -1,25 +1,35 @@
 import { useState } from "react";
 import Header from "@/components/common/Header/Header";
 import Sidebar from "@/components/common/Sidebar/Sidebar";
-import Dashboard from "@/components/dashboard/Dashboard";
-import Workspace from "@/components/workspace/Workspace";
-import IdeaList from "@/components/idealist/IdeaList";
 import "@/pages/MainApp/MainApp.css";
+import {
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
-type View = "dashboard" | "workspace" | "idealist";
+type View = "dashboard" | "workspace" | "idealist" | "ideaId";
 
 export default function MainApp() {
-  const [currentView, setCurrentView] = useState<View>("idealist");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentView =
+    (location.pathname.split("/").pop() as View) || "dashboard";
+
+  const [selectedIdea, setSelectedIdea] = useState<string | null>(null);
+
+  const handleViewChange = (view: View) => {
+    setSelectedIdea(null);
+    navigate(`/app/${view}`, { replace: true });
+  };
 
   return (
     <div className="mainapp-container">
-      <Sidebar onViewChange={setCurrentView} currentView={currentView} />
+      <Sidebar onViewChange={handleViewChange} currentView={currentView} selectedIdea={selectedIdea} setSelectedIdea={setSelectedIdea} />
       <div className="main-section">
         <Header />
         <main className="main-content">
-          {currentView === "workspace" && <Workspace />}
-          {currentView === "idealist" && <IdeaList />}
-          {currentView === "dashboard" && <Dashboard />}
+          <Outlet />
         </main>
       </div>
     </div>
