@@ -1,22 +1,35 @@
+import { useState } from "react";
 import Header from "@/components/common/Header/Header";
 import Sidebar from "@/components/common/Sidebar/Sidebar";
-import Dashboard from "@/components/dashboard/Dashboard";
-import { useState } from "react";
 import "@/pages/MainApp/MainApp.css";
-import Workspace from "@/components/workspace/Workspace";
+import {
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
-type View = "dashboard" | "workspace";
+type View = "dashboard" | "workspace" | "idealist" | "ideaId";
 
 export default function MainApp() {
-  const [currentView, setCurrentView] = useState<View>("workspace");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentView =
+    (location.pathname.split("/").pop() as View) || "dashboard";
+
+  const [selectedIdea, setSelectedIdea] = useState<string | null>(null);
+
+  const handleViewChange = (view: View) => {
+    setSelectedIdea(null);
+    navigate(`/app/${view}`, { replace: true });
+  };
 
   return (
     <div className="mainapp-container">
-      <Sidebar onViewChange={setCurrentView} currentView={currentView} />
+      <Sidebar onViewChange={handleViewChange} currentView={currentView} selectedIdea={selectedIdea} setSelectedIdea={setSelectedIdea} />
       <div className="main-section">
         <Header />
         <main className="main-content">
-          {currentView === "dashboard" ? <Dashboard /> : <Workspace />}
+          <Outlet />
         </main>
       </div>
     </div>

@@ -1,13 +1,21 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import "./App.css";
 import { AuthPage } from "./pages/AuthPage";
-import MainApp from './pages/MainApp/MainApp'
+import MainApp from "./pages/MainApp/MainApp";
+import "./App.css";
+import Dashboard from "./components/dashboard/Dashboard";
+import Workspace from "./components/workspace/Workspace";
+import IdeaList from "./components/idealist/IdeaList";
 
 function App() {
   return (
     <Routes>
-      <Route path="/auth/*" element={<AuthPage />} />
-      <Route path="/app/*" element={<MainApp />} />
+      <Route path="/auth/:mode" element={<AuthPage />} />
+      <Route path="/app/*" element={<MainApp />}>
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="workspace" element={<Workspace />} />
+        <Route path="idealist" element={<IdeaList />} />
+        <Route index element={<Navigate to="/app/dashboard" replace />} />
+      </Route>
       <Route path="*" element={<Navigate to="/auth/login" replace />} />
     </Routes>
   );

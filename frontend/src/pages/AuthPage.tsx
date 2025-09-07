@@ -1,10 +1,13 @@
 import { useState } from "react";
 import type { AuthFormData, AuthMode } from "../types/auth";
 import { AuthForm } from "../components/auth/AuthForm";
-import '@/components/auth/auth.css';
+import "@/components/auth/auth.css";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const AuthPage: React.FC = () => {
-  const [mode, setMode] = useState<AuthMode>("login");
+  const {mode} = useParams<{mode:AuthMode}>();
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (data: AuthFormData) => {
@@ -19,8 +22,10 @@ export const AuthPage: React.FC = () => {
       // TODO: Thay bằng API call
       if (mode === "login") {
         alert("Đăng nhập thành công");
+        navigate("/app/dashboard", { replace: true });
       } else {
         alert("Đăng ký thành công!");
+        navigate("/auth/login", { replace: true });
       }
     } catch (error) {
       console.error("Auth error:", error);
@@ -29,6 +34,10 @@ export const AuthPage: React.FC = () => {
       setLoading(false);
     }
   };
+
+  const handleModeChange = (newMode: AuthMode) => {
+    navigate(`/auth/${newMode}`, { replace: true });
+  }
 
   return (
     <div className="auth-page">
@@ -39,9 +48,9 @@ export const AuthPage: React.FC = () => {
         </div>
 
         <AuthForm
-          mode={mode}
+          mode={mode === 'register' ? 'register' : 'login'}
           onSubmit={handleSubmit}
-          onModeChange={setMode}
+          onModeChange={handleModeChange}
           loading={loading}
         />
       </div>

@@ -1,4 +1,6 @@
 .sidebar {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   top: 0;
   left: 0;
@@ -110,20 +112,37 @@
   pointer-events: none;
 }
 
+.sidebar-title {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--color-gray-600);
+}
+
 /* Scrollbar style */
-.sidebar-items::-webkit-scrollbar {
+.sidebar-ideas::-webkit-scrollbar {
   width: 4px;
 }
 
-.sidebar-items::-webkit-scrollbar-track {
+.sidebar-ideas::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.sidebar-items::-webkit-scrollbar-thumb {
+.sidebar-ideas::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 }
 
-.sidebar-items::-webkit-scrollbar-thumb:hover {
+.sidebar-ideas::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-ideas {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.scrollbar-outer {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 10px;
 }

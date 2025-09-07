@@ -1,6 +1,7 @@
 import "@/components/common/UserProfile/UserProfile.css";
 import { useClickOutside } from "../../../hooks/useClickOutside";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface UserStats {
   totalIdeas: number;
@@ -19,6 +20,8 @@ interface UserProfileProps {
 }
 
 function UserProfile({ user }: UserProfileProps) {
+  const navigate = useNavigate();
+
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -26,7 +29,7 @@ function UserProfile({ user }: UserProfileProps) {
   const handleToggle = () => setIsOpen(!isOpen);
 
   const handleLogout = () => {
-    console.log("User logged out");
+    navigate(`/auth/login`, {replace: true})
     setIsOpen(false);
   };
 
