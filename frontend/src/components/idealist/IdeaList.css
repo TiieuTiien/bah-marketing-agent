@@ -48,14 +48,14 @@
   background: white;
   border-radius: 8px;
   padding: 15px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .idea-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .idea-meta {
@@ -71,10 +71,38 @@
   font-size: 0.8em;
   text-transform: capitalize;
 }
+.idea-status.new {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+.idea-status.in-progress {
+  background: #fff3e0;
+  color: #f57c00;
+}
+.idea-status.completed {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+.idea-status-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
 
-.idea-status.new { background: #e3f2fd; color: #1976d2; }
-.idea-status.in-progress { background: #fff3e0; color: #f57c00; }
-.idea-status.completed { background: #e8f5e9; color: #388e3c; }
+.idea-status-dot.new {
+  background-color: #1976d2;
+}
+
+.idea-status-dot.in-progress {
+  background-color: #f57c00;
+}
+
+.idea-status-dot.completed {
+  background-color: #388e3c;
+}
 
 .idea-tags {
   display: flex;

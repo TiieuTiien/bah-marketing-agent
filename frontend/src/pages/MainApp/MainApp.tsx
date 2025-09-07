@@ -21,6 +21,11 @@ export default function MainApp() {
     setIsFormOpen(true);
   };
 
+  const handleCreateIdea = () => {
+    setSelectedIdea(undefined);
+    setIsFormOpen(true);
+  };
+
   return (
     <div className="mainapp-container">
       <Sidebar onViewChange={setCurrentView} currentView={currentView} />
@@ -30,20 +35,25 @@ export default function MainApp() {
           {currentView === "workspace" && <Workspace />}
           {currentView === "idealist" && (
             <>
+              <button className="create-idea-btn" onClick={handleCreateIdea}>
+                + Tạo ý tưởng mới
+              </button>
               <IdeaList onIdeaSelect={handleIdeaSelect} />
               {isFormOpen && (
-                <div className="modal">
-                  <IdeaForm
-                    idea={selectedIdea}
-                    onSubmit={() => {
-                      setIsFormOpen(false);
-                      setSelectedIdea(undefined);
-                    }}
-                    onCancel={() => {
-                      setIsFormOpen(false);
-                      setSelectedIdea(undefined);
-                    }}
-                  />
+                <div className="modal-overlay">
+                  <div className="modal-content">
+                    <IdeaForm
+                      idea={selectedIdea}
+                      onSubmit={() => {
+                        setIsFormOpen(false);
+                        setSelectedIdea(undefined);
+                      }}
+                      onCancel={() => {
+                        setIsFormOpen(false);
+                        setSelectedIdea(undefined);
+                      }}
+                    />
+                  </div>
                 </div>
               )}
             </>

@@ -110,7 +110,10 @@ const IdeaList: React.FC<IdeaListProps> = ({ onIdeaSelect }) => {
                       <h3>{idea.title}</h3>
                       <p>{idea.description.substring(0, 100)}...</p>
                       <div className="idea-meta">
-                        <span className="idea-status">{idea.status}</span>
+                        <span className={`idea-status ${idea.status}`}>
+                          <span className={`idea-status-dot ${idea.status}`} />
+                          {idea.status}
+                        </span>
                         <div className="idea-tags">
                           {idea.tags.map((tag) => (
                             <span key={tag} className="tag">

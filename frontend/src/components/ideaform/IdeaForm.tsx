@@ -2,7 +2,7 @@ import { ideaApi } from "@/types/api";
 import { Idea, IdeaFormData } from "@/types/idea";
 import * as React from "react";
 import { useEffect, useState } from "react";
-import './IdeaForm.css';
+import "./IdeaForm.css";
 
 interface IdeaFormProps {
   idea?: Idea;
@@ -57,7 +57,13 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
     <form onSubmit={handleSubmit} className="idea-form">
       <div className="form-group">
         <label htmlFor="title">Title</label>
-        <input type="text" />
+        <input
+          id="title"
+          type="text"
+          value={formData.title}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          required
+        />
       </div>
       <div className="form-group">
         <label htmlFor="description">Description</label>
@@ -95,7 +101,9 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
             onChange={(e) => setNewTag(e.target.value)}
             placeholder="Add a tag"
           />
-          <button type="button" onClick={handleAddTag}></button>
+          <button type="button" onClick={handleAddTag}>
+            Add
+          </button>
         </div>
         <div className="tags-list">
           {formData.tags.map((tag) => (
