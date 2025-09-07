@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   DragDropContext,
   Droppable,
@@ -12,6 +13,7 @@ import { mockIdeas } from "@/mocks/mockIdeas";
 import IdeaForm from "../ideaform/IdeaForm";
 
 const IdeaList: React.FC = () => {
+  const navigate = useNavigate();
   const [ideas, setIdeas] = useState<Idea[]>(mockIdeas);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -140,9 +142,8 @@ const IdeaList: React.FC = () => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       className={`idea-card ${idea.status}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleEditIdea(idea);
+                      onClick={() => {
+                        navigate(`/app/discussion/${idea.id}`);
                       }}
                     >
                       <h3>{idea.title}</h3>

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { IdeaFormData } from './idea';
+import { CommentFormData } from './comment';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
@@ -26,5 +27,31 @@ export const ideaApi = {
 
     deleteIdea: async (id: string) => {
         await axios.delete(`${API_URL}/ideas/${id}`);
+    },
+
+    getIdeaById: async (id: string) => {
+        const response = await axios.get(`${API_URL}/ideas/${id}`);
+        return response.data;
+    },
+}
+
+export const commentApi = {
+    getComments: async (ideaId: number) => {
+        const response = await axios.get(`${API_URL}/ideas/${ideaId}/comments`);
+        return response.data;
+    },
+
+    createComment: async (ideaId: number, data: CommentFormData) => {
+        const response = await axios.post(`${API_URL}/ideas/${ideaId}/comments`, data);
+        return response.data;
+    },
+
+    updateComment: async (commentId: number, data: CommentFormData) => {
+        const response = await axios.put(`${API_URL}/comments/${commentId}`, data);
+        return response.data;
+    },
+
+    deleteComment: async (commentId: number) => {
+        await axios.delete(`${API_URL}/comments/${commentId}`);
     },
 }
