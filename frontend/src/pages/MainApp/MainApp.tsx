@@ -13,7 +13,7 @@ type View = "dashboard" | "workspace" | "idealist";
 export default function MainApp() {
   const [currentView, setCurrentView] = useState<View>("workspace");
 
-  const [selectedIdea, setSelectedIdea] = useState<Idea | null>(null);
+  const [selectedIdea, setSelectedIdea] = useState<Idea | undefined>(undefined);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const handleIdeaSelect = (idea: Idea) => {
@@ -31,6 +31,21 @@ export default function MainApp() {
           {currentView === "idealist" && (
             <>
               <IdeaList onIdeaSelect={handleIdeaSelect} />
+              {isFormOpen && (
+                <div className="modal">
+                  <IdeaForm
+                    idea={selectedIdea}
+                    onSubmit={() => {
+                      setIsFormOpen(false);
+                      setSelectedIdea(undefined);
+                    }}
+                    onCancel={() => {
+                      setIsFormOpen(false);
+                      setSelectedIdea(undefined);
+                    }}
+                  />
+                </div>
+              )}
             </>
           )}
           {currentView === "dashboard" && <Dashboard />}
