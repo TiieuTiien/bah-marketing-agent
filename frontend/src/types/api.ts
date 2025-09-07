@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { IdeaFormData } from './idea';
 import { CommentFormData } from './comment';
+import { mockIdeaApi, mockCommentApi } from '@/services/mockApi';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const USE_MOCK_API = true; // Set to false when backend is ready
 
-export const ideaApi = {
+export const ideaApi = USE_MOCK_API ? mockIdeaApi : {
     getIdeas: async (params?: {
         search?: string,
         status?: string,
@@ -33,9 +35,9 @@ export const ideaApi = {
         const response = await axios.get(`${API_URL}/ideas/${id}`);
         return response.data;
     },
-}
+};
 
-export const commentApi = {
+export const commentApi = USE_MOCK_API ? mockCommentApi : {
     getComments: async (ideaId: number) => {
         const response = await axios.get(`${API_URL}/ideas/${ideaId}/comments`);
         return response.data;
@@ -54,4 +56,4 @@ export const commentApi = {
     deleteComment: async (commentId: number) => {
         await axios.delete(`${API_URL}/comments/${commentId}`);
     },
-}
+};

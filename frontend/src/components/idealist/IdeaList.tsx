@@ -9,12 +9,11 @@ import {
 import "./IdeaList.css";
 import { Idea } from "@/types/idea";
 import { ideaApi } from "@/types/api";
-import { mockIdeas } from "@/mocks/mockIdeas";
 import IdeaForm from "../ideaform/IdeaForm";
 
 const IdeaList: React.FC = () => {
   const navigate = useNavigate();
-  const [ideas, setIdeas] = useState<Idea[]>(mockIdeas);
+  const [ideas, setIdeas] = useState<Idea[]>([]);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);

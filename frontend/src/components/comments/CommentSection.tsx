@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Comment, CommentFormData } from '@/types/comment';
 import { commentApi } from '@/types/api';
-import { mockComments } from '@/mocks/mockComments';
 import './CommentSection.css';
 
 interface CommentSectionProps {
@@ -76,13 +75,8 @@ const CommentSection = ({ ideaId }: CommentSectionProps) => {
     const loadComments = async () => {
         try {
             setLoading(true);
-            // Use mock data for now
-            const filteredComments = mockComments.filter(comment => comment.idea_id === ideaId);
-            setComments(filteredComments);
-            
-            // Uncomment when API is ready:
-            // const data = await commentApi.getComments(ideaId);
-            // setComments(data);
+            const data = await commentApi.getComments(ideaId);
+            setComments(data);
         } catch (error) {
             console.error('Failed to load comments:', error);
         } finally {

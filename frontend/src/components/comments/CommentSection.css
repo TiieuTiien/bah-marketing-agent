@@ -44,6 +44,7 @@
     resize: vertical;
     font-family: inherit;
     background: white;
+    box-sizing: border-box;
 }
 
 .comment-section__textarea:focus {

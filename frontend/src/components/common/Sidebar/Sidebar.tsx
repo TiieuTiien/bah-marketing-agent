@@ -3,8 +3,9 @@ import { useEffect, useRef } from "react";
 import { FaBars, FaEdit, FaLightbulb, FaTachometerAlt } from "react-icons/fa";
 import { useHoverInside } from "../../../hooks/useHoverInside";
 import "./Sidebar.css";
-import { mockIdeas } from "@/mocks/mockIdeas";
-import { useNavigate } from "react-router-dom";
+import { ideaApi } from "@/types/api";
+import { Idea } from "@/types/idea";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface SidebarProps {
   onViewChange: (
@@ -52,11 +53,31 @@ const Sidebar: React.FC<SidebarProps> = ({
   setSelectedIdea,
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [isLockedOpen, setIsLockedOpen] = React.useState(false);
-
+  const [ideas, setIdeas] = React.useState<Idea[]>([]);
   const [visibleCount, setVisibleCount] = React.useState(10);
+  useEffect(() => {
+    loadIdeas();
+  }, []);
+
+  const loadIdeas = async () => {
+    try {
+      const data = await ideaApi.getIdeas();
+      setIdeas(data);
+    } catch (error) {
+      console.error('Failed to load ideas:', error);
+    }
+  };
+
+  const getCurrentIdeaId = () => {
+    const match = location.pathname.match(/\/app\/discussion\/(.+)/);
+    return match ? match[1] : null;
+  };
+
+  const currentIdeaId = getCurrentIdeaId();
 
   const sidebarRef = useHoverInside((isHovering) => {
     if (!isLockedOpen) {
@@ -78,7 +99,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const handleIdeaClick = (ideaId: string) => {
     setSelectedIdea(ideaId);
-    onViewChange("ideaId");
+    navigate(`/app/discussion/${ideaId}`);
   };
 
   return (
@@ -97,7 +118,10 @@ const Sidebar: React.FC<SidebarProps> = ({
             name="Dashboard"
             isCollapsed={isCollapsed}
             isActive={currentView === "dashboard"}
-            onClick={() => onViewChange("dashboard")}
+            onClick={() => {
+              onViewChange("dashboard");
+              navigate("/app/dashboard");
+            }}
           >
             <FaTachometerAlt />
           </SidebarItem>
@@ -105,7 +129,10 @@ const Sidebar: React.FC<SidebarProps> = ({
             name="Workspace"
             isCollapsed={isCollapsed}
             isActive={currentView === "workspace"}
-            onClick={() => onViewChange("workspace")}
+            onClick={() => {
+              onViewChange("workspace");
+              navigate("/app/workspace");
+            }}
           >
             <FaEdit />
           </SidebarItem>
@@ -113,7 +140,10 @@ const Sidebar: React.FC<SidebarProps> = ({
             name="Idea List"
             isCollapsed={isCollapsed}
             isActive={currentView === "idealist"}
-            onClick={() => onViewChange("idealist")}
+            onClick={() => {
+              onViewChange("idealist");
+              navigate("/app/idealist");
+            }}
           >
             <FaLightbulb />
           </SidebarItem>
@@ -122,19 +152,18 @@ const Sidebar: React.FC<SidebarProps> = ({
       </div>
       <div className="scrollbar-outer">
         <div className="sidebar-ideas">
-          {mockIdeas.slice(0, visibleCount).map((idea) => (
+          {ideas.slice(0, visibleCount).map((idea: Idea) => (
             <SidebarItem
               key={idea.id}
               name={idea.title}
               isCollapsed={isCollapsed}
-              isActive={idea.id === selectedIdea}
+              isActive={!isCollapsed && idea.id === currentIdeaId}
               onClick={() => {
-                setSelectedIdea(null);
                 handleIdeaClick(idea.id);
               }}
             />
           ))}
-          {!isCollapsed && visibleCount < mockIdeas.length && (
+          {!isCollapsed && visibleCount < ideas.length && (
             <button
               className="sidebar-loadmore"
               onClick={() => setVisibleCount(visibleCount + 10)}
