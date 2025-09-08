@@ -8,7 +8,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 
-type View = "dashboard" | "workspace" | "idealist" | "ideaId";
+type View = "dashboard" | "workspace" | "idealist" | "discussion";
 
 export default function MainApp() {
   const navigate = useNavigate();

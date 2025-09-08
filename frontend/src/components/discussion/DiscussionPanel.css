@@ -1,0 +1,220 @@
+.discussion-panel {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+  min-height: 100vh;
+}
+
+.discussion-panel__header {
+  margin-bottom: 24px;
+}
+
+.discussion-panel__back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.discussion-panel__back-button:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+  color: #1f2937;
+}
+
+.discussion-panel__content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.discussion-panel__edit-form {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.discussion-panel__edit-form h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 20px 0;
+}
+
+.discussion-panel__loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.discussion-panel__spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e5e7eb;
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.discussion-panel__loading p {
+  color: #6b7280;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Error State */
+.discussion-panel__error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.discussion-panel__error svg {
+  color: #ef4444;
+  margin-bottom: 16px;
+}
+
+.discussion-panel__error h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.discussion-panel__error p {
+  color: #6b7280;
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+.discussion-panel__retry-btn {
+  padding: 10px 20px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.discussion-panel__retry-btn:hover {
+  background: #2563eb;
+}
+
+/* Not Found State */
+.discussion-panel__not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.discussion-panel__not-found svg {
+  color: #f59e0b;
+  margin-bottom: 16px;
+}
+
+.discussion-panel__not-found h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.discussion-panel__not-found p {
+  color: #6b7280;
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+.discussion-panel__back-btn {
+  padding: 10px 20px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.discussion-panel__back-btn:hover {
+  background: #2563eb;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .discussion-panel {
+    padding: 16px;
+  }
+
+  .discussion-panel__content {
+    gap: 16px;
+  }
+
+  .discussion-panel__edit-form {
+    padding: 16px;
+  }
+
+  .discussion-panel__loading,
+  .discussion-panel__error,
+  .discussion-panel__not-found {
+    padding: 60px 16px;
+  }
+
+  .discussion-panel__back-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .discussion-panel {
+    padding: 12px;
+  }
+
+  .discussion-panel__header {
+    margin-bottom: 16px;
+  }
+
+  .discussion-panel__back-button {
+    padding: 12px 16px;
+    font-size: 0.875rem;
+  }
+}
