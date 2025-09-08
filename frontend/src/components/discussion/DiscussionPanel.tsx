@@ -5,6 +5,7 @@ import { Idea } from "@/types/idea";
 import { FaBackward, FaTimes } from "react-icons/fa";
 import IdeaDetails from "../ideadetails/IdeaDetails";
 import IdeaForm from "../ideaform/IdeaForm";
+import CommentSection from "../comments/CommentSection";
 import "./DiscussionPanel.css";
 
 const DiscussionPanel = () => {
@@ -142,6 +143,7 @@ const DiscussionPanel = () => {
                 onEdit={handleEdit}
                 onDelete={handleDelete}
               />
+              {idea && <CommentSection ideaId={idea.idea_id} />}
             </>
           )}
         </div>

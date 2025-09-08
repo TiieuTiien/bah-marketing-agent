@@ -1,7 +1,10 @@
+import { mockComments } from "@/mocks/mockComments";
 import { mockIdeas } from "@/mocks/mockIdeas";
+import { Comment, CommentFormData } from "@/types/comment";
 import { Idea, IdeaFormData } from "@/types/idea";
 
 let mockIdeaStorage: Idea[] = [...mockIdeas];
+let mockCommentStorage: Comment[] = [...mockComments];
 
 const generateId = () => Math.floor(Math.random() * 10000);
 
@@ -94,4 +97,58 @@ export const mockIdeaApi = {
 
         return idea;
     }
+}
+
+export const mockCommentApi = {
+    getComments: async (ideaId: string) => {
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        return mockCommentStorage.filter(comment => comment.idea_id === ideaId);
+    },
+
+    createComment: async (ideaId: string, data: CommentFormData) => {
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        const newComment: Comment = {
+            idea_id: ideaId,
+            comment_id: generateId().toString(),
+            user_id: '1',
+            comment_text: data.comment_text,
+            created_at: new Date(),
+            username: 'Mock user'
+        }
+
+        mockCommentStorage.push(newComment);
+        return newComment;
+    },
+
+    updateComment: async (commentId: string, data: CommentFormData) => {
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        const commentIndex = mockCommentStorage.findIndex(comment => comment.comment_id === commentId)
+
+        if (commentIndex == -1) {
+            throw new Error('Comment not found');
+        }
+
+        const updatedComment: Comment = {
+            ...mockCommentStorage[commentIndex],
+            comment_text: data.comment_text,
+        }
+
+        mockCommentStorage[commentIndex] = updatedComment;
+        return updatedComment;
+    },
+
+    deleteComment: async (commentId: string) => {
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        const commentIndex = mockCommentStorage.findIndex(comment => comment.comment_id === commentId)
+
+        if (commentIndex == -1) {
+            throw new Error('Comment not found');
+        }
+
+        mockCommentStorage.splice(commentIndex, 1);
+    },
 }

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { IdeaFormData } from '../types/idea';
 import { CommentFormData } from '../types/comment';
-import { mockIdeaApi } from './mockApi';
+import { mockCommentApi, mockIdeaApi } from './mockApi';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 const USE_MOCK_API = true;
@@ -37,7 +37,7 @@ export const ideaApi = USE_MOCK_API ? mockIdeaApi : {
     }
 }
 
-export const commentApi = {
+export const commentApi = USE_MOCK_API ? mockCommentApi : {
     getComments: async (ideaId: string) => {
         const response = await axios.get(`${API_URL}/ideas/${ideaId}/comments`);
         return response.data;
