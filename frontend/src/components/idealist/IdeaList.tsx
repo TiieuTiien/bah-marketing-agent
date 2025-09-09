@@ -7,12 +7,14 @@ import {
 } from "@hello-pangea/dnd";
 import "./IdeaList.css";
 import { Idea } from "@/types/idea";
-import { ideaApi } from "@/types/api";
-import { mockIdeas } from "@/mocks/mockIdeas";
+import { ideaApi } from "@/services/api";
 import IdeaForm from "../ideaform/IdeaForm";
+import { useNavigate } from "react-router-dom";
 
 const IdeaList: React.FC = () => {
-  const [ideas, setIdeas] = useState<Idea[]>(mockIdeas);
+  const navigate = useNavigate();
+
+  const [ideas, setIdeas] = useState<Idea[]>([]);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -51,7 +53,7 @@ const IdeaList: React.FC = () => {
     if (!window.confirm("Bạn có chắc muốn xóa ý tưởng này?")) return;
     try {
       await ideaApi.deleteIdea(id);
-      setIdeas(ideas.filter((idea) => idea.id !== id));
+      setIdeas(ideas.filter((idea) => idea.idea_id !== id));
     } catch (error) {
       console.error("Error deleting idea:", error);
       alert("Có lỗi khi xóa!");
@@ -133,7 +135,11 @@ const IdeaList: React.FC = () => {
               className="ideas-list"
             >
               {ideas.map((idea, index) => (
-                <Draggable key={idea.id} draggableId={idea.id} index={index}>
+                <Draggable
+                  key={idea.idea_id}
+                  draggableId={idea.idea_id}
+                  index={index}
+                >
                   {(provided) => (
                     <div
                       ref={provided.innerRef}
@@ -142,7 +148,7 @@ const IdeaList: React.FC = () => {
                       className={`idea-card ${idea.status}`}
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleEditIdea(idea);
+                        navigate(`/app/discussion/${idea.idea_id}`);
                       }}
                     >
                       <h3>{idea.title}</h3>
@@ -174,7 +180,7 @@ const IdeaList: React.FC = () => {
                             className="delete-btn"
                             onClick={(e) => {
                               e.stopPropagation();
-                              handleDeleteIdea(idea.id);
+                              handleDeleteIdea(idea.idea_id);
                             }}
                           >
                             Xóa

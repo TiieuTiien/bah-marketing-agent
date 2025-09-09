@@ -5,6 +5,7 @@ import "./App.css";
 import Dashboard from "./components/dashboard/Dashboard";
 import Workspace from "./components/workspace/Workspace";
 import IdeaList from "./components/idealist/IdeaList";
+import DiscussionPanel from "./components/discussion/DiscussionPanel";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="workspace" element={<Workspace />} />
         <Route path="idealist" element={<IdeaList />} />
+        <Route path="discussion/:ideaId" element={<DiscussionPanel />} />
         <Route index element={<Navigate to="/app/dashboard" replace />} />
       </Route>
       <Route path="*" element={<Navigate to="/auth/login" replace />} />

@@ -1,4 +1,4 @@
-import { ideaApi } from "@/types/api";
+import { ideaApi } from "@/services/api";
 import { Idea, IdeaFormData } from "@/types/idea";
 import * as React from "react";
 import { useEffect, useState } from "react";
@@ -34,7 +34,7 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
     e.preventDefault();
     try {
       if (idea) {
-        await ideaApi.updateIdea(idea.id, formData);
+        await ideaApi.updateIdea(idea.idea_id, formData);
       } else {
         await ideaApi.createIdea(formData);
       }
@@ -56,7 +56,7 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
   return (
     <form onSubmit={handleSubmit} className="idea-form">
       <div className="form-group">
-        <label htmlFor="title">Title</label>
+        <label htmlFor="title">Tiêu đề</label>
         <input
           id="title"
           type="text"
@@ -66,7 +66,7 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="description">Description</label>
+        <label htmlFor="description">Mô tả</label>
         <textarea
           id="description"
           value={formData.description}
@@ -77,7 +77,7 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="category">Category</label>
+        <label htmlFor="category">Danh mục</label>
         <select
           id="category"
           value={formData.category}
@@ -86,23 +86,22 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
           }
           required
         >
-          <option value="">Select Category</option>
           <option value="marketing">Marketing</option>
           <option value="content">Content</option>
           <option value="event">Event</option>
         </select>
       </div>
       <div className="form-group">
-        <label>Tags</label>
+        <label>Thẻ</label>
         <div className="tags-input">
           <input
             type="text"
             value={newTag}
             onChange={(e) => setNewTag(e.target.value)}
-            placeholder="Add a tag"
+            placeholder="Thêm thẻ"
           />
           <button type="button" onClick={handleAddTag}>
-            Add
+            Thêm
           </button>
         </div>
         <div className="tags-list">
@@ -127,10 +126,10 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
 
       <div className="form-actions">
         <button type="button" onClick={onCancel} className="button-secondary">
-          Cancel
+          Hủy
         </button>
         <button type="submit" className="button-primary">
-          {idea ? "Update" : "Create"} Idea
+          {idea ? "Cập nhật" : "Tạo"} ý tưởng
         </button>
       </div>
     </form>

@@ -2,7 +2,7 @@ import { Idea } from "../types/idea";
 
 export const mockIdeas: Idea[] = [
   {
-    id: '1',
+    idea_id: '1',
     title: 'Tổ chức cuộc thi viết sáng tạo',
     description: 'Cuộc thi dành cho sinh viên với chủ đề tự do, khuyến khích ý tưởng mới.',
     status: 'new',
@@ -13,7 +13,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: 'https://docs.google.com/document/d/abc123'
   },
   {
-    id: '2',
+    idea_id: '2',
     title: 'Chuỗi bài viết về kỹ năng mềm',
     description: 'Viết và đăng bài về kỹ năng mềm cho sinh viên trên fanpage CLB.',
     status: 'in-progress',
@@ -24,7 +24,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: ''
   },
   {
-    id: '3',
+    idea_id: '3',
     title: 'Video phỏng vấn sinh viên tiêu biểu',
     description: 'Thực hiện và đăng video phỏng vấn sinh viên có thành tích nổi bật.',
     status: 'completed',
@@ -35,7 +35,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: 'https://docs.google.com/document/d/xyz789'
   },
   {
-    id: '4',
+    idea_id: '4',
     title: 'Infographic giới thiệu CLB',
     description: 'Thiết kế infographic giới thiệu về hoạt động và thành tích CLB.',
     status: 'new',
@@ -46,7 +46,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: ''
   },
   {
-    id: '5',
+    idea_id: '5',
     title: 'Chuỗi workshop kỹ năng viết',
     description: 'Tổ chức workshop cho sinh viên rèn luyện kỹ năng viết sáng tạo.',
     status: 'in-progress',
@@ -57,7 +57,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: 'https://docs.google.com/document/d/aaa111'
   },
   {
-    id: '6',
+    idea_id: '6',
     title: 'Bản tin hàng tháng',
     description: 'Xuất bản bản tin hàng tháng tổng hợp tin tức và hoạt động CLB.',
     status: 'completed',
@@ -68,7 +68,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: ''
   },
   {
-    id: '7',
+    idea_id: '7',
     title: 'Thiết kế logo sự kiện thường niên',
     description: 'Tạo logo mới cho sự kiện thường niên của CLB.',
     status: 'new',
@@ -79,7 +79,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: ''
   },
   {
-    id: '8',
+    idea_id: '8',
     title: 'Podcast chia sẻ trải nghiệm',
     description: 'Thu âm podcast với khách mời chia sẻ trải nghiệm học tập và hoạt động.',
     status: 'in-progress',
@@ -90,7 +90,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: 'https://docs.google.com/document/d/podcast001'
   },
   {
-    id: '9',
+    idea_id: '9',
     title: 'Minigame fanpage',
     description: 'Tổ chức minigame nhỏ trên fanpage để tăng tương tác.',
     status: 'completed',
@@ -101,7 +101,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: ''
   },
   {
-    id: '10',
+    idea_id: '10',
     title: 'Video hậu trường sự kiện',
     description: 'Ghi lại và dựng video hậu trường của các sự kiện CLB.',
     status: 'new',
@@ -112,7 +112,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: ''
   },
   {
-    id: '11',
+    idea_id: '11',
     title: 'Chiến dịch truyền thông online',
     description: 'Thực hiện chiến dịch truyền thông online cho sự kiện chính.',
     status: 'in-progress',
@@ -123,7 +123,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: 'https://docs.google.com/document/d/campaign001'
   },
   {
-    id: '12',
+    idea_id: '12',
     title: 'Ảnh kỷ niệm CLB',
     description: 'Tập hợp ảnh kỷ niệm và chia sẻ lên fanpage.',
     status: 'completed',
@@ -134,7 +134,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: ''
   },
   {
-    id: '13',
+    idea_id: '13',
     title: 'Tổ chức talkshow với cựu thành viên',
     description: 'Talkshow chia sẻ kinh nghiệm từ các cựu thành viên CLB.',
     status: 'new',
@@ -145,7 +145,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: ''
   },
   {
-    id: '14',
+    idea_id: '14',
     title: 'Chuỗi bài viết truyền cảm hứng',
     description: 'Đăng bài viết chia sẻ câu chuyện truyền cảm hứng của sinh viên.',
     status: 'in-progress',
@@ -156,7 +156,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: 'https://docs.google.com/document/d/inspire001'
   },
   {
-    id: '15',
+    idea_id: '15',
     title: 'Livestream sự kiện đặc biệt',
     description: 'Phát trực tiếp sự kiện CLB trên Facebook để nhiều người theo dõi.',
     status: 'completed',
@@ -167,7 +167,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: ''
   },
   {
-    id: '16',
+    idea_id: '16',
     title: 'Thiết kế poster tuyển thành viên',
     description: 'Tạo poster và banner truyền thông cho đợt tuyển thành viên mới.',
     status: 'new',
@@ -178,7 +178,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: ''
   },
   {
-    id: '17',
+    idea_id: '17',
     title: 'Chuỗi bài viết chia sẻ kỹ năng nghiên cứu',
     description: 'Hướng dẫn kỹ năng nghiên cứu và viết báo cáo học thuật.',
     status: 'in-progress',
@@ -189,7 +189,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: 'https://docs.google.com/document/d/research001'
   },
   {
-    id: '18',
+    idea_id: '18',
     title: 'Triển lãm ảnh CLB',
     description: 'Tổ chức triển lãm ảnh ghi lại hoạt động của CLB qua các năm.',
     status: 'completed',
@@ -200,7 +200,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: ''
   },
   {
-    id: '19',
+    idea_id: '19',
     title: 'Ebook kỹ năng mềm',
     description: 'Biên soạn ebook kỹ năng mềm dành cho sinh viên mới.',
     status: 'new',
@@ -211,7 +211,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: ''
   },
   {
-    id: '20',
+    idea_id: '20',
     title: 'Chiến dịch hashtag trên mạng xã hội',
     description: 'Khởi động chiến dịch hashtag để lan tỏa sự kiện CLB.',
     status: 'in-progress',
@@ -222,7 +222,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: 'https://docs.google.com/document/d/hashtag001'
   },
   {
-    id: '21',
+    idea_id: '21',
     title: 'Bài viết giới thiệu thành viên mới',
     description: 'Đăng bài viết giới thiệu các thành viên mới gia nhập CLB.',
     status: 'completed',
@@ -233,7 +233,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: ''
   },
   {
-    id: '22',
+    idea_id: '22',
     title: 'Video highlight hoạt động năm',
     description: 'Tổng hợp video highlight các hoạt động nổi bật trong năm.',
     status: 'new',
@@ -244,7 +244,7 @@ export const mockIdeas: Idea[] = [
     googleDocUrl: ''
   },
   {
-    id: '23',
+    idea_id: '23',
     title: 'Khảo sát ý tưởng mới',
     description: 'Tạo khảo sát để thu thập ý tưởng từ sinh viên cho hoạt động sắp tới.',
     status: 'in-progress',

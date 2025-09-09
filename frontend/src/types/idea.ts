@@ -1,5 +1,5 @@
 export interface Idea {
-    id: string;
+    idea_id: string;
     title: string;
     description: string;
     status: 'new' | 'in-progress' | 'completed';
