@@ -1,10 +1,13 @@
+import { mockAgentLogs } from "@/mocks/mockAgentLogs";
 import { mockComments } from "@/mocks/mockComments";
 import { mockIdeas } from "@/mocks/mockIdeas";
+import { AgentLog } from "@/types/aiagent";
 import { Comment, CommentFormData } from "@/types/comment";
 import { Idea, IdeaFormData } from "@/types/idea";
 
 let mockIdeaStorage: Idea[] = [...mockIdeas];
 let mockCommentStorage: Comment[] = [...mockComments];
+let mockAgentLogStorage: AgentLog[] = [...mockAgentLogs];
 
 const generateId = () => Math.floor(Math.random() * 10000);
 
@@ -152,3 +155,31 @@ export const mockCommentApi = {
         mockCommentStorage.splice(commentIndex, 1);
     },
 }
+
+export const mockAgentApi = {
+  getAgentLogs: async (ideaId: string): Promise<AgentLog[]> => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    return mockAgentLogStorage.filter(log => log.idea_id === ideaId);
+  },
+
+  saveAgentLog: async (
+    ideaId: string,
+    userPrompt: string,
+    aiResponse: string
+  ): Promise<void> => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    const newLog: AgentLog = {
+      log_id: Math.floor(Math.random() * 10000).toString(),
+      idea_id: ideaId,
+      user_prompt: userPrompt,
+      ai_response: aiResponse,
+      timestamp: new Date().toISOString()
+    };
+    mockAgentLogStorage.push(newLog);
+  },
+
+  clearAgentLogs: async (ideaId: string): Promise<void> => {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    mockAgentLogStorage = mockAgentLogStorage.filter(log => log.idea_id !== ideaId);
+  }
+};

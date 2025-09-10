@@ -1,4 +1,4 @@
-import '@/components/dashboard/Dashboard.css';
+import "@/components/dashboard/Dashboard.css";
 
 const Dashboard: React.FC = () => {
   return (

@@ -152,6 +152,8 @@ const CommentSection = ({ ideaId }: CommentSectionProps) => {
         </div>
 
         <textarea
+          id="comment-textarea"
+          name="comment"
           value={newComment}
           onChange={handleChange}
           className="comment-section__textarea"

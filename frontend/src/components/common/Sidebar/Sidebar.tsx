@@ -116,7 +116,12 @@ const Sidebar: React.FC<SidebarProps> = ({
     >
       <div>
         <div className={`sidebar-header ${isCollapsed ? "collapsed" : ""}`}>
-          <button onClick={toggleLockedState} className="toggle-button">
+          <button 
+            onClick={toggleLockedState} 
+            className="toggle-button"
+            title={isCollapsed ? "Mở rộng sidebar" : "Thu nhỏ sidebar"}
+            aria-label={isCollapsed ? "Mở rộng sidebar" : "Thu nhỏ sidebar"}
+          >
             <FaBars />
           </button>
         </div>
