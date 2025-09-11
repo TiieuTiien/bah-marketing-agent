@@ -79,6 +79,15 @@ const AiAgentPanel: React.FC<AIAgentPanelProps> = ({
   const handleSendMessage = async (content: string) => {
     setIsLoading(true);
     setError(null);
+
+    const userMessage: AIMessage = {
+      role: "user",
+      content,
+      timestamp: new Date().toISOString(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+
     try {
       let currentSessionId = sessionId;
 
@@ -98,7 +107,6 @@ const AiAgentPanel: React.FC<AIAgentPanelProps> = ({
 
       setMessages((prev) => [
         ...prev,
-        { role: "user", content, timestamp: new Date().toISOString() },
         {
           role: "assistant",
           content: aiMessage.content,

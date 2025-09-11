@@ -6,7 +6,7 @@ import { mockAgentApi } from "./mockApi";
 
 const API_BASE_URL = import.meta.env.VITE_AI_API_URL || 'http://127.0.0.1:8000';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-const APP_NAME = 'marketing-agent';
+const APP_NAME = 'speaker';
 
 const aiApiClient = axios.create({
     baseURL: API_BASE_URL,
@@ -24,14 +24,40 @@ const backendApiClient = axios.create({
     }
 });
 
+interface SessionState {
+    [key: string]: any;
+}
+
+interface SessionRequest {
+    state?: SessionState;
+    events?: ADKEvent[];
+}
+
+interface SessionResponse {
+    id: string;
+    appName: string;
+    userId: string;
+    state: SessionState;
+    events: ADKEvent[];
+    lastUpdateTime: number;
+}
+
 export const aiApi = {
     createAISession: async (userId: string, ideaId?: string): Promise<string> => {
-        const sessionId = `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
         try {
-            await aiApiClient.post(`/apps/${APP_NAME}/users/${userId}/sessions/${sessionId}`, {
-                idea_id: ideaId
-            });
-            return sessionId;
+            const payload: SessionRequest = {
+                state: {
+                    ideaId: ideaId || undefined
+                },
+                events: []
+            };
+
+            const response = await aiApiClient.post<SessionResponse>(
+                `/apps/${APP_NAME}/users/${userId}/sessions`,
+                payload
+            );
+
+            return response.data.id;
         } catch (error) {
             console.error('Failed to create AI session:', error);
             throw new Error('Không thể tạo phiên chat với AI');
