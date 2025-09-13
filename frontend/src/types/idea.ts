@@ -1,13 +1,14 @@
 export interface Idea {
-    idea_id: string;
+    idea_id: number;
+    user_id: number;
+    username?: string;
     title: string;
     description: string;
     status: 'new' | 'in-progress' | 'completed';
     tags: string[];
     category: string;
-    createdAt: Date;
-    createdBy: string;
-    googleDocUrl?: string;
+    created_at: string;
+    google_docs_url?: string;
 }
 
 export interface IdeaFormData {

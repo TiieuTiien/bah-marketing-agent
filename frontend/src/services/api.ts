@@ -38,22 +38,22 @@ export const ideaApi = USE_MOCK_API ? mockIdeaApi : {
 }
 
 export const commentApi = USE_MOCK_API ? mockCommentApi : {
-    getComments: async (ideaId: string) => {
+    getComments: async (ideaId: number) => {
         const response = await axios.get(`${API_URL}/ideas/${ideaId}/comments`);
         return response.data;
     },
 
-    createComment: async (ideaId: string, data: CommentFormData) => {
+    createComment: async (ideaId: number, data: CommentFormData) => {
         const response = await axios.post(`${API_URL}/ideas/${ideaId}/comments`, data);
         return response.data;
     },
 
-    updateComment: async (commentId: string, data: CommentFormData) => {
+    updateComment: async (commentId: number, data: CommentFormData) => {
         const response = await axios.put(`${API_URL}/comments/${commentId}`, data);
         return response.data;
     },
 
-    deleteComment: async (commentId: string) => {
+    deleteComment: async (commentId: number) => {
         await axios.delete(`${API_URL}/comments/${commentId}`);
     },
 }

@@ -1,0 +1,279 @@
+
+.aiagent-panel {
+	background: white;
+	border: 1px solid #ccc;
+	border-radius: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	top: 0;
+	right: 0;
+	height: 100vh;
+	width: 400px;
+	min-width: 320px;
+	max-width: 480px;
+	overflow: hidden;
+	z-index: 190;
+	box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.1);
+	transition: width 0.3s ease-in-out;
+}
+
+/* Collapsed state - optional for future use */
+.aiagent-panel.collapsed {
+	width: 60px;
+}
+
+.aiagent-panel.collapsed .aiagent-panel__header h3,
+.aiagent-panel.collapsed .aiagent-panel__context,
+.aiagent-panel.collapsed .aiagent-panel__controls {
+	opacity: 0;
+	pointer-events: none;
+}
+
+/* Hidden state - when not needed */
+.aiagent-panel.hidden {
+	right: -400px;
+}
+
+/* Body margin when panel is open - to be applied to main content */
+.with-aiagent-panel {
+	margin-right: 400px;
+	transition: margin-right 0.3s ease-in-out;
+}
+
+@media (max-width: 1200px) {
+	.with-aiagent-panel {
+		margin-right: 350px;
+	}
+}
+
+@media (max-width: 768px) {
+	.with-aiagent-panel {
+		margin-right: 0;
+	}
+}
+
+.aiagent-panel__header {
+	padding: 16px;
+	border-bottom: 1px solid #ccc;
+	background: #f5f5f5;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	flex-shrink: 0;
+}
+.aiagent-panel__header h3 {
+	margin: 0;
+	font-size: 16px;
+	color: #333;
+	font-weight: 600;
+}
+.aiagent-panel__context {
+	font-size: 13px;
+	color: #666;
+}
+.aiagent-panel__controls {
+	display: flex;
+	gap: 8px;
+	margin-top: 6px;
+	align-items: center;
+}
+.session-status {
+	color: #007bff;
+	font-weight: 600;
+	font-size: 12px;
+}
+.btn-primary, .btn-secondary, .btn-danger {
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	padding: 6px 12px;
+	font-size: 13px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	background: white;
+}
+.btn-primary {
+	background: #007bff;
+	color: white;
+	border-color: #007bff;
+}
+.btn-primary:disabled {
+	background: #ccc;
+	color: white;
+	border-color: #ccc;
+	cursor: not-allowed;
+}
+.btn-secondary {
+	background: white;
+	color: #007bff;
+	border-color: #007bff;
+}
+.btn-secondary:hover {
+	background: #f8f9fa;
+}
+.btn-secondary:disabled {
+	background: #f5f5f5;
+	color: #ccc;
+	border-color: #ccc;
+	cursor: not-allowed;
+}
+.btn-danger {
+	background: #dc3545;
+	color: white;
+	border-color: #dc3545;
+}
+.btn-danger:hover {
+	background: #c82333;
+}
+.btn-danger:disabled {
+	background: #ccc;
+	color: white;
+	border-color: #ccc;
+	cursor: not-allowed;
+}
+
+.aiagent-panel__error {
+	background: #f8d7da;
+	color: #721c24;
+	padding: 8px 12px;
+	border-radius: 6px;
+	margin: 8px 16px;
+	font-size: 13px;
+	border: 1px solid #f5c6cb;
+}
+
+.aiagent-panel__content {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	height: 100%;
+	background: white;
+}
+.aiagent-panel__chat {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	min-height: 320px;
+	background: white;
+	border-bottom: 1px solid #ccc;
+}
+.aiagent-panel__start-prompt {
+	text-align: center;
+	color: #666;
+	font-size: 14px;
+	margin: 24px 0;
+}
+.aiagent-panel__actions {
+	padding: 16px;
+	background: white;
+	border-top: 1px solid #ccc;
+	flex-shrink: 0;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+	.aiagent-panel {
+		background: #2d3748;
+		border-color: #4a5568;
+	}
+
+	.aiagent-panel__header {
+		background: #374151;
+		border-bottom-color: #4a5568;
+	}
+
+	.aiagent-panel__header h3 {
+		color: #e2e8f0;
+	}
+
+	.aiagent-panel__context {
+		color: #a0aec0;
+	}
+
+	.session-status {
+		color: #63b3ed;
+	}
+
+	.btn-primary {
+		background: #007bff;
+		border-color: #007bff;
+	}
+
+	.btn-secondary {
+		background: #374151;
+		color: #63b3ed;
+		border-color: #4a5568;
+	}
+
+	.btn-secondary:hover {
+		background: #4a5568;
+	}
+
+	.aiagent-panel__error {
+		background: #742a2a;
+		color: #fed7d7;
+		border-color: #9b2c2c;
+	}
+
+	.aiagent-panel__content,
+	.aiagent-panel__chat {
+		background: #2d3748;
+	}
+
+	.aiagent-panel__start-prompt {
+		color: #a0aec0;
+	}
+
+	.aiagent-panel__actions {
+		background: #374151;
+	}
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+	.aiagent-panel {
+		width: 350px;
+	}
+	
+	.aiagent-panel.hidden {
+		right: -350px;
+	}
+}
+
+@media (max-width: 768px) {
+	.aiagent-panel {
+		width: 100vw;
+		max-width: 100vw;
+		border-left: none;
+		border-radius: 0;
+		box-shadow: none;
+	}
+	
+	.aiagent-panel.hidden {
+		right: -100vw;
+	}
+	
+	.aiagent-panel__header {
+		padding: 12px 16px;
+	}
+	
+	.aiagent-panel__actions {
+		padding: 12px 16px;
+	}
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+	.aiagent-panel {
+		border-width: 2px;
+		border-color: #000;
+	}
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.aiagent-panel {
+		transition: none;
+	}
+}

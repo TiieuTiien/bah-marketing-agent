@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ideaApi } from "@/services/api";
 import { Idea } from "@/types/idea";
-import { FaBackward, FaTimes } from "react-icons/fa";
+import { FaBackward, FaRobot, FaTimes } from "react-icons/fa";
 import IdeaDetails from "../ideadetails/IdeaDetails";
 import IdeaForm from "../ideaform/IdeaForm";
 import CommentSection from "../comments/CommentSection";
 import "./DiscussionPanel.css";
+import AIAgentPanel from "../aiagent/AiAgentPanel";
 
 const DiscussionPanel = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
@@ -15,6 +16,7 @@ const DiscussionPanel = () => {
   const [idea, setIdea] = useState<Idea | null>(null);
   const [loading, setLoading] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [showAIPanel, setShowAIPanel] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -125,26 +127,56 @@ const DiscussionPanel = () => {
           >
             <FaBackward /> Quay lại danh sách
           </button>
+
+          {idea && !isEditMode && (
+            <button
+              className={`disucssion-panel__ai-toggle ${
+                showAIPanel ? "active" : ""
+              }`}
+              onClick={() => {
+                setShowAIPanel(!showAIPanel);
+                console.log("AI Panel clicked!");
+                
+              }}
+            >
+              <FaRobot />
+              {showAIPanel ? "Ẩn AI Assistant" : "Hiện AI Assistant"}
+            </button>
+          )}
         </div>
-        <div className="discussion-panel__content">
-          {isEditMode ? (
-            <div className="discussion-panel__edit-form">
-              <h2>Chỉnh sửa ý tưởng</h2>
-              <IdeaForm
-                idea={idea!}
-                onSubmit={handleSaveEdit}
-                onCancel={handleCancelEdit}
+        <div
+          className={`discussion-panel__layout ${showAIPanel ? "with-ai" : ""}`}
+        >
+          <div className="discussion-panel__content">
+            {isEditMode ? (
+              <div className="discussion-panel__edit-form">
+                <h2>Chỉnh sửa ý tưởng</h2>
+                <IdeaForm
+                  idea={idea!}
+                  onSubmit={handleSaveEdit}
+                  onCancel={handleCancelEdit}
+                />
+              </div>
+            ) : (
+              <>
+                <IdeaDetails
+                  idea={idea!}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
+                {idea && <CommentSection ideaId={idea.idea_id} />}
+              </>
+            )}
+          </div>
+
+          {showAIPanel && idea && (
+            <div className="discussion-panel__ai">
+              <AIAgentPanel
+                ideaId={idea.idea_id}
+                ideaTitle={idea.title}
+                className="discussion-panel__ai-panel"
               />
             </div>
-          ) : (
-            <>
-              <IdeaDetails
-                idea={idea!}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-              />
-              {idea && <CommentSection ideaId={idea.idea_id} />}
-            </>
           )}
         </div>
       </div>

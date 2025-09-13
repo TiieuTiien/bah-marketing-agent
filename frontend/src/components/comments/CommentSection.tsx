@@ -5,24 +5,24 @@ import "./CommentSection.css";
 import * as React from "react";
 
 interface CommentSectionProps {
-  ideaId: string;
+  ideaId: number;
 }
 
 interface CommentItemProps {
   comment: Comment;
   onEdit: (comment: Comment) => void;
-  onDelete: (commentId: string) => void;
+  onDelete: (commentId: number) => void;
 }
 
 const CommentItem = ({ comment, onEdit, onDelete }: CommentItemProps) => {
-  const formatDate = (date: Date) => {
+  const formatDate = (dateStr: string): string => {
     return new Intl.DateTimeFormat("vi-VN", {
       year: "numeric",
       month: "short",
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-    }).format(new Date(date));
+    }).format(new Date(dateStr));
   };
 
   return (
@@ -120,7 +120,7 @@ const CommentSection = ({ ideaId }: CommentSectionProps) => {
     setNewComment(comment.comment_text);
   };
 
-  const handleDelete = async (commentId: string) => {
+  const handleDelete = async (commentId: number) => {
     if (!confirm("Bạn có chắc muốn xóa bình luận này?")) return;
 
     try {
@@ -152,6 +152,8 @@ const CommentSection = ({ ideaId }: CommentSectionProps) => {
         </div>
 
         <textarea
+          id="comment-textarea"
+          name="comment"
           value={newComment}
           onChange={handleChange}
           className="comment-section__textarea"

@@ -1,9 +1,9 @@
 export interface Comment {
-    comment_id: string;
-    idea_id: string;
-    user_id: string;
+    comment_id: number;
+    idea_id: number;
+    user_id: number;
     comment_text: string;
-    created_at: Date;
+    created_at: string;
     username?: string;
 }
 
