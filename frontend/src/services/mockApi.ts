@@ -45,21 +45,22 @@ export const mockIdeaApi = {
         await new Promise(resolve => setTimeout(resolve, 500))
 
         const newIdea: Idea = {
-            idea_id: generateId().toString(),
+            idea_id: generateId(),
+            user_id: generateId(),
             title: data.title,
             description: data.description,
             status: 'new',
             tags: data.tags,
             category: data.category,
-            createdAt: new Date(),
-            createdBy: 'Current User'
+            created_at: new Date().toISOString(),
+            username: 'Current User'
         }
 
         mockIdeaStorage.push(newIdea);
         return newIdea;
     },
 
-    updateIdea: async (id: string, data: IdeaFormData) => {
+    updateIdea: async (id: number, data: IdeaFormData) => {
         await new Promise(resolve => setTimeout(resolve, 500));
 
         const ideaIndex = mockIdeaStorage.findIndex(idea => idea.idea_id === id);
@@ -79,7 +80,7 @@ export const mockIdeaApi = {
         return updatedIdea;
     },
 
-    deleteIdea: async (id: string) => {
+    deleteIdea: async (id: number) => {
         await new Promise(resolve => setTimeout(resolve, 500));
 
         const ideaIndex = mockIdeaStorage.findIndex(idea => idea.idea_id === id);
@@ -90,7 +91,7 @@ export const mockIdeaApi = {
         mockIdeaStorage.splice(ideaIndex, 1);
     },
 
-    getIdeaById: async (id: string) => {
+    getIdeaById: async (id: number) => {
         await new Promise(resolve => setTimeout(resolve, 500));
 
         const idea = mockIdeaStorage.find(idea => idea.idea_id == id);
@@ -103,21 +104,21 @@ export const mockIdeaApi = {
 }
 
 export const mockCommentApi = {
-    getComments: async (ideaId: string) => {
+    getComments: async (ideaId: number) => {
         await new Promise(resolve => setTimeout(resolve, 500));
 
         return mockCommentStorage.filter(comment => comment.idea_id === ideaId);
     },
 
-    createComment: async (ideaId: string, data: CommentFormData) => {
+    createComment: async (ideaId: number, data: CommentFormData) => {
         await new Promise(resolve => setTimeout(resolve, 500));
 
         const newComment: Comment = {
             idea_id: ideaId,
-            comment_id: generateId().toString(),
-            user_id: '1',
+            comment_id: generateId(),
+            user_id: 1,
             comment_text: data.comment_text,
-            created_at: new Date(),
+            created_at: new Date().toISOString(),
             username: 'Mock user'
         }
 
@@ -125,7 +126,7 @@ export const mockCommentApi = {
         return newComment;
     },
 
-    updateComment: async (commentId: string, data: CommentFormData) => {
+    updateComment: async (commentId: number, data: CommentFormData) => {
         await new Promise(resolve => setTimeout(resolve, 500));
 
         const commentIndex = mockCommentStorage.findIndex(comment => comment.comment_id === commentId)
@@ -143,7 +144,7 @@ export const mockCommentApi = {
         return updatedComment;
     },
 
-    deleteComment: async (commentId: string) => {
+    deleteComment: async (commentId: number) => {
         await new Promise(resolve => setTimeout(resolve, 500));
 
         const commentIndex = mockCommentStorage.findIndex(comment => comment.comment_id === commentId)

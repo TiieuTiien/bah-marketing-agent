@@ -9,14 +9,14 @@ interface IdeaDetailsProps {
 }
 
 function IdeaDetails({ idea, onEdit, onDelete }: IdeaDetailsProps) {
-  const formatDate = (date: Date) => {
+  const formatDate = (dateStr: string): string => {
     return new Intl.DateTimeFormat("vi-VN", {
       year: "numeric",
       month: "short",
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-    }).format(new Date(date));
+    }).format(new Date(dateStr));
   };
 
   const getStatusColor = (status: string) => {
@@ -87,12 +87,12 @@ function IdeaDetails({ idea, onEdit, onDelete }: IdeaDetailsProps) {
         </div>
         <div className="idea-details__meta-item">
           <span className="idea-details_meta-label">Tạo bởi:</span>
-          <span className="idea-details__meta-value">{idea.createdBy}</span>
+          <span className="idea-details__meta-value">{idea.username}</span>
         </div>
         <div className="idea-details__meta-item">
           <span className="idea-details_meta-label">Ngày tạo:</span>
           <span className="idea-details__meta-value">
-            {formatDate(idea.createdAt)}
+            {formatDate(idea.created_at)}
           </span>
         </div>
       </div>
@@ -115,11 +115,11 @@ function IdeaDetails({ idea, onEdit, onDelete }: IdeaDetailsProps) {
         </div>
       )}
 
-      {idea.googleDocUrl && (
+      {idea.google_docs_url && (
         <div className="idea-details__document">
           <h3>Tài liệu liên quan</h3>
           <a
-            href={idea.googleDocUrl}
+            href={idea.google_docs_url}
             target="_blank"
             rel="noopener noreferrer"
             className="idea-details__doc-link"
