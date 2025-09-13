@@ -1,0 +1,4 @@
+google-adk
+uvicorn[standard]
+fastapi
+python-dotenv
