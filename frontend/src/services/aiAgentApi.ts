@@ -6,7 +6,7 @@ import { mockAgentApi } from "./mockApi";
 
 const API_BASE_URL = import.meta.env.VITE_AI_API_URL || 'http://127.0.0.1:8000';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-const APP_NAME = 'speaker';
+const APP_NAME = 'book_review_agent';
 
 const aiApiClient = axios.create({
     baseURL: API_BASE_URL,
@@ -53,7 +53,7 @@ export const aiApi = {
             };
 
             const response = await aiApiClient.post<SessionResponse>(
-                `/apps/${APP_NAME}/users/${userId}/sessions`,
+                `/apps/${APP_NAME}/users/${userId}/sessions/${ideaId}`,
                 payload
             );
 

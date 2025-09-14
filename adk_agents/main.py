@@ -1,18 +1,25 @@
 
 import os
 from google.adk.cli.fast_api import get_fast_api_app
+from google.adk.tools import ToolContext
 from dotenv import load_dotenv
 import uvicorn
 
 load_dotenv()
 
 AGENT_DIR = os.path.dirname(os.path.abspath(__file__))
+SESSION_DB_URL = os.getenv("SESSION_DB_URL")
+ARTIFACT_URL = os.getenv("BUCKET_NAME")
 
 app = get_fast_api_app(
     agents_dir=AGENT_DIR,
+    session_service_uri=SESSION_DB_URL,
+    artifact_service_uri=ARTIFACT_URL,
     allow_origins=["*"],
-    web=False
+    web=True
 )
+
+app.title = "Book review agent"
 
 @app.get("/")
 async def read_root():

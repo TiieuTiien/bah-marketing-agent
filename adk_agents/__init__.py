@@ -1,1 +1,1 @@
-from .marketing_agent import agent
+from .book_review_agent import agent

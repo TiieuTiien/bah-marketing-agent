@@ -182,6 +182,7 @@ const AiAgentPanel: React.FC<AIAgentPanelProps> = ({
           showQuickActions={true}
           value={inputValue}
           onChange={setInputValue}
+          isLoading={isLoading}
         />
         {error && <div className="aiagent-panel__error">{error}</div>}
       </div>

@@ -1,4 +1,4 @@
-# 🤖 Greeting Agent
+# 🤖 Book review agent
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
 A simple AI assistant built with the Google Agent Development Kit (ADK) that greets the user.
@@ -23,16 +23,51 @@ A simple AI assistant built with the Google Agent Development Kit (ADK) that gre
 
 ## ⚙️ Configuration
 
-This agent requires a Google API Key to interact with the Gemini model.
+This agent requires a Google API Key to interact with the Gemini model, and a Google Cloud Storage bucket for file storage.
 
-1.  Create a file named `.env` in the project's parent directory.
-2.  Add your API key to the `.env` file. You can get a key from [Google AI Studio](https://aistudio.google.com/app/apikey).
+**Project structure**
+```bash
+adk_agents/
+├── .env # your session and artifact here
+├── main.py # Main app
+├── README.md
+├── requirements.txt
+└── book_review_agent/ # Example agent's parent directory
+    ├── .env # Your related API key here
+    └── agent.py # Your root_agent here (required)
+```
 
-    ```env
-    # .env file content
-    GOOGLE_GENAI_USE_VERTEXAI=FALSE
-    GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY_HERE"
-    ```
+### 1.  **Create a file named `.env` in the project's parent directory.**
+  - Add your API key and bucket name to the `.env` file. You can get an API key from [Google AI Studio](https://aistudio.google.com/app/apikey).
+  - Example: If your parent directory was `book_review_agent` the path should be `book_review_agent/.env`
+
+  ```env
+  # .env file content
+  GOOGLE_GENAI_USE_VERTEXAI=FALSE
+  GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY_HERE"
+  ```
+
+### 2.  **Install Google Cloud SDK (`gcloud`) (Optional for artifact)**
+  - Follow the official instructions: https://cloud.google.com/sdk/docs/install
+  - Login and set your project:
+  ```bash
+  gcloud auth login
+  gcloud config set project YOUR_PROJECT_ID
+  ```
+
+  - Check for an existing bucket:
+  ```bash
+  # List buckets
+  gcloud storage ls
+
+  # Expected
+  gs://your-gcloud-storage-bucket
+  ```
+  - You can use [Google Cloud Console](https://console.cloud.google.com/storage/) or command line to create a new bucket:
+  ```bash
+  # Create a new bucket (replace YOUR_BUCKET_NAME and region)
+  gcloud storage buckets create gs://YOUR_BUCKET_NAME --location=us-central1
+  ```
 
 ## ▶️ Running the Agent
 
@@ -50,7 +85,7 @@ After running, open `http://127.0.0.1:8000` in your browser and select `my_greet
 
 This command lets you chat with the agent directly in your terminal.
 ```bash
-adk run greeting_agent
+adk run book_review_agent
 ```
 
 ### 3. Custom API Server (FastAPI)
@@ -60,7 +95,11 @@ If you have created a `main.py` file to define a custom FastAPI server, you can 
 **Prerequisite:** You must have a `main.py` file in your project's parent directory.
 
 ```bash
+# Development and quickstarts
 uvicorn main:app --reload
+
+# Better performance
+uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
 This command starts your custom API server. After it's running, you can interact with the agent by sending HTTP requests (e.g., using `curl`) to `http://127.0.0.1:8000` in a <b>different</b> terminal.
