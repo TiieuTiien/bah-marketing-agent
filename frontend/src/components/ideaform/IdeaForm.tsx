@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ideaApi } from "@/services/api";
 import { Idea, IdeaFormData } from "@/types/idea";
 import "./IdeaForm.css";
+import { useNavigate } from "react-router-dom";
 
 interface IdeaFormProps {
   idea?: Idea;
@@ -11,10 +12,11 @@ interface IdeaFormProps {
 }
 
 const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<IdeaFormData>({
     title: "",
     description: "",
-    category: "",
+    category: "marketing",
     tags: [],
   });
   const [newTag, setNewTag] = useState("");
@@ -32,13 +34,29 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!formData.title.trim()) {
+      alert("Vui lòng nhập tiêu đề ý tưởng!");
+      return;
+    }
+    if (!formData.description.trim()) {
+      alert("Vui lòng nhập mô tả ý tưởng!");
+      return;
+    }
+    if (!formData.category) {
+      alert("Vui lòng chọn danh mục!");
+      return;
+    }
+
     try {
       if (idea) {
         await ideaApi.updateIdea(idea.idea_id, formData);
         alert(`Cập nhật thành công ý tưởng: ${formData.title}`);
+        navigate(`/app/discussion/${idea.idea_id}`, { replace: true });
       } else {
-        await ideaApi.createIdea(1, formData);
+        const response = await ideaApi.createIdea(1, formData);
         alert(`Đã tạo thành công ý tưởng: ${formData.title}`);
+        navigate(`/app/discussion/${response.idea_id}`, { replace: true });
       }
       onSubmit();
     } catch (error) {
@@ -89,7 +107,6 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
           onChange={(e) => {
             setFormData({ ...formData, category: e.target.value });
           }}
-          defaultValue={"Marketing"}
           required
         >
           <option value="marketing">Marketing</option>

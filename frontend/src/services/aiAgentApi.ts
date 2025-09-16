@@ -36,14 +36,14 @@ interface SessionRequest {
 interface SessionResponse {
     id: string;
     appName: string;
-    userId: string;
+    userId: number;
     state: SessionState;
     events: ADKEvent[];
     lastUpdateTime: number;
 }
 
 export const aiApi = {
-    createAISession: async (userId: string, ideaId?: string): Promise<string> => {
+    createAISession: async (userId: number, ideaId?: number): Promise<string> => {
         try {
             const payload: SessionRequest = {
                 state: {
@@ -65,10 +65,10 @@ export const aiApi = {
     },
 
     sendMessageToAI: async (
-        userId: string,
+        userId: number,
         sessionId: string,
         message: string,
-        ideaId?: string,
+        ideaId?: number,
     ): Promise<AIMessage> => {
         const payload: ChatRequest = {
             app_name: APP_NAME,
@@ -131,7 +131,7 @@ const USE_MOCK_API = true;
 
 export const aiAgentApi = USE_MOCK_API ? mockAgentApi : {
     saveAgentLog: async (
-        ideaId: string,
+        ideaId: number,
         userPrompt: string,
         aiResponse: string
     ): Promise<void> => {
@@ -147,7 +147,7 @@ export const aiAgentApi = USE_MOCK_API ? mockAgentApi : {
         }
     },
 
-    getAgentLogs: async (ideaId: string): Promise<AgentLog[]> => {
+    getAgentLogs: async (ideaId: number): Promise<AgentLog[]> => {
         try {
             const response = await backendApiClient.get(`/ideas/${ideaId}/agent-logs`);
             return response.data;
@@ -157,7 +157,7 @@ export const aiAgentApi = USE_MOCK_API ? mockAgentApi : {
         }
     },
 
-    clearAgentLogs: async (ideaId: string): Promise<void> => {
+    clearAgentLogs: async (ideaId: number): Promise<void> => {
         try {
             await backendApiClient.delete(`/ideas/${ideaId}/agent-logs`);
         } catch (error) {

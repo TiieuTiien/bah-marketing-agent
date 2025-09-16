@@ -81,7 +81,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const getCurrentIdeaId = () => {
     const match = location.pathname.match(/\/app\/discussion\/(.+)/);
-    return match ? match[1] : null;
+    return match ? parseInt(match[1]) : null;
   };
 
   const currentIdeaId = getCurrentIdeaId();
@@ -104,8 +104,8 @@ const Sidebar: React.FC<SidebarProps> = ({
     }
   }, [isLockedOpen]);
 
-  const handleIdeaClick = (ideaId: string) => {
-    setSelectedIdea(ideaId);
+  const handleIdeaClick = (ideaId: number) => {
+    setSelectedIdea(ideaId.toString());
     navigate(`/app/discussion/${ideaId}`);
   };
 
@@ -116,8 +116,8 @@ const Sidebar: React.FC<SidebarProps> = ({
     >
       <div>
         <div className={`sidebar-header ${isCollapsed ? "collapsed" : ""}`}>
-          <button 
-            onClick={toggleLockedState} 
+          <button
+            onClick={toggleLockedState}
             className="toggle-button"
             title={isCollapsed ? "Mở rộng sidebar" : "Thu nhỏ sidebar"}
             aria-label={isCollapsed ? "Mở rộng sidebar" : "Thu nhỏ sidebar"}
@@ -155,18 +155,25 @@ const Sidebar: React.FC<SidebarProps> = ({
       </div>
       <div className="scrollbar-outer">
         <div className="sidebar-ideas">
-          {ideas.slice(0, visibleCount).map((idea: Idea) => (
-            <SidebarItem
-              key={idea.idea_id}
-              name={idea.title}
-              isCollapsed={isCollapsed}
-              isActive={!isCollapsed && idea.idea_id === currentIdeaId}
-              onClick={() => {
-                setSelectedIdea(null);
-                handleIdeaClick(idea.idea_id);
-              }}
-            />
-          ))}
+          {ideas
+            .slice(0, visibleCount)
+            .sort(
+              (a, b) =>
+                new Date(b.created_at).getTime() -
+                new Date(a.created_at).getTime()
+            )
+            .map((idea: Idea) => (
+              <SidebarItem
+                key={idea.idea_id}
+                name={idea.title}
+                isCollapsed={isCollapsed}
+                isActive={!isCollapsed && idea.idea_id === currentIdeaId}
+                onClick={() => {
+                  setSelectedIdea(null);
+                  handleIdeaClick(idea.idea_id);
+                }}
+              />
+            ))}
           {!isCollapsed && visibleCount < ideas.length && (
             <button
               className="sidebar-loadmore"

@@ -31,7 +31,7 @@ const DiscussionPanel = () => {
     try {
       setLoading(true);
       setError(null);
-      const data = await ideaApi.getIdeaById(ideaId);
+      const data = await ideaApi.getIdeaById(parseInt(ideaId));
       setIdea(data);
     } catch (error) {
       console.error("Failed to load idea:", error);

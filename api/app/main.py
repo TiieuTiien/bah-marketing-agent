@@ -96,6 +96,33 @@ def comment_to_response(comment: models.Comment) -> schemas.CommentResponse:
 
 
 # ---------------- Ideas ----------------
+@app.get("/api/ideas", response_model=List[schemas.IdeaResponse])
+def list_ideas(
+    search: Optional[str] = Query(None),
+    status: Optional[str] = Query(None),
+    category: Optional[str] = Query(None),
+    tag: Optional[str] = Query(None),
+    db: Session = Depends(get_db),
+):
+    q = db.query(models.Idea).options(
+        joinedload(models.Idea.author), joinedload(models.Idea.tags)
+    )
+    if search:
+        q = q.filter(
+            models.Idea.title.ilike(f"%{search}%") |
+            models.Idea.description.ilike(f"%{search}%")
+        )
+    if status:
+        q = q.filter(models.Idea.status == status)
+    if category:
+        q = q.filter(models.Idea.category == category)
+    if tag:
+        q = q.join(models.Idea.tags).filter(models.Tag.name == tag)
+
+    ideas = q.all()
+    return [idea_to_response(i) for i in ideas]
+
+
 @app.post("/api/ideas", response_model=schemas.IdeaResponse)
 def create_idea(
     payload: schemas.IdeaFormData,
@@ -128,27 +155,6 @@ def create_idea(
     idea = save_and_refresh(db, idea)
 
     return idea_to_response(idea)
-
-
-@app.get("/api/ideas", response_model=List[schemas.IdeaResponse])
-def list_ideas(
-    status: Optional[str] = Query(None),
-    category: Optional[str] = Query(None),
-    tag: Optional[str] = Query(None),
-    db: Session = Depends(get_db),
-):
-    q = db.query(models.Idea).options(
-        joinedload(models.Idea.author), joinedload(models.Idea.tags)
-    )
-    if status:
-        q = q.filter(models.Idea.status == status)
-    if category:
-        q = q.filter(models.Idea.category == category)
-    if tag:
-        q = q.join(models.Idea.tags).filter(models.Tag.name == tag)
-
-    ideas = q.all()
-    return [idea_to_response(i) for i in ideas]
 
 
 @app.get("/api/ideas/{idea_id}", response_model=schemas.IdeaResponse)
@@ -205,6 +211,17 @@ def delete_idea(idea_id: int, db: Session = Depends(get_db)):
 
 
 # ---------------- Comments ----------------
+@app.get("/api/ideas/{idea_id}/comments", response_model=List[schemas.CommentResponse])
+def list_comments(idea_id: int, db: Session = Depends(get_db)):
+    comments = (
+        db.query(models.Comment)
+        .options(joinedload(models.Comment.user))
+        .filter(models.Comment.idea_id == idea_id)
+        .all()
+    )
+    return [comment_to_response(c) for c in comments]
+
+
 @app.post("/api/ideas/{idea_id}/comments", response_model=schemas.CommentResponse)
 def create_comment(
     idea_id: int,
@@ -229,19 +246,29 @@ def create_comment(
     return comment_to_response(comment)
 
 
-@app.get("/api/ideas/{idea_id}/comments", response_model=List[schemas.CommentResponse])
-def list_comments(idea_id: int, db: Session = Depends(get_db)):
-    comments = (
+@app.get("/api/ideas/{idea_id}/comments/{comment_id}", response_model=schemas.CommentResponse)
+def get_comment(
+    idea_id: int,
+    comment_id: int,
+    db: Session = Depends(get_db),
+    user_id: int = 1
+):
+    comment = (
         db.query(models.Comment)
         .options(joinedload(models.Comment.user))
-        .filter(models.Comment.idea_id == idea_id)
-        .all()
+        .filter(models.Comment.comment_id == comment_id, models.Comment.idea_id == idea_id)
+        .first()
     )
-    return [comment_to_response(c) for c in comments]
+    if not comment:
+        raise HTTPException(status_code=404, detail="Comment not found")
+    if comment.user_id != user_id:
+        raise HTTPException(status_code=403, detail="Not allowed to view this comment")
+    return comment_to_response(comment)
 
 
-@app.put("/api/comments/{comment_id}", response_model=schemas.CommentResponse)
+@app.put("/api/ideas/{idea_id}/comments/{comment_id}", response_model=schemas.CommentResponse)
 def update_comment(
+    idea_id: int,
     comment_id: int,
     payload: schemas.CommentFormData,
     db: Session = Depends(get_db),
@@ -250,33 +277,34 @@ def update_comment(
     comment = (
         db.query(models.Comment)
         .options(joinedload(models.Comment.user))
-        .filter(models.Comment.comment_id == comment_id)
+        .filter(models.Comment.comment_id == comment_id, models.Comment.idea_id == idea_id)
         .first()
     )
     if not comment:
         raise HTTPException(status_code=404, detail="Comment not found")
-
     if comment.user_id != user_id:
         raise HTTPException(status_code=403, detail="Not allowed to edit this comment")
-
     comment.comment_text = payload.comment_text
     comment = save_and_refresh(db, comment)
     return comment_to_response(comment)
 
 
-@app.delete("/api/comments/{comment_id}")
-def delete_comment(comment_id: int, db: Session = Depends(get_db), user_id: int = 1):
+@app.delete("/api/ideas/{idea_id}/comments/{comment_id}")
+def delete_comment(
+    idea_id: int,
+    comment_id: int,
+    db: Session = Depends(get_db),
+    user_id: int = 1
+):
     comment = (
-        db.query(models.Comment).filter(models.Comment.comment_id == comment_id).first()
+        db.query(models.Comment).filter(models.Comment.comment_id == comment_id, models.Comment.idea_id == idea_id).first()
     )
     if not comment:
         raise HTTPException(status_code=404, detail="Comment not found")
-
     if comment.user_id != user_id:
         raise HTTPException(
             status_code=403, detail="Not allowed to delete this comment"
         )
-
     db.delete(comment)
     db.commit()
     return {"detail": "Comment deleted"}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useDebounce } from "@/hooks/useDebounce";
 import {
   DragDropContext,
   Droppable,
@@ -16,6 +17,7 @@ const IdeaList: React.FC = () => {
 
   const [ideas, setIdeas] = useState<Idea[]>([]);
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, 800);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
@@ -24,12 +26,12 @@ const IdeaList: React.FC = () => {
 
   useEffect(() => {
     loadIdeas();
-  }, [search, selectedCategory, selectedTags]);
+  }, [debouncedSearch, selectedCategory, selectedTags]);
 
   const loadIdeas = async () => {
     try {
       const data = await ideaApi.getIdeas({
-        search,
+        search: debouncedSearch,
         category: selectedCategory,
         tags: selectedTags,
       });

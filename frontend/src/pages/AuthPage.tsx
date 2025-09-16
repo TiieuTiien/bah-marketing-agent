@@ -21,10 +21,8 @@ export const AuthPage: React.FC = () => {
 
       // TODO: Thay bằng API call
       if (mode === "login") {
-        alert("Đăng nhập thành công");
         navigate("/app/dashboard", { replace: true });
       } else {
-        alert("Đăng ký thành công!");
         navigate("/auth/login", { replace: true });
       }
     } catch (error) {

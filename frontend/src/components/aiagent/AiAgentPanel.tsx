@@ -29,7 +29,7 @@ const actions = [
 ];
 
 interface AIAgentPanelProps {
-  ideaId?: string;
+  ideaId?: number;
   ideaTitle?: string;
   className?: string;
 }
@@ -39,7 +39,7 @@ const AiAgentPanel: React.FC<AIAgentPanelProps> = ({
   ideaTitle,
   className = "",
 }) => {
-  const [userId] = useState(() => `user-${uuidv4()}`);
+  const [userId] = useState(1);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [messages, setMessages] = useState<AIMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -116,7 +116,7 @@ const AiAgentPanel: React.FC<AIAgentPanelProps> = ({
       setAgentLogs((prev) => [
         ...prev,
         {
-          log_id: uuidv4(),
+          log_id: 1,
           idea_id: ideaId!,
           user_prompt: content,
           ai_response: aiMessage.content,

@@ -1,19 +1,25 @@
 import axios from 'axios';
 import { IdeaFormData } from '../types/idea';
 import { CommentFormData } from '../types/comment';
-import { mockCommentApi } from './mockApi';
+import { mockCommentApi, mockIdeaApi } from './mockApi';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 const USE_MOCK_API = false;
 
-export const ideaApi = {
+export const ideaApi = USE_MOCK_API ? mockIdeaApi : {
     getIdeas: async (params?: {
         search?: string,
         status?: string,
         category?: string,
         tags?: string[],
     }) => {
-        const response = await axios.get(`${API_URL}/ideas`, { params });
+        const { search, status, category, tags } = params || {};
+        const queryParams: any = {};
+        if (search) queryParams.search = search;
+        if (status) queryParams.status = status;
+        if (category) queryParams.category = category;
+        if (tags && tags.length > 0) queryParams.tag = tags[0];
+        const response = await axios.get(`${API_URL}/ideas`, { params: queryParams });
         return response.data;
     },
 
@@ -37,7 +43,7 @@ export const ideaApi = {
     }
 }
 
-export const commentApi = true ? mockCommentApi : {
+export const commentApi = USE_MOCK_API ? mockCommentApi : {
     getComments: async (ideaId: number) => {
         const response = await axios.get(`${API_URL}/ideas/${ideaId}/comments`);
         return response.data;
