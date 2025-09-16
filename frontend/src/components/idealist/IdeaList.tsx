@@ -49,11 +49,11 @@ const IdeaList: React.FC = () => {
     setIsFormOpen(true);
   };
 
-  const handleDeleteIdea = async (id: string) => {
+  const handleDeleteIdea = async (idea_id: number) => {
     if (!window.confirm("Bạn có chắc muốn xóa ý tưởng này?")) return;
     try {
-      await ideaApi.deleteIdea(id);
-      setIdeas(ideas.filter((idea) => idea.idea_id !== id));
+      await ideaApi.deleteIdea(idea_id);
+      setIdeas(ideas.filter((idea) => idea.idea_id !== idea_id));
     } catch (error) {
       console.error("Error deleting idea:", error);
       alert("Có lỗi khi xóa!");
@@ -137,7 +137,7 @@ const IdeaList: React.FC = () => {
               {ideas.map((idea, index) => (
                 <Draggable
                   key={idea.idea_id}
-                  draggableId={idea.idea_id}
+                  draggableId={idea.idea_id.toString()}
                   index={index}
                 >
                   {(provided) => (

@@ -1,19 +1,20 @@
 from contextlib import asynccontextmanager
-from sqlalchemy import insert
-from sqlalchemy.exc import IntegrityError
 from typing import List, Optional
 from fastapi import Depends, FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
+
+from sqlalchemy import insert
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, joinedload
 
 from app import models, schemas
-from app.test_db import override_get_db, TestingSessionLocal, init_fake_data
+from app.db import get_db, SessionLocal
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup code
-    db = TestingSessionLocal()
-    init_fake_data(db)
+    db = SessionLocal()
     db.close()
 
     yield
@@ -22,12 +23,19 @@ async def lifespan(app: FastAPI):
     print("App shutting down!")
 
 
+origins = {
+    "http://localhost:5432",
+}
+
 app = FastAPI(title="Idea Management API", lifespan=lifespan)
 
-
-def get_db():
-    for db in override_get_db():
-        yield db
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 # ---------------- Helper ----------------
@@ -67,11 +75,17 @@ def get_or_create_tags(db: Session, tag_names: List[str]) -> List[models.Tag]:
 
 
 def idea_to_response(idea: models.Idea) -> schemas.IdeaResponse:
-    return schemas.IdeaResponse.model_validate(idea).model_copy(
-        update={
-            "tags": [t.name for t in idea.tags] if idea.tags else [],
-            "username": idea.author.username if idea.author else None,
-        }
+    return schemas.IdeaResponse(
+        idea_id=idea.idea_id,
+        user_id=idea.user_id,
+        username=idea.author.username if idea.author else None,
+        title=idea.title,
+        description=idea.description,
+        status=idea.status,
+        category=idea.category,
+        created_at=idea.created_at,
+        google_docs_url=idea.google_docs_url,
+        tags=[t.name for t in idea.tags] if idea.tags else [],
     )
 
 
@@ -82,7 +96,7 @@ def comment_to_response(comment: models.Comment) -> schemas.CommentResponse:
 
 
 # ---------------- Ideas ----------------
-@app.post("/ideas", response_model=schemas.IdeaResponse)
+@app.post("/api/ideas", response_model=schemas.IdeaResponse)
 def create_idea(
     payload: schemas.IdeaFormData,
     db: Session = Depends(get_db),
@@ -116,7 +130,7 @@ def create_idea(
     return idea_to_response(idea)
 
 
-@app.get("/ideas", response_model=List[schemas.IdeaResponse])
+@app.get("/api/ideas", response_model=List[schemas.IdeaResponse])
 def list_ideas(
     status: Optional[str] = Query(None),
     category: Optional[str] = Query(None),
@@ -137,7 +151,7 @@ def list_ideas(
     return [idea_to_response(i) for i in ideas]
 
 
-@app.get("/ideas/{idea_id}", response_model=schemas.IdeaResponse)
+@app.get("/api/ideas/{idea_id}", response_model=schemas.IdeaResponse)
 def get_idea(idea_id: int, db: Session = Depends(get_db)):
     idea = (
         db.query(models.Idea)
@@ -151,7 +165,7 @@ def get_idea(idea_id: int, db: Session = Depends(get_db)):
     return idea_to_response(idea)
 
 
-@app.put("/ideas/{idea_id}", response_model=schemas.IdeaResponse)
+@app.put("/api/ideas/{idea_id}", response_model=schemas.IdeaResponse)
 def update_idea(
     idea_id: int, payload: schemas.IdeaFormData, db: Session = Depends(get_db)
 ):
@@ -179,7 +193,7 @@ def update_idea(
     return idea_to_response(idea)
 
 
-@app.delete("/ideas/{idea_id}")
+@app.delete("/api/ideas/{idea_id}")
 def delete_idea(idea_id: int, db: Session = Depends(get_db)):
     idea = db.query(models.Idea).filter(models.Idea.idea_id == idea_id).first()
     if not idea:
@@ -191,7 +205,7 @@ def delete_idea(idea_id: int, db: Session = Depends(get_db)):
 
 
 # ---------------- Comments ----------------
-@app.post("/ideas/{idea_id}/comments", response_model=schemas.CommentResponse)
+@app.post("/api/ideas/{idea_id}/comments", response_model=schemas.CommentResponse)
 def create_comment(
     idea_id: int,
     payload: schemas.CommentFormData,
@@ -215,7 +229,7 @@ def create_comment(
     return comment_to_response(comment)
 
 
-@app.get("/ideas/{idea_id}/comments", response_model=List[schemas.CommentResponse])
+@app.get("/api/ideas/{idea_id}/comments", response_model=List[schemas.CommentResponse])
 def list_comments(idea_id: int, db: Session = Depends(get_db)):
     comments = (
         db.query(models.Comment)
@@ -226,7 +240,7 @@ def list_comments(idea_id: int, db: Session = Depends(get_db)):
     return [comment_to_response(c) for c in comments]
 
 
-@app.put("/comments/{comment_id}", response_model=schemas.CommentResponse)
+@app.put("/api/comments/{comment_id}", response_model=schemas.CommentResponse)
 def update_comment(
     comment_id: int,
     payload: schemas.CommentFormData,
@@ -250,7 +264,7 @@ def update_comment(
     return comment_to_response(comment)
 
 
-@app.delete("/comments/{comment_id}")
+@app.delete("/api/comments/{comment_id}")
 def delete_comment(comment_id: int, db: Session = Depends(get_db), user_id: int = 1):
     comment = (
         db.query(models.Comment).filter(models.Comment.comment_id == comment_id).first()
@@ -259,7 +273,9 @@ def delete_comment(comment_id: int, db: Session = Depends(get_db), user_id: int 
         raise HTTPException(status_code=404, detail="Comment not found")
 
     if comment.user_id != user_id:
-        raise HTTPException(status_code=403, detail="Not allowed to delete this comment")
+        raise HTTPException(
+            status_code=403, detail="Not allowed to delete this comment"
+        )
 
     db.delete(comment)
     db.commit()

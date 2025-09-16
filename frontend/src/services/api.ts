@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { IdeaFormData } from '../types/idea';
 import { CommentFormData } from '../types/comment';
-import { mockCommentApi, mockIdeaApi } from './mockApi';
+import { mockCommentApi } from './mockApi';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-const USE_MOCK_API = true;
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const USE_MOCK_API = false;
 
-export const ideaApi = USE_MOCK_API ? mockIdeaApi : {
+export const ideaApi = {
     getIdeas: async (params?: {
         search?: string,
         status?: string,
@@ -17,27 +17,27 @@ export const ideaApi = USE_MOCK_API ? mockIdeaApi : {
         return response.data;
     },
 
-    createIdea: async (data: IdeaFormData) => {
-        const response = await axios.post(`${API_URL}/ideas`, data);
+    createIdea: async (user_id: number, data: IdeaFormData) => {
+        const response = await axios.post(`${API_URL}/ideas?user_id=${user_id}`, data);
         return response.data;
     },
 
-    updateIdea: async (ideaId: string, data: IdeaFormData) => {
+    updateIdea: async (ideaId: number, data: IdeaFormData) => {
         const response = await axios.put(`${API_URL}/ideas/${ideaId}`, data);
         return response.data;
     },
 
-    deleteIdea: async (ideaId: string) => {
+    deleteIdea: async (ideaId: number) => {
         await axios.delete(`${API_URL}/ideas/${ideaId}`);
     },
 
-    getIdeaById: async (ideaId: string) => {
+    getIdeaById: async (ideaId: number) => {
         const response = await axios.get(`${API_URL}/ideas/${ideaId}`);
         return response.data;
     }
 }
 
-export const commentApi = USE_MOCK_API ? mockCommentApi : {
+export const commentApi = true ? mockCommentApi : {
     getComments: async (ideaId: number) => {
         const response = await axios.get(`${API_URL}/ideas/${ideaId}/comments`);
         return response.data;

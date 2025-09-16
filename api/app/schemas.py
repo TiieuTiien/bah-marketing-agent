@@ -33,6 +33,7 @@ class IdeaResponse(BaseModel):
     description: Optional[str]
     status: str
     category: Optional[str]
+    tags: List[str] = None
     created_at: datetime
     google_docs_url: Optional[str] = None
 

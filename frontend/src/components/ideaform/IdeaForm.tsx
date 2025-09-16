@@ -1,7 +1,7 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { ideaApi } from "@/services/api";
 import { Idea, IdeaFormData } from "@/types/idea";
-import * as React from "react";
-import { useEffect, useState } from "react";
 import "./IdeaForm.css";
 
 interface IdeaFormProps {
@@ -35,11 +35,16 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
     try {
       if (idea) {
         await ideaApi.updateIdea(idea.idea_id, formData);
+        alert(`Cập nhật thành công ý tưởng: ${formData.title}`);
       } else {
-        await ideaApi.createIdea(formData);
+        await ideaApi.createIdea(1, formData);
+        alert(`Đã tạo thành công ý tưởng: ${formData.title}`);
       }
+      onSubmit();
     } catch (error) {
-      console.error("Error saving idea:", error);
+      if (axios.isAxiosError(error)) {
+        console.error("Error saving idea:", error.response?.data?.detail);
+      }
     }
   };
 
@@ -81,9 +86,10 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
         <select
           id="category"
           value={formData.category}
-          onChange={(e) =>
-            setFormData({ ...formData, category: e.target.value })
-          }
+          onChange={(e) => {
+            setFormData({ ...formData, category: e.target.value });
+          }}
+          defaultValue={"Marketing"}
           required
         >
           <option value="marketing">Marketing</option>
