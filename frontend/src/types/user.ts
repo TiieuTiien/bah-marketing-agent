@@ -1,7 +1,7 @@
 export type UserProfileToken = {
   userName: string;
   email: string;
-  token: string;
+  access_token: string;
 };
 
 export type UserProfile = {

@@ -41,7 +41,7 @@ export const mockIdeaApi = {
         return filteredIdeas;
     },
 
-    createIdea: async (user_id: number, data: IdeaFormData) => {
+    createIdea: async (data: IdeaFormData) => {
         await new Promise(resolve => setTimeout(resolve, 500))
 
         const newIdea: Idea = {

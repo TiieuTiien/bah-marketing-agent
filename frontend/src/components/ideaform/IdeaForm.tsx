@@ -57,7 +57,7 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
         toast.success(`Cập nhật thành công ý tưởng: ${formData.title}`);
         navigate(`/app/discussion/${idea.idea_id}`, { replace: true });
       } else {
-        const response = await ideaApi.createIdea(1, formData);
+        const response = await ideaApi.createIdea(formData);
         toast.success(`Đã tạo thành công ý tưởng: ${formData.title}`);
         navigate(`/app/discussion/${response.idea_id}`, { replace: true });
       }

@@ -2,6 +2,7 @@ import "@/components/common/UserProfile/UserProfile.css";
 import { useClickOutside } from "../../../hooks/useClickOutside";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/useAuthContext";
 
 interface UserStats {
   totalIdeas: number;
@@ -20,17 +21,15 @@ interface UserProfileProps {
 }
 
 function UserProfile({ user }: UserProfileProps) {
-  const navigate = useNavigate();
-
+  const { logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  // Function to handle the avatar click
   const handleToggle = () => setIsOpen(!isOpen);
 
   const handleLogout = () => {
-    navigate(`/auth/login`, {replace: true})
     setIsOpen(false);
+    logout()
   };
 
   const handleViewProfile = () => {
