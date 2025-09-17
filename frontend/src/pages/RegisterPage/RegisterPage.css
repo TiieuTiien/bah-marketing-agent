@@ -1,0 +1,117 @@
+.register-bg {
+  background: #f9fafb;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.register-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  max-width: 400px;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.register-card-content {
+  padding: 2rem;
+}
+
+.register-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.register-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #222;
+  text-align: left;
+  font-weight: 600;
+  font-size: smaller;
+}
+
+.register-input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  background: #f3f4f6;
+  color: #222;
+  box-sizing: border-box;
+}
+
+.register-input:focus {
+  border-color: #34d399;
+  outline: none;
+}
+
+.register-error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.register-forgot {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.register-link {
+  color: #34d399;
+  text-decoration: underline;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.register-btn {
+  width: 100%;
+  background: #34d399;
+  color: #fff;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.register-btn:hover {
+  background: #059669;
+}
+
+.register-signin-link {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #34d399;
+  text-decoration: underline;
+  margin-top: 1rem;
+}
+
+.register-signin-link:hover {
+  color: #6b7280;
+}
