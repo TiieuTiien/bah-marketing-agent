@@ -59,7 +59,9 @@ export const aiApi = {
 
             return response.data.id;
         } catch (error) {
-            console.error('Failed to create AI session:', error);
+            if (axios.isAxiosError(error)) {
+                console.error("Failed to create AI session: ", error.response?.data?.detail);
+            }
             throw new Error('Không thể tạo phiên chat với AI');
         }
     },
@@ -121,7 +123,9 @@ export const aiApi = {
 
             return aiMessage;
         } catch (error) {
-            console.error('Failed to send message to AI:', error);
+            if (axios.isAxiosError(error)) {
+                console.error("Failed to send message to AI: ", error.response?.data?.detail);
+            }
             throw new Error('Không thể gửi tin nhắn đến AI');
         }
     },
@@ -143,7 +147,9 @@ export const aiAgentApi = USE_MOCK_API ? mockAgentApi : {
                 timestamp: new Date().toISOString(),
             });
         } catch (error) {
-            console.error('Failed to save agent log:', error);
+            if (axios.isAxiosError(error)) {
+                console.error("Failed to save agent log: ", error.response?.data?.detail);
+            }
         }
     },
 
@@ -152,7 +158,9 @@ export const aiAgentApi = USE_MOCK_API ? mockAgentApi : {
             const response = await backendApiClient.get(`/ideas/${ideaId}/agent-logs`);
             return response.data;
         } catch (error) {
-            console.error('Failed to get agent logs:', error);
+            if (axios.isAxiosError(error)) {
+                console.error("Failed to get agent logs: ", error.response?.data?.detail);
+            }
             return [];
         }
     },
@@ -161,7 +169,9 @@ export const aiAgentApi = USE_MOCK_API ? mockAgentApi : {
         try {
             await backendApiClient.delete(`/ideas/${ideaId}/agent-logs`);
         } catch (error) {
-            console.error('Failed to clear agent logs:', error);
+            if (axios.isAxiosError(error)) {
+                console.error("Failed to clear agent logs: ", error.response?.data?.detail);
+            }
             throw new Error('Không thể xóa lịch sử chat');
         }
     },

@@ -1,16 +1,20 @@
+import axios from "axios";
+
 import { useState, useEffect } from "react";
-import { useDebounce } from "@/hooks/useDebounce";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   DragDropContext,
   Droppable,
   Draggable,
   DropResult,
 } from "@hello-pangea/dnd";
-import "./IdeaList.css";
+
 import { Idea } from "@/types/idea";
 import { ideaApi } from "@/services/api";
+import { useDebounce } from "@/hooks/useDebounce";
 import IdeaForm from "../ideaform/IdeaForm";
-import { useNavigate } from "react-router-dom";
+import "./IdeaList.css";
 
 const IdeaList: React.FC = () => {
   const navigate = useNavigate();
@@ -37,7 +41,10 @@ const IdeaList: React.FC = () => {
       });
       setIdeas(data);
     } catch (error) {
-      console.error("Error loading ideas:", error);
+      if (axios.isAxiosError(error)) {
+        console.error("Error loading ideas:", error.response?.data?.detail);
+      }
+      toast.error("Không thể tải ý tưởng");
     }
   };
 
@@ -57,8 +64,10 @@ const IdeaList: React.FC = () => {
       await ideaApi.deleteIdea(idea_id);
       setIdeas(ideas.filter((idea) => idea.idea_id !== idea_id));
     } catch (error) {
-      console.error("Error deleting idea:", error);
-      alert("Có lỗi khi xóa!");
+      if (axios.isAxiosError(error)) {
+        console.error("Failed to delete idea: ", error.response?.data?.detail);
+      }
+      toast.error("Không thể xóa ý tưởng");
     }
   };
 

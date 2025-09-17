@@ -1,11 +1,15 @@
+import axios from "axios";
+
 import { useState } from "react";
-import type { AuthFormData, AuthMode } from "../types/auth";
-import { AuthForm } from "../components/auth/AuthForm";
-import "@/components/auth/auth.css";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { AuthForm } from "../components/auth/AuthForm";
+import type { AuthFormData, AuthMode } from "../types/auth";
+import "@/components/auth/auth.css";
 
 export const AuthPage: React.FC = () => {
-  const {mode} = useParams<{mode:AuthMode}>();
+  const { mode } = useParams<{ mode: AuthMode }>();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -26,8 +30,10 @@ export const AuthPage: React.FC = () => {
         navigate("/auth/login", { replace: true });
       }
     } catch (error) {
-      console.error("Auth error:", error);
-      alert("Có lỗi xảy ra, vui lòng thử lại!");
+      if (axios.isAxiosError(error)) {
+        console.error("Auth error: ", error.response?.data?.detail);
+      }
+      toast.error("Có lỗi xảy ra, vui lòng thử lại!");
     } finally {
       setLoading(false);
     }
@@ -35,7 +41,7 @@ export const AuthPage: React.FC = () => {
 
   const handleModeChange = (newMode: AuthMode) => {
     navigate(`/auth/${newMode}`, { replace: true });
-  }
+  };
 
   return (
     <div className="auth-page">
@@ -46,7 +52,7 @@ export const AuthPage: React.FC = () => {
         </div>
 
         <AuthForm
-          mode={mode === 'register' ? 'register' : 'login'}
+          mode={mode === "register" ? "register" : "login"}
           onSubmit={handleSubmit}
           onModeChange={handleModeChange}
           loading={loading}

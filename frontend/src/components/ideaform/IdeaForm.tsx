@@ -1,9 +1,12 @@
 import axios from "axios";
+
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import { ideaApi } from "@/services/api";
 import { Idea, IdeaFormData } from "@/types/idea";
 import "./IdeaForm.css";
-import { useNavigate } from "react-router-dom";
 
 interface IdeaFormProps {
   idea?: Idea;
@@ -34,35 +37,36 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.title.trim()) {
-      alert("Vui lòng nhập tiêu đề ý tưởng!");
+      toast.warning("Vui lòng nhập tiêu đề ý tưởng!");
       return;
     }
     if (!formData.description.trim()) {
-      alert("Vui lòng nhập mô tả ý tưởng!");
+      toast.warning("Vui lòng nhập mô tả ý tưởng");
       return;
     }
     if (!formData.category) {
-      alert("Vui lòng chọn danh mục!");
+      toast.warning("Vui lòng chọn danh mục!");
       return;
     }
 
     try {
       if (idea) {
         await ideaApi.updateIdea(idea.idea_id, formData);
-        alert(`Cập nhật thành công ý tưởng: ${formData.title}`);
+        toast.success(`Cập nhật thành công ý tưởng: ${formData.title}`);
         navigate(`/app/discussion/${idea.idea_id}`, { replace: true });
       } else {
         const response = await ideaApi.createIdea(1, formData);
-        alert(`Đã tạo thành công ý tưởng: ${formData.title}`);
+        toast.success(`Đã tạo thành công ý tưởng: ${formData.title}`);
         navigate(`/app/discussion/${response.idea_id}`, { replace: true });
       }
       onSubmit();
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error("Error saving idea:", error.response?.data?.detail);
+        console.error("Error saving idea: ", error.response?.data?.detail);
       }
+      toast.error("Có lỗi xảy ra khi lưu ý tưởng");
     }
   };
 
@@ -85,7 +89,6 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
           type="text"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          required
         />
       </div>
       <div className="form-group">
@@ -96,7 +99,6 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
           onChange={(e) =>
             setFormData({ ...formData, description: e.target.value })
           }
-          required
         />
       </div>
       <div className="form-group">
@@ -107,7 +109,6 @@ const IdeaForm: React.FC<IdeaFormProps> = ({ idea, onSubmit, onCancel }) => {
           onChange={(e) => {
             setFormData({ ...formData, category: e.target.value });
           }}
-          required
         >
           <option value="marketing">Marketing</option>
           <option value="content">Content</option>

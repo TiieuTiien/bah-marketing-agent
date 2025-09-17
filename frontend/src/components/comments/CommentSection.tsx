@@ -1,8 +1,12 @@
+import axios from "axios";
+import * as React from "react";
+
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
 import { commentApi } from "@/services/api";
 import { Comment, CommentFormData } from "@/types/comment";
-import { useEffect, useState } from "react";
 import "./CommentSection.css";
-import * as React from "react";
 
 interface CommentSectionProps {
   ideaId: number;
@@ -81,7 +85,13 @@ const CommentSection = ({ ideaId }: CommentSectionProps) => {
       const fileteredComments = await commentApi.getComments(ideaId);
       setComments(fileteredComments);
     } catch (error) {
-      console.error("Failed to load comments:", error);
+      if (axios.isAxiosError(error)) {
+        console.error(
+          "Failed to load comments: ",
+          error.response?.data?.detail
+        );
+      }
+      toast.error("Lỗi: Không tải được comments");
     } finally {
       setLoading(false);
     }
@@ -107,7 +117,13 @@ const CommentSection = ({ ideaId }: CommentSectionProps) => {
 
       await loadComments();
     } catch (error) {
-      console.error("Failed to submit comments:", error);
+      if (axios.isAxiosError(error)) {
+        console.error(
+          "Failed to submit comment: ",
+          error.response?.data?.detail
+        );
+      }
+      toast.error("Lỗi: Không gửi được comment");
     }
   };
 
@@ -127,7 +143,13 @@ const CommentSection = ({ ideaId }: CommentSectionProps) => {
       await commentApi.deleteComment(commentId);
       await loadComments();
     } catch (error) {
-      console.error("Failed to delete comment:", error);
+      if (axios.isAxiosError(error)) {
+        console.error(
+          "Failed to delete comment: ",
+          error.response?.data?.detail
+        );
+      }
+      toast.error("Lỗi: Không thể xóa comments");
     }
   };
 

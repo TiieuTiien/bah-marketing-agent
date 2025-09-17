@@ -1,13 +1,16 @@
+import axios from "axios";
+
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ideaApi } from "@/services/api";
-import { Idea } from "@/types/idea";
 import { FaBackward, FaRobot, FaTimes } from "react-icons/fa";
-import IdeaDetails from "../ideadetails/IdeaDetails";
+
+import { Idea } from "@/types/idea";
+import { ideaApi } from "@/services/api";
 import IdeaForm from "../ideaform/IdeaForm";
+import IdeaDetails from "../ideadetails/IdeaDetails";
 import CommentSection from "../comments/CommentSection";
-import "./DiscussionPanel.css";
 import AIAgentPanel from "../aiagent/AiAgentPanel";
+import "./DiscussionPanel.css";
 
 const DiscussionPanel = () => {
   const { ideaId } = useParams<{ ideaId: string }>();
@@ -17,7 +20,7 @@ const DiscussionPanel = () => {
   const [loading, setLoading] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [showAIPanel, setShowAIPanel] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>("Lỗi thử");
 
   useEffect(() => {
     if (ideaId) {
@@ -30,12 +33,14 @@ const DiscussionPanel = () => {
 
     try {
       setLoading(true);
-      setError(null);
+      setErrorMessage(null);
       const data = await ideaApi.getIdeaById(parseInt(ideaId));
       setIdea(data);
     } catch (error) {
-      console.error("Failed to load idea:", error);
-      setError("Không thể tải chi tiết ý tưởng. Vui lòng thử lại.");
+      if (axios.isAxiosError(error)) {
+        console.error("Failed to load idea: ", error.response?.data?.detail);
+      }
+      setErrorMessage("Không thể tải chi tiết ý tưởng. Vui lòng thử lại.");
     } finally {
       setLoading(false);
     }
@@ -59,8 +64,10 @@ const DiscussionPanel = () => {
       await ideaApi.deleteIdea(idea.idea_id);
       navigate("/app/idealist", { replace: true });
     } catch (error) {
-      console.error("Failed to delete idea:", error);
-      setError("Không thể xóa ý tưởng. Vui lòng thử lại.");
+      if (axios.isAxiosError(error)) {
+        console.error("Failed to delete idea: ", error.response?.data?.detail);
+      }
+      setErrorMessage("Không thể xóa ý tưởng. Vui lòng thử lại.");
     }
   };
   const handleSaveEdit = async () => {
@@ -87,13 +94,13 @@ const DiscussionPanel = () => {
     );
   }
 
-  if (error) {
+  if (errorMessage) {
     return (
       <div className="discussion-panel">
         <div className="discussion-panel__error">
           <FaTimes />
           <h3>Có lỗi xảy ra</h3>
-          <p>{error}</p>
+          <p>{errorMessage}</p>
           <button className="discussion-panel__retry-btn" onClick={loadIdea}>
             Thử lại
           </button>
@@ -136,7 +143,6 @@ const DiscussionPanel = () => {
               onClick={() => {
                 setShowAIPanel(!showAIPanel);
                 console.log("AI Panel clicked!");
-                
               }}
             >
               <FaRobot />

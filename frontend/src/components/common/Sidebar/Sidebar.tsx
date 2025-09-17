@@ -1,8 +1,12 @@
+import axios from "axios";
 import * as React from "react";
+
 import { useEffect } from "react";
 import { FaBars, FaEdit, FaLightbulb, FaTachometerAlt } from "react-icons/fa";
 import { useHoverInside } from "../../../hooks/useHoverInside";
 import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import { Idea } from "@/types/idea";
 import { ideaApi } from "@/services/api";
 import "./Sidebar.css";
@@ -75,7 +79,10 @@ const Sidebar: React.FC<SidebarProps> = ({
       const data = await ideaApi.getIdeas();
       setIdeas(data);
     } catch (error) {
-      console.error("Failed to load ideas:", error);
+      if (axios.isAxiosError(error)) {
+        console.error("Failed to load ideas: ", error.response?.data?.detail);
+      }
+      toast.error("Lỗi: Không tải được lịch sử");
     }
   };
 
