@@ -1,6 +1,29 @@
 from datetime import datetime
 from typing import List, Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
+
+# ----- Auth -----
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+class RegisterRequest(BaseModel):
+    email: EmailStr
+    username: str
+    password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class UserProfile(BaseModel):
+    user_id: int
+    username: str
+    email: str
+    
+    model_config = {
+        "from_attributes": True
+    }
 
 # ----- Comment -----
 class CommentFormData(BaseModel):

@@ -1,13 +1,16 @@
 from contextlib import asynccontextmanager
+from datetime import timedelta
 from typing import List, Optional
-from fastapi import Depends, FastAPI, HTTPException, Query
+from fastapi import Depends, FastAPI, HTTPException, Query, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPBearer
 
 from sqlalchemy import insert
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, joinedload
 
 from app import models, schemas
+from app.auth import authenticate_user, create_access_token, get_password_hash, CurrentUser
 from app.db import get_db, SessionLocal
 
 
@@ -23,9 +26,11 @@ async def lifespan(app: FastAPI):
     print("App shutting down!")
 
 
-origins = {
-    "http://localhost:5432",
-}
+origins = [
+    "http://localhost:5432",  # Vite default port
+    "http://localhost:3000",  # React default port
+    "http://localhost:8080",  # Alternative frontend port
+]
 
 app = FastAPI(title="Idea Management API", lifespan=lifespan)
 
@@ -95,6 +100,58 @@ def comment_to_response(comment: models.Comment) -> schemas.CommentResponse:
     )
 
 
+# ---------------- Authentication ----------------
+@app.post("/api/register", response_model=schemas.UserProfile)
+def register(user_data: schemas.RegisterRequest, db: Session = Depends(get_db)):
+    # Check if username already exists
+    existing_user = db.query(models.User).filter(models.User.username == user_data.username).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Username already registered")
+    
+    # Check if email already exists
+    existing_email = db.query(models.User).filter(models.User.email == user_data.email).first()
+    if existing_email:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    
+    # Create new user
+    hashed_password = get_password_hash(user_data.password)
+    new_user = models.User(
+        username=user_data.username,
+        email=user_data.email,
+        hashed_password=hashed_password
+    )
+    
+    try:
+        db.add(new_user)
+        db.commit()
+        db.refresh(new_user)
+        return new_user
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="User registration failed")
+
+
+@app.post("/api/login", response_model=schemas.Token)
+def login(login_data: schemas.LoginRequest, db: Session = Depends(get_db)):
+    user = authenticate_user(db, login_data.username, login_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=30)
+    access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
+
+
+@app.get("/api/me", response_model=schemas.UserProfile)
+def get_current_user_profile(current_user: CurrentUser):
+    return current_user
+
+
 # ---------------- Ideas ----------------
 @app.get("/api/ideas", response_model=List[schemas.IdeaResponse])
 def list_ideas(
@@ -126,16 +183,12 @@ def list_ideas(
 @app.post("/api/ideas", response_model=schemas.IdeaResponse)
 def create_idea(
     payload: schemas.IdeaFormData,
+    current_user: CurrentUser,
     db: Session = Depends(get_db),
-    user_id: int = 1,  # TODO: lấy từ auth token
 ):
-    user = db.query(models.User).filter(models.User.user_id == user_id).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-
     existing_idea = (
         db.query(models.Idea)
-        .filter(models.Idea.user_id == user_id, models.Idea.title == payload.title)
+        .filter(models.Idea.user_id == current_user.user_id, models.Idea.title == payload.title)
         .first()
     )
     if existing_idea:
@@ -145,7 +198,7 @@ def create_idea(
         title=payload.title,
         description=payload.description,
         category=payload.category,
-        user_id=user.user_id,
+        user_id=current_user.user_id,
         status="new",
     )
 
@@ -226,20 +279,16 @@ def list_comments(idea_id: int, db: Session = Depends(get_db)):
 def create_comment(
     idea_id: int,
     payload: schemas.CommentFormData,
+    current_user: CurrentUser,
     db: Session = Depends(get_db),
-    user_id: int = 1,  # TODO: lấy từ auth token
 ):
-    user = db.query(models.User).filter(models.User.user_id == user_id).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-
     idea = db.query(models.Idea).filter(models.Idea.idea_id == idea_id).first()
     if not idea:
         raise HTTPException(status_code=404, detail="Idea not found")
 
     comment = models.Comment(
         idea_id=idea_id,
-        user_id=user.user_id,
+        user_id=current_user.user_id,
         comment_text=payload.comment_text,
     )
     comment = save_and_refresh(db, comment)
@@ -250,8 +299,8 @@ def create_comment(
 def get_comment(
     idea_id: int,
     comment_id: int,
+    current_user: CurrentUser,
     db: Session = Depends(get_db),
-    user_id: int = 1
 ):
     comment = (
         db.query(models.Comment)
@@ -261,7 +310,7 @@ def get_comment(
     )
     if not comment:
         raise HTTPException(status_code=404, detail="Comment not found")
-    if comment.user_id != user_id:
+    if comment.user_id != current_user.user_id:
         raise HTTPException(status_code=403, detail="Not allowed to view this comment")
     return comment_to_response(comment)
 
@@ -271,8 +320,8 @@ def update_comment(
     idea_id: int,
     comment_id: int,
     payload: schemas.CommentFormData,
+    current_user: CurrentUser,
     db: Session = Depends(get_db),
-    user_id: int = 1,
 ):
     comment = (
         db.query(models.Comment)
@@ -282,7 +331,7 @@ def update_comment(
     )
     if not comment:
         raise HTTPException(status_code=404, detail="Comment not found")
-    if comment.user_id != user_id:
+    if comment.user_id != current_user.user_id:
         raise HTTPException(status_code=403, detail="Not allowed to edit this comment")
     comment.comment_text = payload.comment_text
     comment = save_and_refresh(db, comment)
@@ -293,15 +342,15 @@ def update_comment(
 def delete_comment(
     idea_id: int,
     comment_id: int,
+    current_user: CurrentUser,
     db: Session = Depends(get_db),
-    user_id: int = 1
 ):
     comment = (
         db.query(models.Comment).filter(models.Comment.comment_id == comment_id, models.Comment.idea_id == idea_id).first()
     )
     if not comment:
         raise HTTPException(status_code=404, detail="Comment not found")
-    if comment.user_id != user_id:
+    if comment.user_id != current_user.user_id:
         raise HTTPException(
             status_code=403, detail="Not allowed to delete this comment"
         )
