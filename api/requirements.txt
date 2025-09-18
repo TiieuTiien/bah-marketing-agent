@@ -8,6 +8,11 @@ psycopg2-binary==2.9.9
 # Data validation
 pydantic
 pydantic-core
+email-validator
 
 # Load .env (DATABASE_URL)
 python-dotenv==1.0.1
+
+# JWT & Password hashing
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4

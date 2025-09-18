@@ -1,21 +1,27 @@
+import axios from "axios";
+
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   DragDropContext,
   Droppable,
   Draggable,
   DropResult,
 } from "@hello-pangea/dnd";
-import "./IdeaList.css";
+
 import { Idea } from "@/types/idea";
 import { ideaApi } from "@/services/api";
-import IdeaForm from "../ideaform/IdeaForm";
-import { useNavigate } from "react-router-dom";
+import { useDebounce } from "@/hooks/useDebounce";
+import IdeaForm from "./ideaform/IdeaForm";
+import "./IdeaList.css";
 
 const IdeaList: React.FC = () => {
   const navigate = useNavigate();
 
   const [ideas, setIdeas] = useState<Idea[]>([]);
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, 800);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
@@ -24,18 +30,21 @@ const IdeaList: React.FC = () => {
 
   useEffect(() => {
     loadIdeas();
-  }, [search, selectedCategory, selectedTags]);
+  }, [debouncedSearch, selectedCategory, selectedTags]);
 
   const loadIdeas = async () => {
     try {
       const data = await ideaApi.getIdeas({
-        search,
+        search: debouncedSearch,
         category: selectedCategory,
         tags: selectedTags,
       });
       setIdeas(data);
     } catch (error) {
-      console.error("Error loading ideas:", error);
+      if (axios.isAxiosError(error)) {
+        console.error("Error loading ideas:", error.response?.data?.detail);
+      }
+      toast.error("Không thể tải ý tưởng");
     }
   };
 
@@ -49,14 +58,16 @@ const IdeaList: React.FC = () => {
     setIsFormOpen(true);
   };
 
-  const handleDeleteIdea = async (id: string) => {
+  const handleDeleteIdea = async (idea_id: number) => {
     if (!window.confirm("Bạn có chắc muốn xóa ý tưởng này?")) return;
     try {
-      await ideaApi.deleteIdea(id);
-      setIdeas(ideas.filter((idea) => idea.idea_id !== id));
+      await ideaApi.deleteIdea(idea_id);
+      setIdeas(ideas.filter((idea) => idea.idea_id !== idea_id));
     } catch (error) {
-      console.error("Error deleting idea:", error);
-      alert("Có lỗi khi xóa!");
+      if (axios.isAxiosError(error)) {
+        console.error("Failed to delete idea: ", error.response?.data?.detail);
+      }
+      toast.error("Không thể xóa ý tưởng");
     }
   };
 
@@ -137,7 +148,7 @@ const IdeaList: React.FC = () => {
               {ideas.map((idea, index) => (
                 <Draggable
                   key={idea.idea_id}
-                  draggableId={idea.idea_id}
+                  draggableId={idea.idea_id.toString()}
                   index={index}
                 >
                   {(provided) => (

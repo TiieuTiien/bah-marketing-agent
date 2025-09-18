@@ -158,19 +158,19 @@ export const mockCommentApi = {
 }
 
 export const mockAgentApi = {
-  getAgentLogs: async (ideaId: string): Promise<AgentLog[]> => {
+  getAgentLogs: async (ideaId: number): Promise<AgentLog[]> => {
     await new Promise(resolve => setTimeout(resolve, 500));
     return mockAgentLogStorage.filter(log => log.idea_id === ideaId);
   },
 
   saveAgentLog: async (
-    ideaId: string,
+    ideaId: number,
     userPrompt: string,
     aiResponse: string
   ): Promise<void> => {
     await new Promise(resolve => setTimeout(resolve, 500));
     const newLog: AgentLog = {
-      log_id: Math.floor(Math.random() * 10000).toString(),
+      log_id: Math.floor(Math.random() * 10000),
       idea_id: ideaId,
       user_prompt: userPrompt,
       ai_response: aiResponse,
@@ -179,7 +179,7 @@ export const mockAgentApi = {
     mockAgentLogStorage.push(newLog);
   },
 
-  clearAgentLogs: async (ideaId: string): Promise<void> => {
+  clearAgentLogs: async (ideaId: number): Promise<void> => {
     await new Promise(resolve => setTimeout(resolve, 500));
     mockAgentLogStorage = mockAgentLogStorage.filter(log => log.idea_id !== ideaId);
   }

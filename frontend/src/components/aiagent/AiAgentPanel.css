@@ -1,279 +1,256 @@
-
 .aiagent-panel {
-	background: white;
-	border: 1px solid #ccc;
-	border-radius: 0;
-	padding: 0;
-	display: flex;
-	flex-direction: column;
-	position: fixed;
-	top: 0;
-	right: 0;
-	height: 100vh;
-	width: 400px;
-	min-width: 320px;
-	max-width: 480px;
-	overflow: hidden;
-	z-index: 190;
-	box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.1);
-	transition: width 0.3s ease-in-out;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  position: static;
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: none;
+}
+
+/* When used as fixed panel (legacy support) */
+.aiagent-panel.fixed {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: var(--width-sm);
+  min-width: 320px;
+  max-width: 480px;
+  z-index: var(--z-fixed);
+  box-shadow: var(--shadow-xl);
+  border-radius: 0;
+  transition: width var(--transition-base);
 }
 
 /* Collapsed state - optional for future use */
 .aiagent-panel.collapsed {
-	width: 60px;
+  width: 60px;
 }
 
 .aiagent-panel.collapsed .aiagent-panel__header h3,
 .aiagent-panel.collapsed .aiagent-panel__context,
 .aiagent-panel.collapsed .aiagent-panel__controls {
-	opacity: 0;
-	pointer-events: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Hidden state - when not needed */
-.aiagent-panel.hidden {
-	right: -400px;
+.aiagent-panel.fixed.hidden {
+  right: calc(-1 * var(--width-sm));
 }
 
 /* Body margin when panel is open - to be applied to main content */
 .with-aiagent-panel {
-	margin-right: 400px;
-	transition: margin-right 0.3s ease-in-out;
+  margin-right: var(--width-sm);
+  transition: margin-right var(--transition-base);
 }
 
 @media (max-width: 1200px) {
-	.with-aiagent-panel {
-		margin-right: 350px;
-	}
+  .with-aiagent-panel {
+    margin-right: 350px;
+  }
 }
 
 @media (max-width: 768px) {
-	.with-aiagent-panel {
-		margin-right: 0;
-	}
+  .with-aiagent-panel {
+    margin-right: 0;
+  }
 }
 
 .aiagent-panel__header {
-	padding: 16px;
-	border-bottom: 1px solid #ccc;
-	background: #f5f5f5;
-	display: flex;
-	flex-direction: column;
-	gap: 4px;
-	flex-shrink: 0;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex-shrink: 0;
 }
+
 .aiagent-panel__header h3 {
-	margin: 0;
-	font-size: 16px;
-	color: #333;
-	font-weight: 600;
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
 }
+
 .aiagent-panel__context {
-	font-size: 13px;
-	color: #666;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
 }
+
 .aiagent-panel__controls {
-	display: flex;
-	gap: 8px;
-	margin-top: 6px;
-	align-items: center;
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  align-items: center;
 }
+
 .session-status {
-	color: #007bff;
-	font-weight: 600;
-	font-size: 12px;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xs);
 }
-.btn-primary, .btn-secondary, .btn-danger {
-	border: 1px solid #ccc;
-	border-radius: 6px;
-	padding: 6px 12px;
-	font-size: 13px;
-	cursor: pointer;
-	transition: all 0.2s ease;
-	background: white;
+
+/* Button classes using design system */
+.aiagent-panel .btn-primary,
+.aiagent-panel .btn-secondary,
+.aiagent-panel .btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid transparent;
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  user-select: none;
 }
-.btn-primary {
-	background: #007bff;
-	color: white;
-	border-color: #007bff;
+
+.aiagent-panel .btn-primary:disabled,
+.aiagent-panel .btn-secondary:disabled,
+.aiagent-panel .btn-danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
-.btn-primary:disabled {
-	background: #ccc;
-	color: white;
-	border-color: #ccc;
-	cursor: not-allowed;
+
+.aiagent-panel .btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-color: var(--color-primary);
 }
-.btn-secondary {
-	background: white;
-	color: #007bff;
-	border-color: #007bff;
+
+.aiagent-panel .btn-primary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
 }
-.btn-secondary:hover {
-	background: #f8f9fa;
+
+.aiagent-panel .btn-secondary {
+  background-color: var(--color-surface);
+  color: var(--color-primary);
+  border-color: var(--color-border);
 }
-.btn-secondary:disabled {
-	background: #f5f5f5;
-	color: #ccc;
-	border-color: #ccc;
-	cursor: not-allowed;
+
+.aiagent-panel .btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-surface-secondary);
 }
-.btn-danger {
-	background: #dc3545;
-	color: white;
-	border-color: #dc3545;
+
+.aiagent-panel .btn-danger {
+  background-color: var(--color-error);
+  color: var(--color-text-inverse);
+  border-color: var(--color-error);
 }
-.btn-danger:hover {
-	background: #c82333;
-}
-.btn-danger:disabled {
-	background: #ccc;
-	color: white;
-	border-color: #ccc;
-	cursor: not-allowed;
+
+.aiagent-panel .btn-danger:hover:not(:disabled) {
+  background-color: var(--color-error-hover);
+  border-color: var(--color-error-hover);
 }
 
 .aiagent-panel__error {
-	background: #f8d7da;
-	color: #721c24;
-	padding: 8px 12px;
-	border-radius: 6px;
-	margin: 8px 16px;
-	font-size: 13px;
-	border: 1px solid #f5c6cb;
+  background-color: var(--color-error-light);
+  color: var(--color-error);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-base);
+  margin: var(--space-2) var(--space-4);
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--color-error-500);
 }
 
 .aiagent-panel__content {
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-	height: 100%;
-	background: white;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background-color: var(--color-surface);
+  overflow: hidden;
 }
+
 .aiagent-panel__chat {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	min-height: 320px;
-	background: white;
-	border-bottom: 1px solid #ccc;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
 }
+
 .aiagent-panel__start-prompt {
-	text-align: center;
-	color: #666;
-	font-size: 14px;
-	margin: 24px 0;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  margin: var(--space-6) 0;
 }
+
 .aiagent-panel__actions {
-	padding: 16px;
-	background: white;
-	border-top: 1px solid #ccc;
-	flex-shrink: 0;
-}
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-	.aiagent-panel {
-		background: #2d3748;
-		border-color: #4a5568;
-	}
-
-	.aiagent-panel__header {
-		background: #374151;
-		border-bottom-color: #4a5568;
-	}
-
-	.aiagent-panel__header h3 {
-		color: #e2e8f0;
-	}
-
-	.aiagent-panel__context {
-		color: #a0aec0;
-	}
-
-	.session-status {
-		color: #63b3ed;
-	}
-
-	.btn-primary {
-		background: #007bff;
-		border-color: #007bff;
-	}
-
-	.btn-secondary {
-		background: #374151;
-		color: #63b3ed;
-		border-color: #4a5568;
-	}
-
-	.btn-secondary:hover {
-		background: #4a5568;
-	}
-
-	.aiagent-panel__error {
-		background: #742a2a;
-		color: #fed7d7;
-		border-color: #9b2c2c;
-	}
-
-	.aiagent-panel__content,
-	.aiagent-panel__chat {
-		background: #2d3748;
-	}
-
-	.aiagent-panel__start-prompt {
-		color: #a0aec0;
-	}
-
-	.aiagent-panel__actions {
-		background: #374151;
-	}
+  padding: var(--space-4);
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
 }
 
 /* Responsive design */
 @media (max-width: 1200px) {
-	.aiagent-panel {
-		width: 350px;
-	}
-	
-	.aiagent-panel.hidden {
-		right: -350px;
-	}
+  .aiagent-panel.fixed {
+    width: 350px;
+  }
+
+  .aiagent-panel.fixed.hidden {
+    right: -350px;
+  }
 }
 
 @media (max-width: 768px) {
-	.aiagent-panel {
-		width: 100vw;
-		max-width: 100vw;
-		border-left: none;
-		border-radius: 0;
-		box-shadow: none;
-	}
-	
-	.aiagent-panel.hidden {
-		right: -100vw;
-	}
-	
-	.aiagent-panel__header {
-		padding: 12px 16px;
-	}
-	
-	.aiagent-panel__actions {
-		padding: 12px 16px;
-	}
+  .aiagent-panel {
+    height: 100%;
+    min-height: 300px;
+  }
+
+  .aiagent-panel.fixed {
+    width: 100vw;
+    max-width: 100vw;
+    border-left: none;
+    border-radius: 0;
+    box-shadow: none;
+    height: 100vh;
+  }
+
+  .aiagent-panel.fixed.hidden {
+    right: -100vw;
+  }
+
+  .aiagent-panel__header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .aiagent-panel__actions {
+    padding: var(--space-3) var(--space-4);
+  }
 }
 
 /* High contrast mode */
 @media (prefers-contrast: high) {
-	.aiagent-panel {
-		border-width: 2px;
-		border-color: #000;
-	}
+  .aiagent-panel {
+    border-width: 2px;
+  }
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-	.aiagent-panel {
-		transition: none;
-	}
+  .aiagent-panel.fixed,
+  .with-aiagent-panel {
+    transition: none;
+  }
 }

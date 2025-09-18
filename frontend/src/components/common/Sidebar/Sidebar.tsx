@@ -1,11 +1,16 @@
+import axios from "axios";
 import * as React from "react";
+
 import { useEffect } from "react";
 import { FaBars, FaEdit, FaLightbulb, FaTachometerAlt } from "react-icons/fa";
-import { useHoverInside } from "../../../hooks/useHoverInside";
 import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import { Idea } from "@/types/idea";
 import { ideaApi } from "@/services/api";
 import "./Sidebar.css";
+import UserProfile from "@/components/userprofile/UserProfile";
+import avatarPlaceholder from "../../../assets/blonde_500.png";
 
 interface SidebarProps {
   onViewChange: (
@@ -56,9 +61,20 @@ const Sidebar: React.FC<SidebarProps> = ({
   const location = useLocation();
 
   const [isCollapsed, setIsCollapsed] = React.useState(true);
-  const [isLockedOpen, setIsLockedOpen] = React.useState(false);
   const [ideas, setIdeas] = React.useState<Idea[]>([]);
   const [visibleCount, setVisibleCount] = React.useState(10);
+
+  const user = {
+    name: "John Doe",
+    email: "john@example.com",
+    role: "Member",
+    avatarUrl: avatarPlaceholder,
+    stats: {
+      totalIdeas: 5,
+      inProgress: 2,
+      completed: 3,
+    },
+  };
 
   useEffect(() => {
     loadIdeas();
@@ -75,49 +91,37 @@ const Sidebar: React.FC<SidebarProps> = ({
       const data = await ideaApi.getIdeas();
       setIdeas(data);
     } catch (error) {
-      console.error("Failed to load ideas:", error);
+      if (axios.isAxiosError(error)) {
+        console.error("Failed to load ideas: ", error.response?.data?.detail);
+      }
+      toast.error("Lỗi: Không tải được lịch sử");
     }
   };
 
   const getCurrentIdeaId = () => {
     const match = location.pathname.match(/\/app\/discussion\/(.+)/);
-    return match ? match[1] : null;
+    return match ? parseInt(match[1]) : null;
   };
 
   const currentIdeaId = getCurrentIdeaId();
 
-  const sidebarRef = useHoverInside((isHovering) => {
-    if (!isLockedOpen) {
-      setIsCollapsed(!isHovering);
-    }
-  });
-
-  const toggleLockedState = () => {
-    const newLockedState = !isLockedOpen;
-    setIsLockedOpen(newLockedState);
-    setIsCollapsed(!newLockedState);
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
   };
 
-  useEffect(() => {
-    if (isLockedOpen) {
-      setIsCollapsed(false);
-    }
-  }, [isLockedOpen]);
-
-  const handleIdeaClick = (ideaId: string) => {
-    setSelectedIdea(ideaId);
+  const handleIdeaClick = (ideaId: number) => {
+    setSelectedIdea(ideaId.toString());
     navigate(`/app/discussion/${ideaId}`);
   };
 
   return (
     <aside
-      ref={sidebarRef}
       className={`sidebar ${isCollapsed ? "collapsed" : ""}`}
     >
       <div>
         <div className={`sidebar-header ${isCollapsed ? "collapsed" : ""}`}>
-          <button 
-            onClick={toggleLockedState} 
+          <button
+            onClick={toggleSidebar}
             className="toggle-button"
             title={isCollapsed ? "Mở rộng sidebar" : "Thu nhỏ sidebar"}
             aria-label={isCollapsed ? "Mở rộng sidebar" : "Thu nhỏ sidebar"}
@@ -155,18 +159,25 @@ const Sidebar: React.FC<SidebarProps> = ({
       </div>
       <div className="scrollbar-outer">
         <div className="sidebar-ideas">
-          {ideas.slice(0, visibleCount).map((idea: Idea) => (
-            <SidebarItem
-              key={idea.idea_id}
-              name={idea.title}
-              isCollapsed={isCollapsed}
-              isActive={!isCollapsed && idea.idea_id === currentIdeaId}
-              onClick={() => {
-                setSelectedIdea(null);
-                handleIdeaClick(idea.idea_id);
-              }}
-            />
-          ))}
+          {ideas
+            .slice(0, visibleCount)
+            .sort(
+              (a, b) =>
+                new Date(b.created_at).getTime() -
+                new Date(a.created_at).getTime()
+            )
+            .map((idea: Idea) => (
+              <SidebarItem
+                key={idea.idea_id}
+                name={idea.title}
+                isCollapsed={isCollapsed}
+                isActive={!isCollapsed && idea.idea_id === currentIdeaId}
+                onClick={() => {
+                  setSelectedIdea(null);
+                  handleIdeaClick(idea.idea_id);
+                }}
+              />
+            ))}
           {!isCollapsed && visibleCount < ideas.length && (
             <button
               className="sidebar-loadmore"
@@ -176,6 +187,9 @@ const Sidebar: React.FC<SidebarProps> = ({
             </button>
           )}
         </div>
+      </div>
+      <div className="sidebar-bottom">
+        <UserProfile user={user} isCollapsed={isCollapsed} />
       </div>
     </aside>
   );
