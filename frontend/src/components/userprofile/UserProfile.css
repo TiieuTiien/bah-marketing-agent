@@ -1,0 +1,195 @@
+.profile-dropdown {
+  position: relative;
+}
+
+.avatar-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform var(--transition-fast);
+}
+
+.avatar-small {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  outline-offset: var(--space-1);
+  outline: 3px solid var(--color-border-light);
+  transition: outline-color var(--transition-fast);
+}
+
+.avatar-large {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  outline-offset: var(--space-1);
+  outline: 3px solid var(--color-border);
+  transition: outline-color var(--transition-fast);
+}
+
+.avatar-button:focus .avatar-small,
+.avatar-button:focus .avatar-large,
+.avatar-small:hover {
+  outline-color: var(--color-primary);
+}
+
+.avatar-button:focus {
+  outline: none;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  box-shadow: var(--shadow-lg);
+  width: 220px;
+  padding: var(--space-4);
+  z-index: var(--z-dropdown);
+  animation: slideDown var(--transition-fast);
+}
+
+.sidebar-profile .dropdown-menu,
+.sidebar-profile.collapsed .dropdown-menu {
+  right: auto;
+  left: calc(100% + var(--space-2));
+  bottom: 0;
+  top: auto;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-var(--space-2));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-header {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.username {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.email {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.role {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface-secondary);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.05em;
+}
+
+.dropdown-stats {
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 var(--space-3) var(--space-2) var(--space-3);
+}
+
+.stat-item:last-child {
+  padding-bottom: 0;
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.stat-value {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.dropdown-actions {
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--space-4);
+}
+
+.action-button {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  text-align: left;
+  transition: background-color var(--transition-fast);
+  font-family: var(--font-family-base);
+}
+
+.action-button:hover {
+  background-color: var(--color-surface-secondary);
+}
+
+.action-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-primary-light);
+}
+
+.action-button.logout {
+  color: var(--color-error-500);
+}
+
+.action-button.logout:hover {
+  color: var(--color-error);
+  background-color: var(--color-error-hover);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dropdown-menu {
+    width: 200px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .dropdown-menu {
+    animation: none;
+  }
+
+  .avatar-button,
+  .action-button {
+    transition: none;
+  }
+}

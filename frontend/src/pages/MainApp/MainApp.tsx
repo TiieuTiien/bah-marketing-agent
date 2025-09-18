@@ -1,12 +1,7 @@
 import { useState } from "react";
-import Header from "@/components/common/Header/Header";
 import Sidebar from "@/components/common/Sidebar/Sidebar";
 import "@/pages/MainApp/MainApp.css";
-import {
-  Outlet,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 type View = "dashboard" | "workspace" | "idealist" | "discussion";
 
@@ -25,9 +20,13 @@ export default function MainApp() {
 
   return (
     <div className="mainapp-container">
-      <Sidebar onViewChange={handleViewChange} currentView={currentView} selectedIdea={selectedIdea} setSelectedIdea={setSelectedIdea} />
+      <Sidebar
+        onViewChange={handleViewChange}
+        currentView={currentView}
+        selectedIdea={selectedIdea}
+        setSelectedIdea={setSelectedIdea}
+      />
       <div className="main-section">
-        <Header />
         <main className="main-content">
           <Outlet />
         </main>

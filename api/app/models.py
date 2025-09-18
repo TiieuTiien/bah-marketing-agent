@@ -14,6 +14,8 @@ class User(Base):
     __tablename__ = "users"
     user_id = Column(Integer, primary_key=True, index=True)
     username = Column(String(100), nullable=False, unique=True)
+    email = Column(String(255), nullable=False, unique=True)
+    hashed_password = Column(String(255), nullable=False)
     
     # Relationship
     ideas = relationship("Idea", back_populates="author", cascade="all, delete-orphan")

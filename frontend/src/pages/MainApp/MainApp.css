@@ -2,15 +2,17 @@
   display: flex;
   min-height: 100vh;
   width: 100%;
+  background-color: var(--color-background);
 }
 
 .main-section {
   flex: 1;
   margin-left: 250px;
-  transition: margin-left 0.3s ease-in-out;
+  transition: margin-left var(--transition-base);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: var(--color-background);
 }
 
 .sidebar.collapsed + .main-section {
@@ -19,13 +21,159 @@
 
 .main-content {
   flex: 1;
-  padding: 2rem;
-  background-color: #f5f5f5;
+  background-color: var(--color-background);
+  transition: all var(--transition-base);
+  min-height: 0; /* Allow flex child to shrink */
 }
 
+/* Blurred state for modal/overlay interactions */
 .mainapp-container.blurred-bg {
   filter: blur(3px);
   pointer-events: none;
   -webkit-user-select: none;
   user-select: none;
+  transition: filter var(--transition-base);
+}
+
+/* Loading overlay */
+.mainapp-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal-backdrop);
+  backdrop-filter: blur(2px);
+}
+
+.mainapp-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error state */
+.mainapp-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12);
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.mainapp-error h2 {
+  font-size: var(--font-size-2xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+  font-weight: var(--font-weight-semibold);
+}
+
+.mainapp-error p {
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-6);
+  max-width: 400px;
+}
+
+.mainapp-retry-btn {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border: none;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.mainapp-retry-btn:hover {
+  background: var(--color-primary-hover);
+}
+
+.mainapp-retry-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+/* Responsive layout */
+@media (max-width: 1024px) {
+  .main-section {
+    margin-left: 200px;
+  }
+  
+  .sidebar.collapsed + .main-section {
+    margin-left: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-section {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .sidebar.collapsed + .main-section {
+    margin-left: 0;
+  }
+  
+  .main-content {
+    padding: var(--space-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: var(--space-3);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .mainapp-container.blurred-bg {
+    filter: contrast(1.2);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .main-section,
+  .main-content,
+  .mainapp-container.blurred-bg,
+  .mainapp-retry-btn {
+    transition: none;
+  }
+  
+  .mainapp-spinner {
+    animation: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .mainapp-container {
+    display: block;
+  }
+  
+  .main-section {
+    margin-left: 0;
+  }
+  
+  .main-content {
+    padding: 0;
+  }
 }

@@ -36,14 +36,14 @@ interface SessionRequest {
 interface SessionResponse {
     id: string;
     appName: string;
-    userId: string;
+    userId: number;
     state: SessionState;
     events: ADKEvent[];
     lastUpdateTime: number;
 }
 
 export const aiApi = {
-    createAISession: async (userId: string, ideaId?: string): Promise<string> => {
+    createAISession: async (userId: number, ideaId?: number): Promise<string> => {
         try {
             const payload: SessionRequest = {
                 state: {
@@ -59,16 +59,18 @@ export const aiApi = {
 
             return response.data.id;
         } catch (error) {
-            console.error('Failed to create AI session:', error);
+            if (axios.isAxiosError(error)) {
+                console.error("Failed to create AI session: ", error.response?.data?.detail);
+            }
             throw new Error('Không thể tạo phiên chat với AI');
         }
     },
 
     sendMessageToAI: async (
-        userId: string,
+        userId: number,
         sessionId: string,
         message: string,
-        ideaId?: string,
+        ideaId?: number,
     ): Promise<AIMessage> => {
         const payload: ChatRequest = {
             app_name: APP_NAME,
@@ -121,7 +123,9 @@ export const aiApi = {
 
             return aiMessage;
         } catch (error) {
-            console.error('Failed to send message to AI:', error);
+            if (axios.isAxiosError(error)) {
+                console.error("Failed to send message to AI: ", error.response?.data?.detail);
+            }
             throw new Error('Không thể gửi tin nhắn đến AI');
         }
     },
@@ -131,7 +135,7 @@ const USE_MOCK_API = true;
 
 export const aiAgentApi = USE_MOCK_API ? mockAgentApi : {
     saveAgentLog: async (
-        ideaId: string,
+        ideaId: number,
         userPrompt: string,
         aiResponse: string
     ): Promise<void> => {
@@ -143,25 +147,31 @@ export const aiAgentApi = USE_MOCK_API ? mockAgentApi : {
                 timestamp: new Date().toISOString(),
             });
         } catch (error) {
-            console.error('Failed to save agent log:', error);
+            if (axios.isAxiosError(error)) {
+                console.error("Failed to save agent log: ", error.response?.data?.detail);
+            }
         }
     },
 
-    getAgentLogs: async (ideaId: string): Promise<AgentLog[]> => {
+    getAgentLogs: async (ideaId: number): Promise<AgentLog[]> => {
         try {
             const response = await backendApiClient.get(`/ideas/${ideaId}/agent-logs`);
             return response.data;
         } catch (error) {
-            console.error('Failed to get agent logs:', error);
+            if (axios.isAxiosError(error)) {
+                console.error("Failed to get agent logs: ", error.response?.data?.detail);
+            }
             return [];
         }
     },
 
-    clearAgentLogs: async (ideaId: string): Promise<void> => {
+    clearAgentLogs: async (ideaId: number): Promise<void> => {
         try {
             await backendApiClient.delete(`/ideas/${ideaId}/agent-logs`);
         } catch (error) {
-            console.error('Failed to clear agent logs:', error);
+            if (axios.isAxiosError(error)) {
+                console.error("Failed to clear agent logs: ", error.response?.data?.detail);
+            }
             throw new Error('Không thể xóa lịch sử chat');
         }
     },
