@@ -1,23 +1,25 @@
-/* Simple Clean Chat Input */
 .chat-input-wrapper {
   width: 100%;
-  max-width: 400px;
+  max-width: var(--width-sm);
   margin: 0 auto;
+  margin-bottom: var(--radius-2xl);
+  flex-shrink: 0;
 }
 
 .chat-input-container {
   display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 50px; /* 50% border radius for fully rounded */
-  padding: 8px;
-  transition: border-color 0.2s ease;
+  align-items: center;
+  gap: var(--space-2);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: var(--space-2);
+  transition: border-color var(--transition-fast);
 }
 
 .chat-input-container:focus-within {
-  border-color: #007bff;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
 }
 
 /* Left Action Button */
@@ -31,18 +33,18 @@
   justify-content: center;
   width: 28px;
   height: 28px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   border: none;
   background: transparent;
-  color: #666;
+  color: var(--color-text-tertiary);
   cursor: pointer;
-  transition: all 0.2s ease;
-  padding: 1rem;
+  transition: all var(--transition-fast);
+  padding: var(--space-1);
 }
 
 .chat-input-action-btn:hover {
-  background: #f0f0f0;
-  color: #333;
+  background-color: var(--color-surface-secondary);
+  color: var(--color-text-secondary);
 }
 
 .chat-input-action-btn:disabled {
@@ -51,13 +53,13 @@
 }
 
 .chat-input-action-btn.active {
-  background: #007bff;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
 }
 
 .chat-input-action-btn:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 2px var(--color-primary-light);
 }
 
 /* Textarea Field */
@@ -70,21 +72,21 @@
   outline: none;
   background: transparent;
   box-sizing: border-box;
-  font-size: 14px;
-  color: #333;
-  padding: 6px 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  padding: var(--space-2) 0;
   min-height: 20px;
   max-height: 120px;
-  font-family: inherit;
-  line-height: 1.4;
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-normal);
 }
 
 .chat-input-field::placeholder {
-  color: #999;
+  color: var(--color-text-tertiary);
 }
 
 .chat-input-field:disabled {
-  color: #666;
+  color: var(--color-text-tertiary);
   cursor: not-allowed;
 }
 
@@ -95,30 +97,30 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   border: none;
-  background: #007bff;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
   flex-shrink: 0;
-  padding: 1rem;
+  padding: var(--space-1);
 }
 
 .chat-input-send-btn:hover:not(:disabled) {
-  background: #0056b3;
+  background-color: var(--color-primary-hover);
   transform: scale(1.05);
 }
 
 .chat-input-send-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  background: #ccc;
+  background-color: var(--color-gray-400);
 }
 
 .chat-input-send-btn:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 2px var(--color-primary-light);
 }
 
 /* Dropdown */
@@ -126,21 +128,21 @@
   position: absolute;
   bottom: 100%;
   left: 0;
-  margin-bottom: 8px;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: var(--space-2);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  box-shadow: var(--shadow-lg);
   min-width: 200px;
-  z-index: 50;
+  z-index: var(--z-dropdown);
   overflow: hidden;
-  animation: slideUp 0.2s ease-out;
+  animation: slideUp var(--transition-fast);
 }
 
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(var(--space-2));
   }
   to {
     opacity: 1;
@@ -152,101 +154,68 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 10px 12px;
+  padding: var(--space-3);
   border: none;
   background: none;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: background-color var(--transition-fast);
   text-align: left;
 }
 
 .dropdown-item:hover {
-  background: #f5f5f5;
+  background-color: var(--color-surface-secondary);
 }
 
 .dropdown-item-icon {
   display: flex;
   align-items: center;
-  margin-right: 8px;
-  color: #007bff;
+  margin-right: var(--space-2);
+  color: var(--color-primary);
 }
 
 .dropdown-item-label {
-  font-size: 13px;
-  color: #333;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
 }
 
 /* Utilities */
-.w-3 { width: 12px; }
-.h-3 { height: 12px; }
-.w-4 { width: 16px; }
-.h-4 { height: 16px; }
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .chat-input-container {
-    background: #2d3748;
-    border-color: #4a5568;
-  }
-
-  .chat-input-field {
-    color: #e2e8f0;
-  }
-
-  .chat-input-field::placeholder {
-    color: #a0aec0;
-  }
-
-  .chat-input-action-btn:hover {
-    background: #4a5568;
-    color: #e2e8f0;
-  }
-
-  .chat-input-send-btn {
-    background: #007bff;
-  }
-
-  .chat-input-send-btn:hover:not(:disabled) {
-    background: #0056b3;
-  }
-
-  .chat-input-dropdown {
-    background: #2d3748;
-    border-color: #4a5568;
-  }
-
-  .dropdown-item:hover {
-    background: #4a5568;
-  }
-
-  .dropdown-item-label {
-    color: #e2e8f0;
-  }
+.w-3 {
+  width: 12px;
+}
+.h-3 {
+  height: 12px;
+}
+.w-4 {
+  width: 16px;
+}
+.h-4 {
+  height: 16px;
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
   .chat-input-wrapper {
     max-width: 100%;
-    padding: 0 16px;
+    padding: 0 var(--space-4);
+    margin-bottom: var(--radius-2xl);
   }
-  
+
   .chat-input-container {
     align-items: center;
-    gap: 6px;
-    padding: 6px;
+    gap: var(--space-1);
+    padding: var(--space-1);
   }
-  
+
   .chat-input-action-btn {
     width: 24px;
     height: 24px;
   }
-  
+
   .chat-input-send-btn {
     width: 28px;
     height: 28px;
   }
-  
+
   .chat-input-dropdown {
     min-width: 180px;
   }
@@ -256,11 +225,10 @@
 @media (prefers-contrast: high) {
   .chat-input-container {
     border-width: 2px;
-    border-color: #000;
   }
-  
+
   .chat-input-send-btn {
-    border: 1px solid #000;
+    border: 1px solid var(--color-text-primary);
   }
 }
 
@@ -272,8 +240,12 @@
   .dropdown-item {
     transition: none;
   }
-  
+
   .chat-input-dropdown {
     animation: none;
+  }
+
+  .chat-input-send-btn:hover:not(:disabled) {
+    transform: none;
   }
 }

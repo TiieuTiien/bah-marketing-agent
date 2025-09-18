@@ -6,8 +6,8 @@ import { FaBackward, FaRobot, FaTimes } from "react-icons/fa";
 
 import { Idea } from "@/types/idea";
 import { ideaApi } from "@/services/api";
-import IdeaForm from "../ideaform/IdeaForm";
-import IdeaDetails from "../ideadetails/IdeaDetails";
+import IdeaForm from "../idealist/ideaform/IdeaForm";
+import IdeaDetails from "../idealist/ideadetails/IdeaDetails";
 import CommentSection from "../comments/CommentSection";
 import AIAgentPanel from "../aiagent/AiAgentPanel";
 import "./DiscussionPanel.css";
@@ -127,52 +127,53 @@ const DiscussionPanel = () => {
   return (
     <>
       <div className="discussion-panel">
-        <div className="discussion-panel__header">
-          <button
-            className="discussion-panel__back-button"
-            onClick={handleGoBack}
-          >
-            <FaBackward /> Quay lại danh sách
-          </button>
+        <div className="discussion-panel__layout">
+          <div className="discussion-panel__main">
+            <div className="discussion-panel__header">
+              <button
+                className="discussion-panel__back-button"
+                onClick={handleGoBack}
+              >
+                <FaBackward /> Quay lại danh sách
+              </button>
 
-          {idea && !isEditMode && (
-            <button
-              className={`disucssion-panel__ai-toggle ${
-                showAIPanel ? "active" : ""
-              }`}
-              onClick={() => {
-                setShowAIPanel(!showAIPanel);
-                console.log("AI Panel clicked!");
-              }}
-            >
-              <FaRobot />
-              {showAIPanel ? "Ẩn AI Assistant" : "Hiện AI Assistant"}
-            </button>
-          )}
-        </div>
-        <div
-          className={`discussion-panel__layout ${showAIPanel ? "with-ai" : ""}`}
-        >
-          <div className="discussion-panel__content">
-            {isEditMode ? (
-              <div className="discussion-panel__edit-form">
-                <h2>Chỉnh sửa ý tưởng</h2>
-                <IdeaForm
-                  idea={idea!}
-                  onSubmit={handleSaveEdit}
-                  onCancel={handleCancelEdit}
-                />
-              </div>
-            ) : (
-              <>
-                <IdeaDetails
-                  idea={idea!}
-                  onEdit={handleEdit}
-                  onDelete={handleDelete}
-                />
-                {idea && <CommentSection ideaId={idea.idea_id} />}
-              </>
-            )}
+              {idea && !isEditMode && (
+                <button
+                  className={`discussion-panel__ai-toggle ${
+                    showAIPanel ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    setShowAIPanel(!showAIPanel);
+                    console.log("AI Panel clicked!");
+                  }}
+                >
+                  <FaRobot />
+                  {showAIPanel ? "Ẩn AI Assistant" : "Hiện AI Assistant"}
+                </button>
+              )}
+            </div>
+            
+            <div className="discussion-panel__content">
+              {isEditMode ? (
+                <div className="discussion-panel__edit-form">
+                  <h2>Chỉnh sửa ý tưởng</h2>
+                  <IdeaForm
+                    idea={idea!}
+                    onSubmit={handleSaveEdit}
+                    onCancel={handleCancelEdit}
+                  />
+                </div>
+              ) : (
+                <>
+                  <IdeaDetails
+                    idea={idea!}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                  />
+                  {idea && <CommentSection ideaId={idea.idea_id} />}
+                </>
+              )}
+            </div>
           </div>
 
           {showAIPanel && idea && (

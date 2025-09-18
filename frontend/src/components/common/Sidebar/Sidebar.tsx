@@ -3,13 +3,14 @@ import * as React from "react";
 
 import { useEffect } from "react";
 import { FaBars, FaEdit, FaLightbulb, FaTachometerAlt } from "react-icons/fa";
-import { useHoverInside } from "../../../hooks/useHoverInside";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Idea } from "@/types/idea";
 import { ideaApi } from "@/services/api";
 import "./Sidebar.css";
+import UserProfile from "@/components/userprofile/UserProfile";
+import avatarPlaceholder from "../../../assets/blonde_500.png";
 
 interface SidebarProps {
   onViewChange: (
@@ -60,9 +61,20 @@ const Sidebar: React.FC<SidebarProps> = ({
   const location = useLocation();
 
   const [isCollapsed, setIsCollapsed] = React.useState(true);
-  const [isLockedOpen, setIsLockedOpen] = React.useState(false);
   const [ideas, setIdeas] = React.useState<Idea[]>([]);
   const [visibleCount, setVisibleCount] = React.useState(10);
+
+  const user = {
+    name: "John Doe",
+    email: "john@example.com",
+    role: "Member",
+    avatarUrl: avatarPlaceholder,
+    stats: {
+      totalIdeas: 5,
+      inProgress: 2,
+      completed: 3,
+    },
+  };
 
   useEffect(() => {
     loadIdeas();
@@ -93,23 +105,9 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const currentIdeaId = getCurrentIdeaId();
 
-  const sidebarRef = useHoverInside((isHovering) => {
-    if (!isLockedOpen) {
-      setIsCollapsed(!isHovering);
-    }
-  });
-
-  const toggleLockedState = () => {
-    const newLockedState = !isLockedOpen;
-    setIsLockedOpen(newLockedState);
-    setIsCollapsed(!newLockedState);
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
   };
-
-  useEffect(() => {
-    if (isLockedOpen) {
-      setIsCollapsed(false);
-    }
-  }, [isLockedOpen]);
 
   const handleIdeaClick = (ideaId: number) => {
     setSelectedIdea(ideaId.toString());
@@ -118,13 +116,12 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      ref={sidebarRef}
       className={`sidebar ${isCollapsed ? "collapsed" : ""}`}
     >
       <div>
         <div className={`sidebar-header ${isCollapsed ? "collapsed" : ""}`}>
           <button
-            onClick={toggleLockedState}
+            onClick={toggleSidebar}
             className="toggle-button"
             title={isCollapsed ? "Mở rộng sidebar" : "Thu nhỏ sidebar"}
             aria-label={isCollapsed ? "Mở rộng sidebar" : "Thu nhỏ sidebar"}
@@ -190,6 +187,9 @@ const Sidebar: React.FC<SidebarProps> = ({
             </button>
           )}
         </div>
+      </div>
+      <div className="sidebar-bottom">
+        <UserProfile user={user} isCollapsed={isCollapsed} />
       </div>
     </aside>
   );

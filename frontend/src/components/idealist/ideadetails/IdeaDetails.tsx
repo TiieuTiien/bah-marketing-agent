@@ -80,6 +80,11 @@ function IdeaDetails({ idea, onEdit, onDelete }: IdeaDetailsProps) {
         </div>
       </div>
 
+      <div className="idea-details__description">
+        <h3>Mô tả</h3>
+        <p>{idea.description}</p>
+      </div>
+
       <div className="idea-details__meta">
         <div className="idea-details__meta-item">
           <span className="idea-details_meta-label">Danh mục:</span>
@@ -95,11 +100,6 @@ function IdeaDetails({ idea, onEdit, onDelete }: IdeaDetailsProps) {
             {formatDate(idea.created_at)}
           </span>
         </div>
-      </div>
-
-      <div className="idea-details__description">
-        <h3>Mô tả</h3>
-        <p>{idea.description}</p>
       </div>
 
       {idea.tags && idea.tags.length > 0 && (

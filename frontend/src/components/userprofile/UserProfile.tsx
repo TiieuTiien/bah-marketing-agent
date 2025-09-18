@@ -1,7 +1,6 @@
-import "@/components/common/UserProfile/UserProfile.css";
-import { useClickOutside } from "../../../hooks/useClickOutside";
+import "./UserProfile.css";
+import { useClickOutside } from "../../hooks/useClickOutside";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/useAuthContext";
 
 interface UserStats {
@@ -18,9 +17,10 @@ interface UserProfileProps {
     avatarUrl: string;
     stats: UserStats;
   };
+  isCollapsed?: boolean;
 }
 
-function UserProfile({ user }: UserProfileProps) {
+function UserProfile({ user, isCollapsed = false }: UserProfileProps) {
   const { logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -29,7 +29,7 @@ function UserProfile({ user }: UserProfileProps) {
 
   const handleLogout = () => {
     setIsOpen(false);
-    logout()
+    logout();
   };
 
   const handleViewProfile = () => {
@@ -45,9 +45,15 @@ function UserProfile({ user }: UserProfileProps) {
   useClickOutside(ref, () => setIsOpen(false), isOpen);
 
   return (
-    <div ref={ref} className="profile-dropdown">
+    <div ref={ref} className={`profile-dropdown sidebar-profile ${isCollapsed ? 'collapsed' : ''}`}>
       <button onClick={handleToggle} className="avatar-button">
         <img src={user.avatarUrl} alt="User Avatar" className="avatar-small" />
+        {!isCollapsed && (
+          <div className="user-info-inline">
+            <span className="username-inline">{user.name}</span>
+            <span className="email-inline">{user.email}</span>
+          </div>
+        )}
       </button>
 
       {isOpen && (

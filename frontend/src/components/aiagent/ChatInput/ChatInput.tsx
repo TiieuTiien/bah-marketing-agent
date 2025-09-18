@@ -67,7 +67,7 @@ const marketingActions = [
 export default function ChatInput({
   onSendMessage,
   disabled = false,
-  placeholder = "Viết bình luận của bạn...",
+  placeholder = "Nhập câu hỏi...",
   ideaTitle = "dự án của bạn",
   showQuickActions = true,
   value,

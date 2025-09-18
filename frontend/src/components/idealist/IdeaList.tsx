@@ -13,7 +13,7 @@ import {
 import { Idea } from "@/types/idea";
 import { ideaApi } from "@/services/api";
 import { useDebounce } from "@/hooks/useDebounce";
-import IdeaForm from "../ideaform/IdeaForm";
+import IdeaForm from "./ideaform/IdeaForm";
 import "./IdeaList.css";
 
 const IdeaList: React.FC = () => {

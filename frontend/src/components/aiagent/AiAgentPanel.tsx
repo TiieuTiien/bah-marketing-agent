@@ -177,7 +177,7 @@ const AiAgentPanel: React.FC<AIAgentPanelProps> = ({
         <ChatInput
           onSendMessage={handleSendMessage}
           disabled={false}
-          placeholder="Viết bình luận của bạn..."
+          placeholder="Nhập câu hỏi..."
           ideaTitle="E-commerce Marketing Strategy"
           showQuickActions={true}
           value={inputValue}
