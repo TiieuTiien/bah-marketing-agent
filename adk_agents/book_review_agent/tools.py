@@ -75,3 +75,10 @@ async def load_draft(filename: str, tool_context: ToolContext) -> dict:
 
         print(f"Tool: Error loading artifact: {e}")
         return {"status": "error", "message": f"Could not load the draft '{filename}'."}
+
+def exit_loop(tool_context: ToolContext):
+  """Call this function ONLY when the critique indicates no further changes are needed, signaling the iterative process should end."""
+  print(f"  [Tool Call] exit_loop triggered by {tool_context.agent_name}")
+  tool_context.actions.escalate = True
+  # Return empty dict as tools should typically return JSON-serializable output
+  return {}

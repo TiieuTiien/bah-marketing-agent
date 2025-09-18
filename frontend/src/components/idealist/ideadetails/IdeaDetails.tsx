@@ -80,40 +80,40 @@ function IdeaDetails({ idea, onEdit, onDelete }: IdeaDetailsProps) {
         </div>
       </div>
 
-      <div className="idea-details__description">
-        <h3>Mô tả</h3>
-        <p>{idea.description}</p>
-      </div>
-
       <div className="idea-details__meta">
         <div className="idea-details__meta-item">
-          <span className="idea-details_meta-label">Danh mục:</span>
+          <span className="idea-details__meta-label">Danh mục:</span>
           <span className="idea-details__meta-value">{idea.category}</span>
         </div>
         <div className="idea-details__meta-item">
-          <span className="idea-details_meta-label">Tạo bởi:</span>
+          <span className="idea-details__meta-label">Tạo bởi:</span>
           <span className="idea-details__meta-value">{idea.username}</span>
         </div>
         <div className="idea-details__meta-item">
-          <span className="idea-details_meta-label">Ngày tạo:</span>
+          <span className="idea-details__meta-label">Ngày tạo:</span>
           <span className="idea-details__meta-value">
             {formatDate(idea.created_at)}
           </span>
         </div>
+
+        {idea.tags && idea.tags.length > 0 && (
+          <div className="idea-details__meta-item">
+            <span className="idea-details__meta-label">Thẻ:</span>
+            <div className="idea-details__meta-tags-list">
+              {idea.tags.map((tag: string, index: number) => (
+                <span key={index} className="idea-details__tag">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
-      {idea.tags && idea.tags.length > 0 && (
-        <div className="idea-details__tags">
-          <h3>Thẻ</h3>
-          <div className="idea-details__tags-list">
-            {idea.tags.map((tag: string, index: number) => (
-              <span key={index} className="idea-details__tag">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
+      <div className="idea-details__description">
+        <h3>Mô tả</h3>
+        <p>{idea.description}</p>
+      </div>
 
       {idea.google_docs_url && (
         <div className="idea-details__document">
