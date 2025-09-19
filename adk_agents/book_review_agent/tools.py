@@ -76,9 +76,38 @@ async def load_draft(filename: str, tool_context: ToolContext) -> dict:
         print(f"Tool: Error loading artifact: {e}")
         return {"status": "error", "message": f"Could not load the draft '{filename}'."}
 
+
 def exit_loop(tool_context: ToolContext):
-  """Call this function ONLY when the critique indicates no further changes are needed, signaling the iterative process should end."""
-  print(f"  [Tool Call] exit_loop triggered by {tool_context.agent_name}")
-  tool_context.actions.escalate = True
-  # Return empty dict as tools should typically return JSON-serializable output
-  return {}
+    """Call this function ONLY when the critique indicates no further changes are needed, signaling the iterative process should end."""
+    print(f"  [Tool Call] exit_loop triggered by {tool_context.agent_name}")
+    tool_context.actions.escalate = True
+    # Return empty dict as tools should typically return JSON-serializable output
+    return {}
+
+
+async def save_draft_content(current_draft: str, tool_context: ToolContext) -> dict:
+    """
+    Always call this tool to save the current_draft as an artifact.
+    Args:
+        current_draft (str): The book review draft content
+        tool_context (ToolContext): Injected by ADK to access artifacts and state.
+    Returns:
+        A dictionary confirming the draft was saved, including the artifact filename.
+    """
+    print(f"Tool: Creating draft content.")
+    filename = f"current_draft.txt"
+    artifact_part = types.Part.from_text(text=current_draft)
+
+    try:
+        version = await tool_context.save_artifact(
+            filename=filename, artifact=artifact_part
+        )
+        print(f"Tool: Saved artifact '{filename}' as version {version}.")
+        return {
+            "status": "success",
+            "message": f"Draft saved as '{filename}'.",
+            "filename": filename,
+        }
+    except Exception as e:
+        print(f"Tool: Error saving artifact: {e}")
+        return {"status": "error", "message": "Could not save the draft."}

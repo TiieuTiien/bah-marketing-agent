@@ -3,6 +3,7 @@ This is the main entry point for the Book Review Assistant application.
 It defines the root agent and its sub-agents to form a multi-agent system.
 """
 from google.adk.agents import LlmAgent, LoopAgent, SequentialAgent
+from .tools import exit_loop, save_draft_content
 
 # --- Agent Definitions for the Automated Writing Pipeline ---
 
@@ -18,7 +19,8 @@ research_agent = LlmAgent(
     2.  **Gather & Summarize:** Fill in the outline with concise, relevant information.
     Your output becomes the `research_findings` for the next step.
     """,
-    output_key="research_findings"
+    output_key="research_findings",
+    disallow_transfer_to_peers=True
 )
 
 writer_agent = LlmAgent(
@@ -41,9 +43,11 @@ critic_agent = LlmAgent(
     instruction="""
     You are an automated review-analysis engine.
     - **Input:** Evaluate the `current_draft`.
-    - **Output:** Your output MUST BE ONLY a concise, bulleted list of actionable feedback.
+    - **Output:** Your output MUST BE ONLY a concise, bulleted list of actionable feedback. Call exit loop tool when there's no futher feedback.
     """,
-    output_key="critic_feedback"
+    output_key="critic_feedback",
+    disallow_transfer_to_parent=True,
+    tools=[exit_loop]
 )
 
 refinement_loop = LoopAgent(
@@ -53,12 +57,12 @@ refinement_loop = LoopAgent(
         writer_agent,
         critic_agent,
     ],
-    max_iterations=3 # The loop runs a fixed number of times for consistent quality.
+    max_iterations=10 # The loop runs a fixed number of times for consistent quality.
 )
 
 confirmation_agent = LlmAgent(
     name="confirmation_agent",
-    model="gemini-2.0-flash",
+    model="gemini-2.0-flash",   
     description="Presents the final draft to the user for approval.",
     instruction="""
     You are the final step in an automated pipeline.
@@ -67,8 +71,10 @@ confirmation_agent = LlmAgent(
     **Your process:**
     1.  Announce that the automated writing process is complete.
     2.  Present the full text of the `{current_draft}`.
-    3.  Proactively ask the user for the next step. For example: "What do you think of this draft? We can refine it further, or if you're happy with it, we can **publish** it."
-    """
+    3.  Automatically use the tool to save `current_draft`
+    4.  Proactively ask the user for the next step. For example: "What do you think of this draft? We can refine it further, or if you're happy with it, we can **publish** it."
+    """,
+    tools=[save_draft_content],
 )
 
 # --- Main Pipeline Agent ---
