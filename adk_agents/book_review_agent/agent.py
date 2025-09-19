@@ -2,72 +2,86 @@
 This is the main entry point for the Book Review Assistant application.
 It defines the root agent and its sub-agents to form a multi-agent system.
 """
-from google.adk.agents import LlmAgent, LoopAgent
-from .tools import exit_loop
+from google.adk.agents import LlmAgent, LoopAgent, SequentialAgent
 
-def _create_refinement_loop() -> LoopAgent:
-    """
-    Helper function to build a smarter refinement loop.
-    The loop now continues until the critic agent decides the draft is good
-    enough and transfers control back to the root agent.
-    """
-
-    writer_agent_in_loop = LlmAgent(
-        name="writer_agent",
-        model="gemini-2.0-flash",
-        description="Writes or revises the book review draft based on a plan or feedback.",
-        instruction="""
-        You are a text-processing engine. Your SOLE function is to generate or refine a book review draft.
-
-        - **Input:** You will receive `research_findings` for the initial draft or `critic_feedback` and `current_draft` for revisions.
-        - **Processing:** Use the inputs to write or rewrite the text.
-        - **Output:** Your output MUST BE ONLY the full text of the review draft.
-        - **Constraint:** DO NOT include any conversational phrases, greetings, or explanations. For example, never start with "Okay, here is the draft...".
-        """,
-        output_key="current_draft"
-    )
-
-    critic_agent_in_loop = LlmAgent(
-        name="critic_agent",
-        model="gemini-2.0-flash",
-        description="Reviews the draft, provides feedback, or approves it by exiting the refinement loop.",
-        instruction="""
-        You are an automated review-analysis engine. Your function is to evaluate `current_draft`.
-
-        You have two possible actions:
-        1.  **If the draft needs improvement:** Your output MUST BE ONLY a concise, bulleted list of actionable feedback. This feedback will be saved.
-        2.  **If the draft is high-quality and ready:** You MUST first provide a concise, positive confirmation message (e.g., "The draft is now polished and ready."). Then, on a new line, you MUST call the `approve_and_exit_loop()` tool. Your positive message will be automatically saved as the final feedback.
-        """,
-        output_key="critic_feedback",
-        tools=[exit_loop]
-    )
-
-    return LoopAgent(
-        name="refinement_loop",
-        description="Automatically runs a write-and-review cycle until the critic agent approves the draft.",
-        sub_agents=[
-            writer_agent_in_loop,
-            critic_agent_in_loop,
-        ],
-        max_iterations=5 # A failsafe to prevent infinite loops
-    )
-
-# --- High-Level Agent Definitions ---
+# --- Agent Definitions for the Automated Writing Pipeline ---
 
 research_agent = LlmAgent(
     name="research_agent",
     model="gemini-2.0-flash",
-    description="Plans the review structure, gathers information, and then hands off to the writing loop.",
+    description="Plans the review structure and gathers initial information.",
     instruction="""
     You are a meticulous research strategist. Given a `book_title` and `main_topic`.
 
     **Your process is in two steps:**
-    1.  **Plan & Structure:** First, create a clear plan for the book review. This should be a bulleted outline (e.g., Introduction, Key Point 1 with evidence, Key Point 2, Conclusion).
-    2.  **Gather & Summarize:** Fill in the outline with concise, relevant information on the topic.
-
-    **CRITICAL FINAL STEP:** After presenting your structured research, you MUST immediately and automatically delegate to the `refinement_loop` agent to start the drafting process. Do not wait for user confirmation. Your final output must be the function call to transfer.
+    1.  **Plan & Structure:** First, create a clear plan for the book review. This should be a bulleted outline.
+    2.  **Gather & Summarize:** Fill in the outline with concise, relevant information.
+    Your output becomes the `research_findings` for the next step.
     """,
     output_key="research_findings"
+)
+
+writer_agent = LlmAgent(
+    name="writer_agent",
+    model="gemini-2.0-flash",
+    description="Writes or revises the book review draft.",
+    instruction="""
+    You are a text-processing engine. Your SOLE function is to generate or refine a book review draft.
+    - **Input:** Use `research_findings` for the initial draft, or `critic_feedback` and `current_draft` for revisions.
+    - **Output:** Your output MUST BE ONLY the full text of the review draft.
+    - **Constraint:** DO NOT include any conversational phrases.
+    """,
+    output_key="current_draft"
+)
+
+critic_agent = LlmAgent(
+    name="critic_agent",
+    model="gemini-2.0-flash",
+    description="Reviews the draft and provides constructive feedback.",
+    instruction="""
+    You are an automated review-analysis engine.
+    - **Input:** Evaluate the `current_draft`.
+    - **Output:** Your output MUST BE ONLY a concise, bulleted list of actionable feedback.
+    """,
+    output_key="critic_feedback"
+)
+
+refinement_loop = LoopAgent(
+    name="refinement_loop",
+    description="Automatically runs a write-and-review cycle.",
+    sub_agents=[
+        writer_agent,
+        critic_agent,
+    ],
+    max_iterations=3 # The loop runs a fixed number of times for consistent quality.
+)
+
+confirmation_agent = LlmAgent(
+    name="confirmation_agent",
+    model="gemini-2.0-flash",
+    description="Presents the final draft to the user for approval.",
+    instruction="""
+    You are the final step in an automated pipeline.
+    Your job is to present the final `current_draft` to the user.
+
+    **Your process:**
+    1.  Announce that the automated writing process is complete.
+    2.  Present the full text of the `{current_draft}`.
+    3.  Proactively ask the user for the next step. For example: "What do you think of this draft? We can refine it further, or if you're happy with it, we can **publish** it."
+    """
+)
+
+# --- Main Pipeline Agent ---
+
+# This SequentialAgent now manages the entire automated workflow.
+main_pipeline = SequentialAgent(
+    name="writing_pipeline",
+    description="An automated pipeline that researches, writes, refines, and then confirms a draft with the user. This is the main engine for creating a new review from scratch.",
+    sub_agents=[
+        research_agent,
+        refinement_loop,
+        confirmation_agent
+    ]
 )
 
 publish_agent = LlmAgent(
@@ -75,14 +89,15 @@ publish_agent = LlmAgent(
     model="gemini-2.0-flash",
     description="Applies final formatting to the approved draft for publication.",
     instruction="""
-    You are a publisher. Take the final `current_draft` and format it for publication.
+    You are a publisher. Take the final `current_draft` that the user has approved and format it for publication.
     Add a compelling title and ensure the text is clean, well-structured, and ready to be published.
     Your output should ONLY be the final, formatted review.
     """,
     output_key="final_review"
 )
 
-# --- Root Agent (User Interface & Coordinator) ---
+
+# --- Root Agent (Simplified Coordinator) ---
 
 root_agent = LlmAgent(
     name="creative_assistant_agent",
@@ -91,23 +106,20 @@ root_agent = LlmAgent(
     global_instruction="""
     You are an AI assistant specializing in creative tasks for book reviews.
     Focus on writing, brainstorming, researching, and refining content related to books.
-    Politely decline any requests that are outside of this scope, such as performing calculations or answering general knowledge questions not related to the creative task.
+    Politely decline any requests that are outside of this scope.
     """,
     instruction="""
-    You are the main coordinator of a team of AI agents. Your goal is to provide a seamless user experience by strictly delegating tasks.
+    You are the main coordinator for a book review creation service. Your team consists of two main capabilities: a `writing_pipeline` and a `publish_agent`.
 
-    **Interaction Workflow:**
-    1.  Start by greeting the user and asking for the book title.
-    2.  If the user only provides a title, be proactive. Suggest a few potential review angles (e.g., "core concepts," "practical strategies," "a critical look").
-    3.  Once the user confirms both a `book_title` and `main_topic`, your ONLY job is to kick off the entire automated process by delegating to `research_agent`. Announce that you are starting the process.
-
-    **Human Interaction and Delegation Rules:**
-    4.  AFTER the `refinement_loop` completes and returns control to you, present the final draft to the user.
-    5.  Proactively suggest the next actions: refining it further or publishing it. For example: "Here is the refined draft. We can improve it based on your feedback, or if you're happy with it, we can **publish** it."
-    6.  **CRITICAL RULE:** If the user provides any feedback for changes, you MUST immediately delegate back to the `refinement_loop`. Do NOT edit the draft yourself.
-    7.  If the user approves or says "publish", delegate to the `publish_agent`.
+    **Your Primary Role:**
+    1.  Start by greeting the user and finding out the book title and the main topic for their review.
+    2.  If the user only provides a title, proactively suggest potential review angles to help them decide.
+    3.  Once the user confirms the details, your main job is to **delegate the entire task to the `writing_pipeline` agent**. This pipeline will handle everything from research to presenting a draft back to the user.
+    
+    **Handling User Decisions:**
+    4.  The `writing_pipeline` will present a final draft and ask for the user's decision. The user's next message to you will be their decision.
+    5.  If the user approves the draft or says "publish", your job is to **delegate to the `publish_agent`**.
+    6.  If the user provides feedback and wants changes, delegate back to the `writing_pipeline` to start the process over with the new feedback.
     """,
-    tools=[],
-    sub_agents=[research_agent, _create_refinement_loop(), publish_agent]
+    sub_agents=[main_pipeline, publish_agent]
 )
-
