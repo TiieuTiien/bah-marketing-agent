@@ -2,87 +2,32 @@
 This is the main entry point for the Book Review Assistant application.
 It defines the root agent and its sub-agents to form a multi-agent system.
 """
-from google.adk.agents import LlmAgent, LoopAgent, SequentialAgent
-from .tools import exit_loop, save_draft_content
-
-# --- Agent Definitions for the Automated Writing Pipeline ---
-
-research_agent = LlmAgent(
-    name="research_agent",
-    model="gemini-2.0-flash",
-    description="Plans the review structure and gathers initial information.",
-    instruction="""
-    You are a meticulous research strategist. Given a `book_title` and `main_topic`.
-
-    **Your process is in two steps:**
-    1.  **Plan & Structure:** First, create a clear plan for the book review. This should be a bulleted outline.
-    2.  **Gather & Summarize:** Fill in the outline with concise, relevant information.
-    Your output becomes the `research_findings` for the next step.
-    """,
-    output_key="research_findings",
-    disallow_transfer_to_peers=True
-)
-
-writer_agent = LlmAgent(
-    name="writer_agent",
-    model="gemini-2.0-flash",
-    description="Writes or revises the book review draft.",
-    instruction="""
-    You are a text-processing engine. Your SOLE function is to generate or refine a book review draft.
-    - **Input:** Use `research_findings` for the initial draft, or `critic_feedback` and `current_draft` for revisions.
-    - **Output:** Your output MUST BE ONLY the full text of the review draft.
-    - **Constraint:** DO NOT include any conversational phrases.
-    """,
-    output_key="current_draft"
-)
-
-critic_agent = LlmAgent(
-    name="critic_agent",
-    model="gemini-2.0-flash",
-    description="Reviews the draft and provides constructive feedback.",
-    instruction="""
-    You are an automated review-analysis engine.
-    - **Input:** Evaluate the `current_draft`.
-    - **Output:** Your output MUST BE ONLY a concise, bulleted list of actionable feedback. Call exit loop tool when there's no futher feedback.
-    """,
-    output_key="critic_feedback",
-    disallow_transfer_to_parent=True,
-    tools=[exit_loop]
-)
-
-refinement_loop = LoopAgent(
-    name="refinement_loop",
-    description="Automatically runs a write-and-review cycle.",
-    sub_agents=[
-        writer_agent,
-        critic_agent,
-    ],
-    max_iterations=10 # The loop runs a fixed number of times for consistent quality.
-)
+from google.adk.agents import LlmAgent, SequentialAgent
+from .research_agent.agent import research_agent
+from .refinement_loop.agent import refinement_loop
+from .tools import save_draft_content
 
 confirmation_agent = LlmAgent(
     name="confirmation_agent",
     model="gemini-2.0-flash",   
-    description="Presents the final draft to the user for approval.",
+    description="Trình bày bản nháp cuối cùng cho người dùng phê duyệt.",
     instruction="""
-    You are the final step in an automated pipeline.
-    Your job is to present the final `current_draft` to the user.
+    Bạn là bước cuối trong quy trình tự động.
+    Nhiệm vụ của bạn là trình bày `current_draft` cuối cùng cho người dùng.
 
-    **Your process:**
-    1.  Announce that the automated writing process is complete.
-    2.  Present the full text of the `{current_draft}`.
-    3.  Automatically use the tool to save `current_draft`
-    4.  Proactively ask the user for the next step. For example: "What do you think of this draft? We can refine it further, or if you're happy with it, we can **publish** it."
+    **Quy trình của bạn:**
+    1. Trình bày toàn bộ văn bản của `current_draft`.
+    2. Sau khi trình bày bản nháp, bạn PHẢI gọi công cụ `save_draft_content`. Đây là bước bắt buộc trước khi hỏi người dùng.
+    3. Chủ động hỏi người dùng bước tiếp theo. Ví dụ: "Bạn nghĩ gì về bản nháp này? Chúng ta có thể tinh chỉnh thêm, hoặc nếu bạn hài lòng, chúng ta có thể **xuất bản** nó."
     """,
     tools=[save_draft_content],
 )
 
 # --- Main Pipeline Agent ---
 
-# This SequentialAgent now manages the entire automated workflow.
-main_pipeline = SequentialAgent(
+writing_pipeline = SequentialAgent(
     name="writing_pipeline",
-    description="An automated pipeline that researches, writes, refines, and then confirms a draft with the user. This is the main engine for creating a new review from scratch.",
+    description="Một quy trình tự động để nghiên cứu, viết, tinh chỉnh và xác nhận bản nháp với người dùng. Đây là động cơ chính để tạo một bài đánh giá mới từ đầu.",
     sub_agents=[
         research_agent,
         refinement_loop,
@@ -93,39 +38,61 @@ main_pipeline = SequentialAgent(
 publish_agent = LlmAgent(
     name="publish_agent",
     model="gemini-2.0-flash",
-    description="Applies final formatting to the approved draft for publication.",
+    description="Áp dụng định dạng cuối cùng cho bản nháp đã được phê duyệt để xuất bản.",
     instruction="""
-    You are a publisher. Take the final `current_draft` that the user has approved and format it for publication.
-    Add a compelling title and ensure the text is clean, well-structured, and ready to be published.
-    Your output should ONLY be the final, formatted review.
+    Bạn là một biên tập viên xuất bản. Hãy lấy `current_draft` cuối cùng đã được người dùng phê duyệt và định dạng lại để xuất bản.
+    Thêm một tiêu đề hấp dẫn và đảm bảo văn bản rõ ràng, có cấu trúc tốt, sẵn sàng để phát hành.
+    Đầu ra của bạn PHẢI CHỈ LÀ bài đánh giá cuối cùng đã được định dạng.
     """,
     output_key="final_review"
 )
 
 
-# --- Root Agent (Simplified Coordinator) ---
-
+# --- Root Agent (Simplified Coordinator) ---\
 root_agent = LlmAgent(
     name="creative_assistant_agent",
     model="gemini-2.0-flash",
-    description="An assistant for writing and managing book review drafts collaboratively.",
-    global_instruction="""
-    You are an AI assistant specializing in creative tasks for book reviews.
-    Focus on writing, brainstorming, researching, and refining content related to books.
-    Politely decline any requests that are outside of this scope.
-    """,
+    description="Trợ lý chính cho việc viết, phát triển ý tưởng và quản lý bản nháp đánh giá sách.",
     instruction="""
-    You are the main coordinator for a book review creation service. Your team consists of two main capabilities: a `writing_pipeline` and a `publish_agent`.
+    Bạn là điều phối viên chính cho dịch vụ tạo đánh giá sách, đồng thời cũng có khả năng phát triển ý tưởng (brainstorm).
+    - Giữ giọng văn chuyên nghiệp, tập trung vào viết, phát triển ý tưởng, nghiên cứu và tinh chỉnh nội dung liên quan đến sách.
+    - Nếu yêu cầu nằm ngoài phạm vi (không liên quan đến viết hoặc đánh giá sách):
+    - Luôn từ chối lịch sự với cấu trúc gồm 4 phần:
+        (1) Mở đầu: xin lỗi / rất tiếc,
+        (2) Lý do: không hỗ trợ vì ngoài phạm vi,
+        (3) Định vị: bạn là trợ lý cho viết & đánh giá sách,
+        (4) Gợi hướng: mời quay lại chủ đề sách.
+    - Bạn có thể linh hoạt cách diễn đạt, nhưng cần đảm bảo có đủ 4 phần trên.
 
-    **Your Primary Role:**
-    1.  Start by greeting the user and finding out the book title and the main topic for their review.
-    2.  If the user only provides a title, proactively suggest potential review angles to help them decide.
-    3.  Once the user confirms the details, your main job is to **delegate the entire task to the `writing_pipeline` agent**. This pipeline will handle everything from research to presenting a draft back to the user.
-    
-    **Handling User Decisions:**
-    4.  The `writing_pipeline` will present a final draft and ask for the user's decision. The user's next message to you will be their decision.
-    5.  If the user approves the draft or says "publish", your job is to **delegate to the `publish_agent`**.
-    6.  If the user provides feedback and wants changes, delegate back to the `writing_pipeline` to start the process over with the new feedback.
+    **Khả năng bạn quản lý:**
+    - `writing_pipeline`: (nghiên cứu → viết → tinh chỉnh),
+    - `publish_agent`: (xuất bản bản nháp cuối cùng).
+
+    **Nguyên tắc điều phối:**
+
+    1. Nếu đây là lần đầu hoặc người dùng chưa cung cấp thông tin → chào hỏi và hỏi tên sách + chủ đề mong muốn.
+
+    2. Nếu người dùng chỉ đưa ra **tiêu đề sách** hoặc một **chủ đề mơ hồ / quá rộng** (vd: “nước”, “chiến tranh”):
+    - TỰ ĐỘNG sinh 2–3 gợi ý cụ thể (mỗi gợi ý 1 câu, kèm 1 lý do ngắn).
+    - Đánh dấu 1 gợi ý là **đề xuất mặc định** và hỏi người dùng chọn hoặc xác nhận.
+    - Khi người dùng chọn / đồng ý → đặt `state.focus_points` và `transfer_to_agent(writing_pipeline)`.
+
+    3. Nếu người dùng đưa ra **focus points rõ ràng** → 
+    - **Định nghĩa rõ ràng**: Người dùng đã chỉ định ít nhất một **khía cạnh cụ thể** (vd: sinh tồn, văn hóa, chính trị) kèm theo **đối tượng hoặc phạm vi** (vd: người Fremen, các nhà cai trị, Paul Atreides).
+    - Trong trường hợp này, bạn **KHÔNG ĐƯỢC hỏi lại hoặc xác nhận thêm**.
+    - Phải **ngay lập tức `transfer_to_agent(writing_pipeline)`**.
+
+    4. Sau khi có bản nháp từ `writing_pipeline`:
+    - Trình bản nháp cho người dùng.
+    - Nếu người dùng phê duyệt hoặc nói “xuất bản” → `transfer_to_agent(publish_agent)`.
+
+    5. Nếu người dùng phản hồi:
+    - Nếu rõ ràng → cập nhật `state.focus_points` rồi quay lại `writing_pipeline`.
+    - Nếu mơ hồ → TỰ SINH gợi ý như ở bước 2, sau đó khi người dùng chọn thì tiếp tục với `writing_pipeline`.
+
+    **Nguyên tắc chung:**  
+    - Với input rõ ràng (theo định nghĩa ở bước 3), **tuyệt đối không xác nhận lại**.  
+    - Chỉ `transfer_to_agent` mà không sinh thêm text.
     """,
-    sub_agents=[main_pipeline, publish_agent]
+    sub_agents=[writing_pipeline, publish_agent]
 )

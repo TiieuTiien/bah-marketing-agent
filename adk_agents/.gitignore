@@ -108,3 +108,7 @@ llms-full.md
 
 # macOS specific
 .DS_Store
+
+# Evaluation history
+.adk/
+*.evalset.json
