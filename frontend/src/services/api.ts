@@ -3,7 +3,7 @@ import { IdeaFormData } from '../types/idea';
 import { CommentFormData } from '../types/comment';
 import { mockCommentApi, mockIdeaApi } from './mockApi';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 const USE_MOCK_API = false;
 
 const apiClient = axios.create({

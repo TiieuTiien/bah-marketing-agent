@@ -10,8 +10,7 @@ async def save_draft_content(tool_context: ToolContext) -> dict:
     filename = f"current_draft.txt"
     default_value="There is no current_draft"
     current_draft= tool_context.state.get('current_draft', default_value)
-    print(f"Tool: Creating draft content\n"
-          f"Content: {current_draft}")
+    print(f"    Tool: Creating draft content\n", "-"*20)
     artifact_part = types.Part.from_text(text=current_draft)
 
     try:

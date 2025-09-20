@@ -144,7 +144,6 @@ const DiscussionPanel = () => {
                   }`}
                   onClick={() => {
                     setShowAIPanel(!showAIPanel);
-                    console.log("AI Panel clicked!");
                   }}
                 >
                   <FaRobot />

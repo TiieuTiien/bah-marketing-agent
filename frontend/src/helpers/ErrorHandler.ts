@@ -12,6 +12,8 @@ export const handleError = (error: any) => {
       for (let e in err?.data.errors) {
         toast.warning(err.data.errors[e][0]);
       }
+    } else if (err?.data?.message) {
+      toast.warning(err.data.message);
     } else if (err?.data?.detail) {
       toast.warning(err.data.detail);
     } else if (err?.status == 401) {

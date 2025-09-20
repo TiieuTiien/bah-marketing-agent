@@ -14,14 +14,54 @@ export interface AgentLog {
 }
 
 export interface ChatRequest {
-    app_name: string;
-    user_id: number;
-    session_id: string;
-    idea_id?: number;
-    new_message: {
-        role: 'user',
-        parts: Array<{text: string}>
-    }
+    appName: string;
+    userId: string;
+    sessionId: string;
+    newMessage: {
+        role: string;
+        parts: Array<{
+            text?: string;
+            videoMetadata?: {
+                fps?: number;
+                startOffset?: string;
+                endOffset?: string;
+            };
+            thought?: boolean;
+            inlineData?: {
+                displayName?: string;
+                data?: string;
+                mimeType?: string;
+            };
+            fileData?: {
+                displayName?: string;
+                fileUri?: string;
+                mimeType?: string;
+            };
+            thoughtSignature?: string;
+            functionCall?: {
+                id?: string;
+                name?: string;
+                args?: Record<string, any>;
+            };
+            codeExecutionResult?: {
+                outcome?: string;
+                output?: string;
+            };
+            executableCode?: {
+                code?: string;
+                language?: string;
+            };
+            functionResponse?: {
+                willContinue?: boolean;
+                scheduling?: string;
+                id?: string;
+                name?: string;
+                response?: Record<string, any>;
+            };
+        }>;
+    };
+    streaming?: boolean;
+    stateDelta?: Record<string, any>;
 }
 
 export interface ADKPart {

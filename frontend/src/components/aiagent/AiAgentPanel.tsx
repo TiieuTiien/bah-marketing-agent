@@ -40,7 +40,7 @@ const AiAgentPanel: React.FC<AIAgentPanelProps> = ({
   className = "",
 }) => {
   const [userId] = useState(1);
-  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [sessionId, setSessionId] = useState<number | null>(null);
   const [messages, setMessages] = useState<AIMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -89,19 +89,22 @@ const AiAgentPanel: React.FC<AIAgentPanelProps> = ({
     setMessages((prev) => [...prev, userMessage]);
 
     try {
-      let currentSessionId = sessionId;
+      let currentSessionId = await aiApi.listAISession(userId);
 
       if (!currentSessionId) {
+        // currentSessionId = 1
         currentSessionId = await aiApi.createAISession(userId, ideaId);
-        setSessionId(currentSessionId);
       }
+
+      setSessionId(currentSessionId);
 
       const aiMessage = await aiApi.sendMessageToAI(
         userId,
         currentSessionId,
-        content,
-        ideaId
+        content
       );
+
+      console.log("AI message",aiMessage);
 
       await aiAgentApi.saveAgentLog(ideaId!, content, aiMessage.content);
 
@@ -135,6 +138,7 @@ const AiAgentPanel: React.FC<AIAgentPanelProps> = ({
     setIsLoading(true);
     try {
       await aiAgentApi.clearAgentLogs(ideaId);
+      await aiApi.deleteSession(userId, ideaId);
       setAgentLogs([]);
       setMessages([]);
       setSessionId(null);
