@@ -3,14 +3,15 @@
 import { ADKEvent, AgentLog, AIMessage, ChatRequest } from "@/types/aiagent";
 import axios from "axios";
 import { mockAgentApi } from "./mockApi";
+import { handleError } from "@/helpers/ErrorHandler";
 
 const API_BASE_URL = import.meta.env.VITE_AI_API_URL || 'http://127.0.0.1:8000';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-const APP_NAME = 'speaker';
+const APP_NAME = 'book_review_agent';
 
 const aiApiClient = axios.create({
     baseURL: API_BASE_URL,
-    timeout: 30000,
+    timeout: 60000,
     headers: {
         'Content-Type': 'application/json'
     }
@@ -43,7 +44,7 @@ interface SessionResponse {
 }
 
 export const aiApi = {
-    createAISession: async (userId: number, ideaId?: number): Promise<string> => {
+    createAISession: async (userId: number, ideaId?: number): Promise<number> => {
         try {
             const payload: SessionRequest = {
                 state: {
@@ -53,34 +54,56 @@ export const aiApi = {
             };
 
             const response = await aiApiClient.post<SessionResponse>(
-                `/apps/${APP_NAME}/users/${userId}/sessions`,
+                `/apps/${APP_NAME}/users/${userId}/sessions/${ideaId}`,
                 payload
             );
 
-            return response.data.id;
+            return parseInt(response.data.id);
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                console.error("Failed to create AI session: ", error.response?.data?.detail);
-            }
+            handleError(error)
+            console.error("Failed to create AI session: ", error);
             throw new Error('Không thể tạo phiên chat với AI');
         }
     },
 
+    listAISession: async (userId: number): Promise<number> => {
+        try {
+            const response = await aiApiClient.get<SessionResponse>(
+                `/apps/${APP_NAME}/users/${userId}/sessions`
+            );
+            console.log("Current session", response);
+
+            if (Array.isArray(response?.data) && response?.data.length > 0) {
+                console.log("Session 1");
+                return 1
+            }
+            console.log("Session 0");
+            return 0
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                console.error("Failed to create AI session: ", error.response?.data[0]?.detail);
+            }
+            throw new Error('Không thể tạo phiên chat với AI');
+        }
+    },
+    
+    deleteSession: async (userId: number, ideaId: number): Promise<void> => {
+        await aiApiClient.delete(`/apps/${APP_NAME}/users/${userId}/sessions/${ideaId}`);
+    },
+
     sendMessageToAI: async (
         userId: number,
-        sessionId: string,
+        sessionId: number,
         message: string,
-        ideaId?: number,
     ): Promise<AIMessage> => {
         const payload: ChatRequest = {
-            app_name: APP_NAME,
-            user_id: userId,
-            session_id: sessionId,
-            idea_id: ideaId,
-            new_message: {
+            appName: APP_NAME,
+            userId: String(userId),
+            sessionId: sessionId.toString(),
+            newMessage: {
                 role: 'user',
                 parts: [{ text: message }]
-            }
+            },
         };
 
         try {
@@ -117,14 +140,14 @@ export const aiApi = {
                 timestamp: new Date().toISOString(),
             };
 
-            if (ideaId) {
-                await aiAgentApi.saveAgentLog(ideaId, message, assistantText);
+            if (sessionId) {
+                await aiAgentApi.saveAgentLog(sessionId, message, assistantText);
             }
 
             return aiMessage;
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                console.error("Failed to send message to AI: ", error.response?.data?.detail);
+                console.error("Failed to send message to AI: ", error);
             }
             throw new Error('Không thể gửi tin nhắn đến AI');
         }

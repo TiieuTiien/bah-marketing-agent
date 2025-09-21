@@ -1,0 +1,10 @@
+google-adk==1.14.0
+uvicorn[standard]==0.35.0
+fastapi==0.116.1
+python-dotenv==1.1.1
+
+# Optional evaluation library
+# 
+# google-adk[eval]
+# pytest
+# pytest-asyncio

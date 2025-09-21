@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { AIMessage } from '@/types/aiagent';
+import ReactMarkdown from 'react-markdown';
 import './ChatWindow.css';
 
 interface ChatWindowProps {
@@ -59,7 +60,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
               style={{ textAlign: message.role === 'user' ? 'right' : 'left' }}
             >
               <div className="message__text">
-                {message.content}
+                <ReactMarkdown>{message.content}</ReactMarkdown>
               </div>
               <div className="message__time">
                 {formatTime(message.timestamp)}

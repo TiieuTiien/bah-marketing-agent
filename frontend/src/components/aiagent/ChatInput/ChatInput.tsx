@@ -71,8 +71,9 @@ export default function ChatInput({
   ideaTitle = "dự án của bạn",
   showQuickActions = true,
   value,
-  onChange
-}: ChatInputProps) {
+  onChange,
+  isLoading = false
+}: ChatInputProps & { isLoading?: boolean }) {
   // Internal value supports both controlled and uncontrolled use
   const [internalValue, setInternalValue] = useState<string>(value ?? "");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -110,11 +111,10 @@ export default function ChatInput({
 
   const submit = () => {
     const trimmed = internalValue.trim();
-    if (trimmed && !disabled) {
+    if (trimmed && !disabled && !isLoading) {
       onSendMessage(trimmed);
       setInternalValue('');
       onChange?.('');
-      
       // Reset textarea height
       if (textareaRef.current) {
         textareaRef.current.style.height = 'auto';
@@ -145,12 +145,11 @@ export default function ChatInput({
               type="button"
               aria-label="More utility"
               onClick={toggleDropdown}
-              disabled={disabled}
+              disabled={disabled || isLoading}
               className={`chat-input-action-btn ${isDropdownOpen ? 'active' : ''}`}
             >
               <IconPlus />
             </button>
-
             {/* Dropdown Menu */}
             {isDropdownOpen && (
               <div className="chat-input-dropdown">
@@ -160,6 +159,7 @@ export default function ChatInput({
                     type="button"
                     onClick={() => handleQuickAction(action.key)}
                     className="dropdown-item"
+                    disabled={isLoading}
                   >
                     <span className="dropdown-item-icon">{action.icon}</span>
                     <span className="dropdown-item-label">{action.label}</span>
@@ -169,32 +169,30 @@ export default function ChatInput({
             )}
           </div>
         )}
-
         {/* Textarea */}
         <textarea
           ref={textareaRef}
           value={internalValue}
           onChange={handleInputChange}
           onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
+            if (e.key === "Enter" && !e.shiftKey && !isLoading) {
               e.preventDefault();
               submit();
             }
           }}
           className="chat-input-field"
           placeholder={placeholder}
-          disabled={disabled}
+          disabled={disabled || isLoading}
           aria-label={placeholder}
           rows={1}
           maxLength={1000}
         />
-
         {/* Send button */}
         <button
           type="submit"
           title="Send"
           onClick={submit}
-          disabled={disabled || !internalValue.trim()}
+          disabled={disabled || !internalValue.trim() || isLoading}
           className="chat-input-send-btn"
         >
           <IconSend />
