@@ -1,0 +1,602 @@
+[
+  {
+    "eval_id": "eval_case_054",
+    "session_id": "___eval___session___c708ed10-1da3-4e6f-b8e6-e08b555a0be9",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8913801694070752
+  },
+  {
+    "eval_id": "eval_case_016",
+    "session_id": "___eval___session___704d70e7-e42c-4692-a26a-f3632d95aa05",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.10968413745227351
+  },
+  {
+    "eval_id": "eval_case_030",
+    "session_id": "___eval___session___3163d503-8ade-4b93-9e7f-67b2da1f451e",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8175912043978011
+  },
+  {
+    "eval_id": "eval_case_074",
+    "session_id": "___eval___session___53a7ee8b-c1c3-43ea-90be-ca32c045926e",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.47413061916878707
+  },
+  {
+    "eval_id": "eval_case_052",
+    "session_id": "___eval___session___805cd3f9-b327-4818-b07b-9b65a7c3762b",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.05686433793663689
+  },
+  {
+    "eval_id": "eval_case_046",
+    "session_id": "___eval___session___047d82e2-be91-4932-a9b2-35e21a581d10",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8609271523178808
+  },
+  {
+    "eval_id": "eval_case_013",
+    "session_id": "___eval___session___846d5098-e88b-45d0-910e-f8842b4baa9e",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8361360969886587
+  },
+  {
+    "eval_id": "eval_case_098",
+    "session_id": "___eval___session___ad1c6d22-f23b-4e42-9b82-fccb56c5c28b",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7868051313378132
+  },
+  {
+    "eval_id": "eval_case_062",
+    "session_id": "___eval___session___6320059b-3059-4b98-9cbc-a1f1ecd1f625",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.6240362811791382
+  },
+  {
+    "eval_id": "eval_case_017",
+    "session_id": "___eval___session___7f5795c3-34f9-4451-9f24-eb4e106a3058",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.9085833914863922
+  },
+  {
+    "eval_id": "eval_case_048",
+    "session_id": "___eval___session___cdea1297-e792-4691-a57b-b0f25bb1de2b",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7891440501043842
+  },
+  {
+    "eval_id": "eval_case_085",
+    "session_id": "___eval___session___246acae6-b033-44f2-81df-d40284a2ad79",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.727540500736377
+  },
+  {
+    "eval_id": "eval_case_014",
+    "session_id": "___eval___session___b0b60000-af1d-4b67-b6d5-e5e2ee04f5e8",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.8563988095238094
+  },
+  {
+    "eval_id": "eval_case_058",
+    "session_id": "___eval___session___ec717eb0-7c3a-4f9e-bdc6-7732c4937d00",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.8329141214516709
+  },
+  {
+    "eval_id": "eval_case_049",
+    "session_id": "___eval___session___aa014260-cddd-4b6f-a6d7-0063efb4d3a7",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.6711970726607422
+  },
+  {
+    "eval_id": "eval_case_045",
+    "session_id": "___eval___session___611491ab-82d0-4f19-b6da-73549b3c364e",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8236252545824848
+  },
+  {
+    "eval_id": "eval_case_063",
+    "session_id": "___eval___session___22c4784d-42f3-4225-8f6e-24c9ec839278",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7679509632224168
+  },
+  {
+    "eval_id": "eval_case_027",
+    "session_id": "___eval___session___f36e467d-3cc7-42e2-ace6-7c9d802116f2",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8482577744473585
+  },
+  {
+    "eval_id": "eval_case_050",
+    "session_id": "___eval___session___bfd45722-e939-4d0b-bd0f-149c6ac75fd4",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8370805949498443
+  },
+  {
+    "eval_id": "eval_case_033",
+    "session_id": "___eval___session___2e8f91c5-8c09-459c-b05c-63d979e96d6e",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8399858707170611
+  },
+  {
+    "eval_id": "eval_case_042",
+    "session_id": "___eval___session___7be1345b-4006-4c75-a2eb-718801cd2666",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7304768486523843
+  },
+  {
+    "eval_id": "eval_case_022",
+    "session_id": "___eval___session___7ae24be2-519b-4a81-9053-a457b1a886fc",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.844834159359512
+  },
+  {
+    "eval_id": "eval_case_070",
+    "session_id": "___eval___session___7dbc0d20-af4a-4f75-8aa8-078ce1ca1cea",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.5591216216216216
+  },
+  {
+    "eval_id": "eval_case_029",
+    "session_id": "___eval___session___7b0fe7dd-9763-4988-80a0-0af866d7d750",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8867030965391622
+  },
+  {
+    "eval_id": "eval_case_081",
+    "session_id": "___eval___session___036d0948-b9b7-4275-9779-3f2438f497e5",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.6593264248704663
+  },
+  {
+    "eval_id": "eval_case_021",
+    "session_id": "___eval___session___27765c96-4161-4afc-b983-aadd95f06b74",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.8288747346072185
+  },
+  {
+    "eval_id": "eval_case_090",
+    "session_id": "___eval___session___4230b52e-f9e7-420b-86b1-79c759dd5278",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8531898539584934
+  },
+  {
+    "eval_id": "eval_case_078",
+    "session_id": "___eval___session___344f2e0d-3be4-41ea-954b-58925f369674",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.6806953339432754
+  },
+  {
+    "eval_id": "eval_case_009",
+    "session_id": "___eval___session___1a18ffe8-6459-4eeb-b16e-24de06dea62c",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.6127221702525725
+  },
+  {
+    "eval_id": "eval_case_068",
+    "session_id": "___eval___session___0ce17944-1b06-4617-ae7e-befbb873451a",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8131192347113086
+  },
+  {
+    "eval_id": "eval_case_072",
+    "session_id": "___eval___session___df9d1cac-5123-497f-b811-8ff17d4a27e3",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.710538865045303
+  },
+  {
+    "eval_id": "eval_case_002",
+    "session_id": "___eval___session___52ba15dd-30de-48f7-9506-449e68fe3f7f",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8807077625570776
+  },
+  {
+    "eval_id": "eval_case_010",
+    "session_id": "___eval___session___67106f03-9160-4791-b0f4-bc3e71659fd3",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.853907134767837
+  },
+  {
+    "eval_id": "eval_case_059",
+    "session_id": "___eval___session___80b995e3-ac89-4c82-832b-f34441ec3312",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7990919409761635
+  },
+  {
+    "eval_id": "eval_case_025",
+    "session_id": "___eval___session___0581f1fb-86fa-4dd9-9f25-b20765ecd059",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8505452212957024
+  },
+  {
+    "eval_id": "eval_case_018",
+    "session_id": "___eval___session___09fbd096-5871-4336-9b41-c9f692fa6343",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8834827144686301
+  },
+  {
+    "eval_id": "eval_case_041",
+    "session_id": "___eval___session___c357f43c-1d48-4f69-b068-147253cb11b3",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7854149203688181
+  },
+  {
+    "eval_id": "eval_case_001",
+    "session_id": "___eval___session___12bf9783-aee4-4d40-ada3-eb44eac6681c",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8997837058399423
+  },
+  {
+    "eval_id": "eval_case_044",
+    "session_id": "___eval___session___a49790e5-bf65-4945-8d4c-c86c4a760c43",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.37804187889077534
+  },
+  {
+    "eval_id": "eval_case_026",
+    "session_id": "___eval___session___4d2d4d09-ec5f-4183-8b9e-1682fba519ff",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.18208807521029194
+  },
+  {
+    "eval_id": "eval_case_038",
+    "session_id": "___eval___session___d1530f4d-0fbc-4ac3-aa3a-ecab37dec8a3",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.5006485084306096
+  },
+  {
+    "eval_id": "eval_case_055",
+    "session_id": "___eval___session___8c238b32-fc50-4c9e-a91f-65959bb73055",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8960931005818787
+  },
+  {
+    "eval_id": "eval_case_003",
+    "session_id": "___eval___session___b2a6d68e-3d80-421d-9a15-4954f42015c6",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7136653895274585
+  },
+  {
+    "eval_id": "eval_case_097",
+    "session_id": "___eval___session___2e928698-4e2e-4802-ab5a-7cdf221c2f40",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.2698412698412699
+  },
+  {
+    "eval_id": "eval_case_006",
+    "session_id": "___eval___session___872ce6d5-4555-498a-b2ac-b4029f4f9eca",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8500299940011997
+  },
+  {
+    "eval_id": "eval_case_067",
+    "session_id": "___eval___session___6b8efc81-6ac9-4aed-8ed7-92abc7a416d3",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.5773128473357306
+  },
+  {
+    "eval_id": "eval_case_028",
+    "session_id": "___eval___session___6fc8ad6f-f74f-46ff-8b81-b8e4caa609b1",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8739264857437307
+  },
+  {
+    "eval_id": "eval_case_037",
+    "session_id": "___eval___session___ecb32efa-530e-4fa2-8be4-293500ed268f",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8082340195016251
+  },
+  {
+    "eval_id": "eval_case_099",
+    "session_id": "___eval___session___87d0eb7b-892b-48bc-b3d6-6fca6515b9d4",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7960962007668178
+  },
+  {
+    "eval_id": "eval_case_094",
+    "session_id": "___eval___session___1562964f-b193-4510-8d15-2deb7c457e4a",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7915194346289752
+  },
+  {
+    "eval_id": "eval_case_095",
+    "session_id": "___eval___session___ce28ffb1-dc1a-44e0-9ac5-11065e7938e1",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8157589803012747
+  },
+  {
+    "eval_id": "eval_case_035",
+    "session_id": "___eval___session___35e274ca-e753-4550-8b48-12708c284c14",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7998557518932564
+  },
+  {
+    "eval_id": "eval_case_087",
+    "session_id": "___eval___session___c5983afe-62ad-4215-a08f-b101227547f3",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7890535917901939
+  },
+  {
+    "eval_id": "eval_case_061",
+    "session_id": "___eval___session___e6bbb896-b072-48d3-a785-eb0ed380ffac",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8934426229508197
+  },
+  {
+    "eval_id": "eval_case_069",
+    "session_id": "___eval___session___0ed5e704-c535-4bf1-94c6-b2463dd242d7",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.29063670411985015
+  },
+  {
+    "eval_id": "eval_case_031",
+    "session_id": "___eval___session___9ef72705-5704-4f4d-8472-865be05559b7",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7504338771259977
+  },
+  {
+    "eval_id": "eval_case_092",
+    "session_id": "___eval___session___b41f47e5-1a9b-4bfc-851f-8a3822e105c3",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.5895032802249297
+  },
+  {
+    "eval_id": "eval_case_071",
+    "session_id": "___eval___session___66d03c21-aea5-4e73-8012-d0011e5b6eb4",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8896198830409356
+  },
+  {
+    "eval_id": "eval_case_011",
+    "session_id": "___eval___session___e1f4a3ea-b35b-45de-b123-d7d9e4eb4d77",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8270412642669008
+  },
+  {
+    "eval_id": "eval_case_047",
+    "session_id": "___eval___session___99ebc88d-90cb-4531-897d-95f498e2d38e",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7823479005998286
+  },
+  {
+    "eval_id": "eval_case_091",
+    "session_id": "___eval___session___3952dfb3-d932-4cf3-9668-5cebda64168a",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.874281018898932
+  },
+  {
+    "eval_id": "eval_case_034",
+    "session_id": "___eval___session___9f27edce-ffd6-4192-b8fe-b6120acee8ee",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.15602836879432622
+  },
+  {
+    "eval_id": "eval_case_073",
+    "session_id": "___eval___session___8f0e9874-a8aa-4984-84be-618125e2a129",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8782191182889568
+  },
+  {
+    "eval_id": "eval_case_065",
+    "session_id": "___eval___session___dddba89b-4287-4c50-a6e4-11295ecfeb64",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.842687074829932
+  },
+  {
+    "eval_id": "eval_case_079",
+    "session_id": "___eval___session___12c3437c-b7e0-4878-acf9-4e6f7d2ee6d3",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8704156479217604
+  },
+  {
+    "eval_id": "eval_case_086",
+    "session_id": "___eval___session___083df9a6-d4c6-4647-a92c-0bc212b8d66f",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7451505016722407
+  },
+  {
+    "eval_id": "eval_case_084",
+    "session_id": "___eval___session___376f6f37-255c-420e-9fc5-db9d37e0dedd",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7543391188251
+  },
+  {
+    "eval_id": "eval_case_007",
+    "session_id": "___eval___session___3882ada1-2ac5-4fc9-be7e-d1e2ff331b53",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.8650476483246234
+  },
+  {
+    "eval_id": "eval_case_066",
+    "session_id": "___eval___session___e481be5d-5ad4-4734-844b-676120b430e5",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8233618233618234
+  },
+  {
+    "eval_id": "eval_case_005",
+    "session_id": "___eval___session___14fa28c5-03ec-4d98-8eaf-cb0c2f991022",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8240985048372911
+  },
+  {
+    "eval_id": "eval_case_077",
+    "session_id": "___eval___session___26b649b2-25fe-49d7-8904-f88535344292",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.30110159118727053
+  },
+  {
+    "eval_id": "eval_case_043",
+    "session_id": "___eval___session___21852835-1295-456b-a0f7-eae86feab9b3",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8109102053325161
+  },
+  {
+    "eval_id": "eval_case_019",
+    "session_id": "___eval___session___281a7dd5-618c-481f-b723-9154e4b1be43",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.28274428274428276
+  },
+  {
+    "eval_id": "eval_case_075",
+    "session_id": "___eval___session___a71d3f03-c506-4fe4-b8ec-03f63305a6f5",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.3556187766714083
+  },
+  {
+    "eval_id": "eval_case_024",
+    "session_id": "___eval___session___7b0aa3d4-7182-4f81-a131-19912de3a1c2",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8667953667953667
+  },
+  {
+    "eval_id": "eval_case_082",
+    "session_id": "___eval___session___d2b896f7-1531-4e41-bbd3-d69fc7633993",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.766966475878986
+  },
+  {
+    "eval_id": "eval_case_089",
+    "session_id": "___eval___session___744f17fd-890c-4d15-a5f1-e300418de8fa",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.632996632996633
+  },
+  {
+    "eval_id": "eval_case_008",
+    "session_id": "___eval___session___ce8457c4-3505-4b10-a34d-a740b39e2a37",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8511166253101737
+  },
+  {
+    "eval_id": "eval_case_040",
+    "session_id": "___eval___session___b7d0bf05-0c3e-47f8-a3a9-4319fc3e5c96",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.897910447761194
+  },
+  {
+    "eval_id": "eval_case_039",
+    "session_id": "___eval___session___4e6b5e18-d8b9-4baf-b4d9-3ef06de5ccd3",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7586206896551725
+  },
+  {
+    "eval_id": "eval_case_020",
+    "session_id": "___eval___session___1880756a-9c0d-413d-a6d0-d52191c5e6d9",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8847858197932054
+  },
+  {
+    "eval_id": "eval_case_093",
+    "session_id": "___eval___session___547212c5-8b47-406e-a512-9983ba52ea9d",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8605341246290802
+  },
+  {
+    "eval_id": "eval_case_083",
+    "session_id": "___eval___session___eadf9cbb-81ea-46a4-b57f-6babc31247f7",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.6497571505666487
+  },
+  {
+    "eval_id": "eval_case_056",
+    "session_id": "___eval___session___4da83a35-a031-478d-9cb1-1ed28797b85b",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.6088583905177792
+  },
+  {
+    "eval_id": "eval_case_060",
+    "session_id": "___eval___session___938dd7cc-ccd9-41e5-9d38-44e472f62442",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8358433734939759
+  },
+  {
+    "eval_id": "eval_case_053",
+    "session_id": "___eval___session___b0c5f059-930b-4327-961f-cb10f0dd4d98",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8434448061556673
+  },
+  {
+    "eval_id": "eval_case_100",
+    "session_id": "___eval___session___e270611d-31b1-4867-88d2-f7bb65319d95",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8259212198221093
+  },
+  {
+    "eval_id": "eval_case_012",
+    "session_id": "___eval___session___5494c31e-04e8-4f8d-a296-c6add1cbcc48",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8891340319911748
+  },
+  {
+    "eval_id": "eval_case_015",
+    "session_id": "___eval___session___04d1c8a8-374c-440e-87c7-e1fd5ed8b04b",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8781443972557988
+  },
+  {
+    "eval_id": "eval_case_004",
+    "session_id": "___eval___session___9e42c919-310c-4b84-9199-a37874cadd33",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8288945640277271
+  },
+  {
+    "eval_id": "eval_case_088",
+    "session_id": "___eval___session___4ce3f423-6ba0-4829-8630-17d104e7c56f",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8781275221953188
+  },
+  {
+    "eval_id": "eval_case_023",
+    "session_id": "___eval___session___23387b4c-65fd-4f21-9c67-8e5db0d38161",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8333333333333333
+  },
+  {
+    "eval_id": "eval_case_032",
+    "session_id": "___eval___session___900461d0-b043-4e4c-8d42-4e9673409dc1",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.1548556430446194
+  },
+  {
+    "eval_id": "eval_case_064",
+    "session_id": "___eval___session___c190833b-27a4-4864-8eab-b2c625100280",
+    "tool_trajectory_avg_score": 0.0,
+    "response_match_score": 0.680746561886051
+  },
+  {
+    "eval_id": "eval_case_036",
+    "session_id": "___eval___session___0650c970-7f4b-4f92-8b13-c7268edac559",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.5062545989698307
+  },
+  {
+    "eval_id": "eval_case_096",
+    "session_id": "___eval___session___c33e08ff-172f-4657-a962-6c61cbd12540",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8623265741728923
+  },
+  {
+    "eval_id": "eval_case_080",
+    "session_id": "___eval___session___ace3a350-2564-4d49-b5a3-627fd8ac4d49",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8920415224913494
+  },
+  {
+    "eval_id": "eval_case_051",
+    "session_id": "___eval___session___e100f503-ae5f-4105-8d67-91348008a906",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8745205479452054
+  },
+  {
+    "eval_id": "eval_case_076",
+    "session_id": "___eval___session___4320052e-2ff3-4236-9df0-1ca018810922",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.748646558391338
+  },
+  {
+    "eval_id": "eval_case_057",
+    "session_id": "___eval___session___e4f06688-ec2c-4ceb-8416-3715964dcfde",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.13958028306490972
+  }
+]

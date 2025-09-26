@@ -1,0 +1,602 @@
+[
+  {
+    "eval_id": "focus_uncleareval_case_004",
+    "session_id": "___eval___session___357481c2-cccc-4e9a-9cb6-bbfa97fbc2d8",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7855626326963906
+  },
+  {
+    "eval_id": "focus_uncleareval_case_065",
+    "session_id": "___eval___session___a4976f2b-4cb8-41c7-a837-308282b0cb1c",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8262711864406779
+  },
+  {
+    "eval_id": "focus_uncleareval_case_031",
+    "session_id": "___eval___session___0717b109-3e64-4a6a-92b3-49e87fd93a2c",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.47441860465116276
+  },
+  {
+    "eval_id": "focus_uncleareval_case_095",
+    "session_id": "___eval___session___f7c3646d-e66e-4b86-a857-a5fb0cfbc39d",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7935222672064778
+  },
+  {
+    "eval_id": "focus_uncleareval_case_097",
+    "session_id": "___eval___session___763d914c-4005-4ec1-8163-44e9d4ccb64e",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8344370860927153
+  },
+  {
+    "eval_id": "focus_uncleareval_case_021",
+    "session_id": "___eval___session___bda333e3-6041-4bed-a760-d8c2eca719e2",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7983539094650206
+  },
+  {
+    "eval_id": "focus_uncleareval_case_050",
+    "session_id": "___eval___session___0cf8861c-9a75-4b94-b99e-34af916e05cc",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7967479674796748
+  },
+  {
+    "eval_id": "focus_uncleareval_case_030",
+    "session_id": "___eval___session___83c20862-66c3-47ad-9eba-ad345f68c644",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8012618296529969
+  },
+  {
+    "eval_id": "focus_uncleareval_case_046",
+    "session_id": "___eval___session___81623044-43fc-4ab9-8547-7531d1b210d7",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7982456140350876
+  },
+  {
+    "eval_id": "focus_uncleareval_case_034",
+    "session_id": "___eval___session___901eeb41-dec7-4738-900e-726815cf8fa7",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8571428571428571
+  },
+  {
+    "eval_id": "focus_uncleareval_case_035",
+    "session_id": "___eval___session___ddfad4e4-a8aa-4508-b2a5-a6cd1819269e",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8275862068965516
+  },
+  {
+    "eval_id": "focus_uncleareval_case_053",
+    "session_id": "___eval___session___57075b5f-b159-4960-83a4-e7799bf27e2c",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8266666666666667
+  },
+  {
+    "eval_id": "focus_uncleareval_case_083",
+    "session_id": "___eval___session___254b28c2-f5f4-4a5a-a529-7b0c3d4258e1",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8723404255319149
+  },
+  {
+    "eval_id": "focus_uncleareval_case_013",
+    "session_id": "___eval___session___e5dbc776-178c-4ce8-91c1-a00348d28de0",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7824175824175824
+  },
+  {
+    "eval_id": "focus_uncleareval_case_009",
+    "session_id": "___eval___session___3ee43833-9415-474e-b97d-b4d98a8b1a30",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8059701492537313
+  },
+  {
+    "eval_id": "focus_uncleareval_case_090",
+    "session_id": "___eval___session___88da8e06-cf8d-4300-ac7d-b5e5f544703b",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7900207900207901
+  },
+  {
+    "eval_id": "focus_uncleareval_case_098",
+    "session_id": "___eval___session___1cab84c3-5245-4e4d-845f-45e2e6f594d7",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8385826771653544
+  },
+  {
+    "eval_id": "focus_uncleareval_case_073",
+    "session_id": "___eval___session___34322a29-e1d8-4132-92c7-f6e09dc9f481",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8073394495412844
+  },
+  {
+    "eval_id": "focus_uncleareval_case_072",
+    "session_id": "___eval___session___6999a30c-87de-4168-9e31-bcff6dbf9dc5",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8314606741573034
+  },
+  {
+    "eval_id": "focus_uncleareval_case_063",
+    "session_id": "___eval___session___3478e7b8-1711-4de6-84b7-d63a66c64397",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7972972972972974
+  },
+  {
+    "eval_id": "focus_uncleareval_case_076",
+    "session_id": "___eval___session___2b41638e-34ba-4c5a-9fcb-2f6da3279808",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.831967213114754
+  },
+  {
+    "eval_id": "focus_uncleareval_case_012",
+    "session_id": "___eval___session___42f3f200-528d-482b-bc96-b6cd047a70fa",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8018867924528301
+  },
+  {
+    "eval_id": "focus_uncleareval_case_075",
+    "session_id": "___eval___session___6c4f5386-5677-4cd3-918a-3ad35d656570",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7999999999999999
+  },
+  {
+    "eval_id": "focus_uncleareval_case_060",
+    "session_id": "___eval___session___b302cf48-4925-44c4-941d-a0cf23d80b1b",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7701612903225807
+  },
+  {
+    "eval_id": "focus_uncleareval_case_032",
+    "session_id": "___eval___session___13febc85-6d5a-4b82-8fba-4c48cae98e65",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8070175438596491
+  },
+  {
+    "eval_id": "focus_uncleareval_case_023",
+    "session_id": "___eval___session___fc45ac19-1a8b-44bc-ad24-9d2a41d7c9f6",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7698259187620891
+  },
+  {
+    "eval_id": "focus_uncleareval_case_010",
+    "session_id": "___eval___session___6303b610-21c5-4f92-af40-4e4ef348515c",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7531806615776082
+  },
+  {
+    "eval_id": "focus_uncleareval_case_051",
+    "session_id": "___eval___session___5d5185b5-a600-4255-854d-635ed92f6766",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.5211267605633803
+  },
+  {
+    "eval_id": "focus_uncleareval_case_059",
+    "session_id": "___eval___session___dc8ebdc8-f20c-4456-a32b-fb9477065155",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.735483870967742
+  },
+  {
+    "eval_id": "focus_uncleareval_case_048",
+    "session_id": "___eval___session___64ab47c8-ef62-4c9f-a0cb-c75790ba97e4",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7916666666666666
+  },
+  {
+    "eval_id": "focus_uncleareval_case_096",
+    "session_id": "___eval___session___b0e83ea5-6aca-480f-b235-ebd3051ce52e",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7960199004975123
+  },
+  {
+    "eval_id": "focus_uncleareval_case_054",
+    "session_id": "___eval___session___bac6dd26-e488-407f-8a7f-1a87856fa43d",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8369028006589787
+  },
+  {
+    "eval_id": "focus_uncleareval_case_041",
+    "session_id": "___eval___session___8fa3920a-a3f4-4c79-a466-fc684b6fb3c8",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8104265402843601
+  },
+  {
+    "eval_id": "focus_uncleareval_case_018",
+    "session_id": "___eval___session___dc202ac9-d93d-4574-928b-f42833abedfb",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8932461873638344
+  },
+  {
+    "eval_id": "focus_uncleareval_case_049",
+    "session_id": "___eval___session___e252bc65-98d7-47ca-a856-2215f81ed49d",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8247978436657682
+  },
+  {
+    "eval_id": "focus_uncleareval_case_016",
+    "session_id": "___eval___session___9cb0c401-b53d-4ee8-9c52-0eb4d6166c7a",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8902195608782435
+  },
+  {
+    "eval_id": "focus_uncleareval_case_037",
+    "session_id": "___eval___session___02772476-8c2f-4270-b3eb-78bdc1b4bfdd",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8246013667425969
+  },
+  {
+    "eval_id": "focus_uncleareval_case_033",
+    "session_id": "___eval___session___515b7533-98bb-46f8-a2e4-f3416a72841f",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.817391304347826
+  },
+  {
+    "eval_id": "focus_uncleareval_case_036",
+    "session_id": "___eval___session___b2134eca-e5c9-4420-85c4-71ec519cf684",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8210023866348449
+  },
+  {
+    "eval_id": "focus_uncleareval_case_047",
+    "session_id": "___eval___session___d257484d-8c03-4946-ae40-e656e0376960",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8510638297872342
+  },
+  {
+    "eval_id": "focus_uncleareval_case_093",
+    "session_id": "___eval___session___e6db829d-866d-4790-aca9-c8ffc898dc95",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8514851485148515
+  },
+  {
+    "eval_id": "focus_uncleareval_case_056",
+    "session_id": "___eval___session___c5392c17-46b6-4d2f-b7cb-0df465be89ce",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8410852713178295
+  },
+  {
+    "eval_id": "focus_uncleareval_case_024",
+    "session_id": "___eval___session___11751be5-2933-42b3-8ef4-acbdaa85edcf",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.819599109131403
+  },
+  {
+    "eval_id": "focus_uncleareval_case_087",
+    "session_id": "___eval___session___02b8a1ff-383c-4a97-a4ca-039fa35830f5",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7893738140417457
+  },
+  {
+    "eval_id": "focus_uncleareval_case_026",
+    "session_id": "___eval___session___adf54495-cb80-4fd8-a40b-fe28df060503",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.695443645083933
+  },
+  {
+    "eval_id": "focus_uncleareval_case_039",
+    "session_id": "___eval___session___19b5772e-234b-4886-98e2-90a4a61ee31c",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8450244698205546
+  },
+  {
+    "eval_id": "focus_uncleareval_case_020",
+    "session_id": "___eval___session___2155a699-503d-48d9-bc09-37726c549bee",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.6374045801526717
+  },
+  {
+    "eval_id": "focus_uncleareval_case_099",
+    "session_id": "___eval___session___586915ef-d478-49f1-94f5-afb84fd7cd7f",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8445839874411304
+  },
+  {
+    "eval_id": "focus_uncleareval_case_042",
+    "session_id": "___eval___session___61b6ceb3-ead1-4ce2-b0e4-0875d7ee32ab",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7243243243243243
+  },
+  {
+    "eval_id": "focus_uncleareval_case_002",
+    "session_id": "___eval___session___596973f4-adea-41bb-976d-b477f967c4d8",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7688787185354692
+  },
+  {
+    "eval_id": "focus_uncleareval_case_017",
+    "session_id": "___eval___session___b1d97290-8c07-4cba-847d-af50a269b7a6",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7725490196078432
+  },
+  {
+    "eval_id": "focus_uncleareval_case_006",
+    "session_id": "___eval___session___e2b92d80-396d-47eb-9bee-99cafadb1a7d",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.6840579710144928
+  },
+  {
+    "eval_id": "focus_uncleareval_case_091",
+    "session_id": "___eval___session___511db4dd-794f-4ae5-a4f1-a73269047274",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8106904231625836
+  },
+  {
+    "eval_id": "focus_uncleareval_case_074",
+    "session_id": "___eval___session___38183494-47db-4c72-9683-0d180713da2d",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8214285714285715
+  },
+  {
+    "eval_id": "focus_uncleareval_case_029",
+    "session_id": "___eval___session___eff6354b-b014-4856-bbf1-e1c542934921",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7581967213114754
+  },
+  {
+    "eval_id": "focus_uncleareval_case_064",
+    "session_id": "___eval___session___484f85f6-8bb9-4532-8070-7bb317a3f225",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8958333333333334
+  },
+  {
+    "eval_id": "focus_uncleareval_case_081",
+    "session_id": "___eval___session___5ac27f9c-db7a-4cc0-a3d9-af9e9dcdfc95",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8036529680365297
+  },
+  {
+    "eval_id": "focus_uncleareval_case_084",
+    "session_id": "___eval___session___2d801b7f-a697-4822-9f29-151d13321a17",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8599605522682445
+  },
+  {
+    "eval_id": "focus_uncleareval_case_082",
+    "session_id": "___eval___session___57eee987-b34c-44b7-9059-127e458c7781",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8785942492012778
+  },
+  {
+    "eval_id": "focus_uncleareval_case_038",
+    "session_id": "___eval___session___ee1820c2-dbef-462b-b027-9ccd11117f0d",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7363420427553445
+  },
+  {
+    "eval_id": "focus_uncleareval_case_088",
+    "session_id": "___eval___session___59727b58-d9f1-4d62-b903-ba5c5f6deb0e",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8801742919389978
+  },
+  {
+    "eval_id": "focus_uncleareval_case_057",
+    "session_id": "___eval___session___601e02fc-5049-41b1-95bf-57a651d741b7",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8159203980099502
+  },
+  {
+    "eval_id": "focus_uncleareval_case_052",
+    "session_id": "___eval___session___f4d8e712-e829-4bfe-b11e-4f793926ad98",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8468809073724007
+  },
+  {
+    "eval_id": "focus_uncleareval_case_070",
+    "session_id": "___eval___session___2722eab5-cc1b-4543-abbd-77db253966dd",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7900207900207898
+  },
+  {
+    "eval_id": "focus_uncleareval_case_066",
+    "session_id": "___eval___session___338edd1f-2896-42e4-bddb-1f7b9f051bc0",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8269662921348314
+  },
+  {
+    "eval_id": "focus_uncleareval_case_085",
+    "session_id": "___eval___session___4e957cd2-96d0-404f-8a41-b5a2008da1d7",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7857142857142858
+  },
+  {
+    "eval_id": "focus_uncleareval_case_045",
+    "session_id": "___eval___session___a7c02f3e-f580-4584-8586-e73c07e22b90",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7431340872374798
+  },
+  {
+    "eval_id": "focus_uncleareval_case_019",
+    "session_id": "___eval___session___2bdf6597-0dac-4795-86f2-2ca2f427a72c",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7314487632508835
+  },
+  {
+    "eval_id": "focus_uncleareval_case_089",
+    "session_id": "___eval___session___499374e5-497a-433a-b2cd-12417594e087",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7346938775510204
+  },
+  {
+    "eval_id": "focus_uncleareval_case_014",
+    "session_id": "___eval___session___15f32e8c-9c76-4db0-a248-e9aff244a079",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.718987341772152
+  },
+  {
+    "eval_id": "focus_uncleareval_case_040",
+    "session_id": "___eval___session___c78b4279-6557-46e1-9b45-6cc4498de4e4",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7915993537964459
+  },
+  {
+    "eval_id": "focus_uncleareval_case_068",
+    "session_id": "___eval___session___59626e93-6ba6-466c-862c-ce3c67e3d8ec",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.84
+  },
+  {
+    "eval_id": "focus_uncleareval_case_078",
+    "session_id": "___eval___session___5e61e99d-cb37-447b-8427-9de5c0016ae3",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.9314420803782507
+  },
+  {
+    "eval_id": "focus_uncleareval_case_062",
+    "session_id": "___eval___session___d4cf76f6-917f-411d-88a1-b92da82a81cf",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8606356968215159
+  },
+  {
+    "eval_id": "focus_uncleareval_case_092",
+    "session_id": "___eval___session___b699dfa7-69e5-48b0-b051-064cd4de71d6",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7858942065491185
+  },
+  {
+    "eval_id": "focus_uncleareval_case_100",
+    "session_id": "___eval___session___11c19e53-ee01-4cdd-b565-c76350820f79",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.853448275862069
+  },
+  {
+    "eval_id": "focus_uncleareval_case_094",
+    "session_id": "___eval___session___664a557b-1680-4373-a9d5-0f3e3594dbd8",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8490566037735849
+  },
+  {
+    "eval_id": "focus_uncleareval_case_007",
+    "session_id": "___eval___session___e41db764-f4c7-4dd0-baae-29eb688f6bf4",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8856682769726247
+  },
+  {
+    "eval_id": "focus_uncleareval_case_027",
+    "session_id": "___eval___session___82d2b0c7-8862-4170-b87a-26a86c7f040e",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8069498069498069
+  },
+  {
+    "eval_id": "focus_uncleareval_case_067",
+    "session_id": "___eval___session___eb26e23c-27a0-4c65-aba6-80b621a0efb5",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7093425605536333
+  },
+  {
+    "eval_id": "focus_uncleareval_case_003",
+    "session_id": "___eval___session___31c20fdd-98a1-44be-b7d7-8af856702823",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8616352201257862
+  },
+  {
+    "eval_id": "focus_uncleareval_case_079",
+    "session_id": "___eval___session___f1dc6a35-d528-495a-b23e-e49b845a0401",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8527472527472527
+  },
+  {
+    "eval_id": "focus_uncleareval_case_058",
+    "session_id": "___eval___session___8cd81ce8-22dc-4a02-a52c-101e111d7d6e",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8151093439363818
+  },
+  {
+    "eval_id": "focus_uncleareval_case_028",
+    "session_id": "___eval___session___68735f54-11fe-4e76-8078-fa56f4c7ca32",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7442748091603052
+  },
+  {
+    "eval_id": "focus_uncleareval_case_025",
+    "session_id": "___eval___session___e575f629-7fc2-4c7c-b42e-18f217ee9153",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8164794007490638
+  },
+  {
+    "eval_id": "focus_uncleareval_case_080",
+    "session_id": "___eval___session___8186dee7-aff3-4d48-b797-e2ae5e18f052",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7976878612716763
+  },
+  {
+    "eval_id": "focus_uncleareval_case_077",
+    "session_id": "___eval___session___6685142e-1333-427c-a2cc-0588acc04299",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7390180878552972
+  },
+  {
+    "eval_id": "focus_uncleareval_case_022",
+    "session_id": "___eval___session___da7743ce-3793-4f72-a7e9-e766037f1171",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8268839103869653
+  },
+  {
+    "eval_id": "focus_uncleareval_case_071",
+    "session_id": "___eval___session___6f11feef-d8b2-4442-a918-a75968062ad6",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8027522935779817
+  },
+  {
+    "eval_id": "focus_uncleareval_case_011",
+    "session_id": "___eval___session___00c91b83-a829-46f2-8c46-1fe52f530f55",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7906976744186046
+  },
+  {
+    "eval_id": "focus_uncleareval_case_055",
+    "session_id": "___eval___session___895e5d67-ddb3-4663-b2e5-073b53a5bcbe",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8076923076923077
+  },
+  {
+    "eval_id": "focus_uncleareval_case_069",
+    "session_id": "___eval___session___db14c9d4-6bee-49aa-b786-3ef3b3462125",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8140703517587939
+  },
+  {
+    "eval_id": "focus_uncleareval_case_044",
+    "session_id": "___eval___session___20fb8260-793e-4f22-92c8-629390af1a89",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.75
+  },
+  {
+    "eval_id": "focus_uncleareval_case_086",
+    "session_id": "___eval___session___b7381c3f-ecfd-4446-bd64-58b40afdd3c3",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.794642857142857
+  },
+  {
+    "eval_id": "focus_uncleareval_case_008",
+    "session_id": "___eval___session___ef6702fa-5e30-44e9-a663-13dcaa4527ee",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8358208955223881
+  },
+  {
+    "eval_id": "focus_uncleareval_case_043",
+    "session_id": "___eval___session___e7468cc1-2640-4fcf-9b4b-526d09c3e48b",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.7100371747211897
+  },
+  {
+    "eval_id": "focus_uncleareval_case_061",
+    "session_id": "___eval___session___9e2105f9-1bb3-42cd-b092-a1eb0fcda0fd",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.6434782608695652
+  },
+  {
+    "eval_id": "focus_uncleareval_case_005",
+    "session_id": "___eval___session___c9ce19e9-8540-4f84-a83c-b0a00ea71ec5",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8984615384615384
+  },
+  {
+    "eval_id": "focus_uncleareval_case_001",
+    "session_id": "___eval___session___356f3ad4-ddb1-4ee9-a66a-f2aa4ffe7a33",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8216216216216217
+  },
+  {
+    "eval_id": "focus_uncleareval_case_015",
+    "session_id": "___eval___session___315aada3-7067-49f6-8832-29b7bb684827",
+    "tool_trajectory_avg_score": 1.0,
+    "response_match_score": 0.8615384615384616
+  }
+]
