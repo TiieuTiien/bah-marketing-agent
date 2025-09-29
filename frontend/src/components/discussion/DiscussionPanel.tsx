@@ -178,9 +178,10 @@ const DiscussionPanel = () => {
           {showAIPanel && idea && (
             <div className="discussion-panel__ai">
               <AIAgentPanel
+                userId={1}
                 ideaId={idea.idea_id}
-                ideaTitle={idea.title}
                 className="discussion-panel__ai-panel"
+                showAIPanel={showAIPanel}
               />
             </div>
           )}

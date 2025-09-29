@@ -10,11 +10,10 @@ interface ChatWindowProps {
   showWelcome?: boolean;
 }
 
-const ChatWindow: React.FC<ChatWindowProps> = ({ 
-  messages, 
-  isLoading, 
-  ideaTitle, 
-  showWelcome = false 
+const ChatWindow: React.FC<ChatWindowProps> = ({
+  messages,
+  isLoading,
+  showWelcome = false,
 }) => {
   const chatEndRef = useRef<HTMLDivElement>(null);
 
@@ -79,7 +78,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                   <span></span>
                   <span></span>
                 </div>
-                <span className="typing-text">AI đang suy nghĩ...</span>
+                <span className="typing-text">Agents đang suy nghĩ...</span>
               </div>
             </div>
           </div>

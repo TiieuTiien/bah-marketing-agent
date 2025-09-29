@@ -30,7 +30,7 @@ def process_file(file_path, destination_directory):
 
 if __name__ == "__main__":
     # Define the source and destination directories
-    source_directory = 'eval_history'
+    source_directory = 'helper'
     destination_directory = 'parsed'
 
     # Create the destination directory if it doesn't already exist

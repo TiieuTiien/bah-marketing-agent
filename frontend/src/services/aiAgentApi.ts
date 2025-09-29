@@ -1,8 +1,5 @@
-
-
 import { ADKEvent, AgentLog, AIMessage, ChatRequest } from "@/types/aiagent";
 import axios from "axios";
-import { mockAgentApi } from "./mockApi";
 import { handleError } from "@/helpers/ErrorHandler";
 
 const API_BASE_URL = import.meta.env.VITE_AI_API_URL || 'http://127.0.0.1:8000';
@@ -11,15 +8,7 @@ const APP_NAME = 'book_review_agent';
 
 const aiApiClient = axios.create({
     baseURL: API_BASE_URL,
-    timeout: 60000,
-    headers: {
-        'Content-Type': 'application/json'
-    }
-});
-
-const backendApiClient = axios.create({
-    baseURL: API_URL,
-    timeout: 10000,
+    timeout: 180000,
     headers: {
         'Content-Type': 'application/json'
     }
@@ -71,13 +60,10 @@ export const aiApi = {
             const response = await aiApiClient.get<SessionResponse>(
                 `/apps/${APP_NAME}/users/${userId}/sessions`
             );
-            console.log("Current session", response);
 
             if (Array.isArray(response?.data) && response?.data.length > 0) {
-                console.log("Session 1");
                 return 1
             }
-            console.log("Session 0");
             return 0
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -95,7 +81,7 @@ export const aiApi = {
         userId: number,
         sessionId: number,
         message: string,
-    ): Promise<AIMessage> => {
+    ): Promise<AIMessage[]> => {
         const payload: ChatRequest = {
             appName: APP_NAME,
             userId: String(userId),
@@ -109,42 +95,46 @@ export const aiApi = {
         try {
             const response = await aiApiClient.post('/run', payload);
             const events: ADKEvent[] = response.data;
-
-            let assistantText: string | undefined;
+            console.log("Events from /run:", events);
+            const aiMessages: AIMessage[] = [];
             let audioFilePath: string | undefined;
 
             for (const event of events) {
-                const part = event.content?.parts?.[0];
-                if (!part) continue;
+                // Defensive: check event.content and event.content.parts
+                const content = event.content;
+                const part = content?.parts && Array.isArray(content.parts) ? content.parts[0] : undefined;
 
-                if (event.content.role === 'model' && part.text) {
-                    assistantText = part.text;
+                // Parse model/assistant text
+                if (content?.role === 'model' && part?.text) {
+                    aiMessages.push({
+                        role: 'assistant',
+                        content: part.text,
+                        audioPath: undefined,
+                        timestamp: event.timestamp ? new Date(event.timestamp * 1000).toISOString() : new Date().toISOString(),
+                    });
                 }
 
-                if (part.functionResponse) {
-                    const responseText = part.functionResponse.response.result.content[0]?.text;
+                // Parse functionResponse for audioPath
+                if (part?.functionResponse) {
+                    const responseText = part.functionResponse?.response?.result?.content?.[0]?.text;
                     if (responseText && responseText.includes("File saved as:")) {
                         audioFilePath = responseText.split("File saved as:")[1]?.trim().split(/\s+/)[0]?.replace('.', '');
                     }
                 }
             }
 
-            if (!assistantText) {
+            // If any message needs audioPath, update it
+            if (audioFilePath && aiMessages.length > 0) {
+                aiMessages[aiMessages.length - 1].audioPath = audioFilePath;
+            }
+
+            if (aiMessages.length === 0) {
                 throw new Error('Không nhận được phản hồi từ AI');
             }
 
-            const aiMessage: AIMessage = {
-                role: 'assistant',
-                content: assistantText,
-                audioPath: audioFilePath,
-                timestamp: new Date().toISOString(),
-            };
+            // No need to save agent log, all history is managed by session API
 
-            if (sessionId) {
-                await aiAgentApi.saveAgentLog(sessionId, message, assistantText);
-            }
-
-            return aiMessage;
+            return aiMessages;
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 console.error("Failed to send message to AI: ", error);
@@ -152,50 +142,57 @@ export const aiApi = {
             throw new Error('Không thể gửi tin nhắn đến AI');
         }
     },
-};
 
-const USE_MOCK_API = true;
-
-export const aiAgentApi = USE_MOCK_API ? mockAgentApi : {
-    saveAgentLog: async (
-        ideaId: number,
-        userPrompt: string,
-        aiResponse: string
-    ): Promise<void> => {
+    getSessionLogs: async (userId: number, sessionId: string): Promise<AIMessage[]> => {
         try {
-            await backendApiClient.post('/agent-logs', {
-                idea_id: ideaId,
-                user_prompt: userPrompt,
-                ai_response: aiResponse,
-                timestamp: new Date().toISOString(),
+            const response = await aiApiClient.get(`/apps/${APP_NAME}/users/${userId}/sessions/${sessionId}`);
+            const events: ADKEvent[] = response.data.events;
+
+            const messages: AIMessage[] = events.map(event => {
+                const part = event.content?.parts?.[0];
+                let isAgent = false;
+                let contentText = part?.text || "";
+
+                // Step 1: Check author
+                if ((event as any)?.author && (event as any).author !== 'user') {
+                    isAgent = true;
+                }
+
+                // Step 2: If agent, handle functionResponse/functionCall/text
+                if (isAgent) {
+                    if (part?.functionResponse) {
+                        const agentName = (event as any)?.actions?.transferToAgent || "";
+                        contentText = `Chuyển hướng đến trợ lý ${agentName}`;
+                    } else if (part?.functionCall) {
+                        const funcCall = (part as any).functionCall;
+                        console.log();
+                        if (funcCall.args && Object.keys(funcCall.args).length > 0) {
+                            contentText = `Thực hiện tác vụ: ${funcCall.name} với tham số ${JSON.stringify(funcCall.args)}`;
+                        } else {
+                            contentText = `Thực hiện tác vụ: ${funcCall.name}`;
+                        }
+                    } else if (contentText === "") {
+                        contentText = "(Agent event không có nội dung)";
+                    }
+                } else {
+                    // User message: only show text
+                    if (!contentText) {
+                        contentText = "";
+                    }
+                }
+
+                return {
+                    role: isAgent ? "assistant" : "user",
+                    content: contentText,
+                    timestamp: event.timestamp ? new Date(event.timestamp * 1000).toISOString() : new Date().toISOString(),
+                };
             });
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                console.error("Failed to save agent log: ", error.response?.data?.detail);
-            }
-        }
-    },
 
-    getAgentLogs: async (ideaId: number): Promise<AgentLog[]> => {
-        try {
-            const response = await backendApiClient.get(`/ideas/${ideaId}/agent-logs`);
-            return response.data;
+            return messages;
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                console.error("Failed to get agent logs: ", error.response?.data?.detail);
-            }
-            return [];
-        }
-    },
-
-    clearAgentLogs: async (ideaId: number): Promise<void> => {
-        try {
-            await backendApiClient.delete(`/ideas/${ideaId}/agent-logs`);
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                console.error("Failed to clear agent logs: ", error.response?.data?.detail);
-            }
-            throw new Error('Không thể xóa lịch sử chat');
+            handleError(error);
+            console.error("Failed to fetch session logs: ", error);
+            throw new Error('Không thể lấy log cuộc trò chuyện');
         }
     },
 };

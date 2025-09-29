@@ -38,6 +38,10 @@ body {
   user-select: none;
 }
 
+.btn:focus {
+  outline: none;
+}
+
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;

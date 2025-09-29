@@ -147,7 +147,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             <FaEdit />
           </SidebarItem>
           <SidebarItem
-            name="Idea List"
+            name="Danh sách ý tưởng"
             isCollapsed={isCollapsed}
             isActive={currentView === "idealist"}
             onClick={() => onViewChange("idealist")}
