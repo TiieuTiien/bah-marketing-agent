@@ -1,8 +1,10 @@
 # BAH Marketing Agent
 
-BAH-Marketing-Agent is an AI Agent system designed to support and enhance marketing content creation for the Book and Action HaUI Club, leveraging advanced AI to efficiently generate diverse content.
+BAH-Marketing-Agent is an AI Agent system designed to support and enhance marketing content creation for the Book and Action HaUI Club. It provides a full-stack example combining a FastAPI backend, a React + TypeScript frontend, and AI agent integrations to help generate and manage marketing ideas, comments, and collaborative workflows.
 
-## Project Structure
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+
+## Project structure
 
 ```
 bah-marketing-agent/
@@ -39,109 +41,79 @@ bah-marketing-agent/
 │   │   ├── services/
 │   │   ├── types/
 │   │   ├── utils/
-│   │   ├── App.tsx
+│   │   └── App.tsx
 ├── .gitignore
 └── README.md
 ```
 
-## Architecture
+## Key features
 
-### Backend (FastAPI)
-- **Framework**: FastAPI with Python
-- **Database**: SQLAlchemy ORM with PostgreSQL/SQLite support
-- **API**: RESTful endpoints for ideas and comments management
-- **Models**: User, Idea, Comment, and Tag entities with proper relationships
+- Idea Management: create, view, update, delete marketing ideas
+- Comment System: threaded discussions on ideas
+- Tag System: categorize and filter ideas
+- User Management: authentication and profiles
+- AI Agent Integration: chat interface and AI-assisted content generation
 
-### Frontend (React + TypeScript)
-- **Framework**: React 18 with TypeScript and Vite
-- **Styling**: Custom CSS with responsive design
-- **State Management**: React hooks with local state management
-- **Components**: Modular component architecture for reusability
+## Tech stack
 
-## Features
+Backend
+- FastAPI
+- SQLAlchemy
+- Pydantic
+- PostgreSQL (production) / SQLite (development)
 
-### Core Functionality
-- **Idea Management**: Create, read, update, delete marketing ideas
-- **Comment System**: Threaded discussions on ideas
-- **Tag System**: Categorize and filter ideas with tags
-- **User Management**: User authentication and profile management
-- **AI Agent Integration**: Chat interface for AI-powered assistance
+Frontend
+- React 18 + TypeScript
+- Vite
+- CSS Modules
 
-### UI Components
-- **Dashboard**: Overview of projects and activities
-- **Workspace**: Collaborative environment for idea development
-- **Discussion Panel**: Real-time commenting and feedback
-- **Idea Forms**: Intuitive forms for idea creation and editing
-- **Authentication**: Secure login and registration system
+## Getting started
 
-## Getting Started
-
-### Prerequisites
-- Node.js 18+ and npm/yarn
+Prerequisites
+- Node.js 18+ and npm or yarn
 - Python 3.8+
-- PostgreSQL (optional, can use SQLite for development)
+- (Optional) PostgreSQL for production
 
-### Backend Setup
+Backend (development)
 ```bash
 cd api
+python -m venv .venv
+source .venv/bin/activate  # macOS / Linux
+.\.venv\Scripts\activate   # Windows (PowerShell)
 pip install -r requirements.txt
-python -m app.main
+# Set environment variables as needed (example: DATABASE_URL)
+uvicorn app.main:app --reload
 ```
 
-### Frontend Setup
+Frontend (development)
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-## Development
+Running locally
+- Start the backend first, then the frontend. By default the backend runs on http://127.0.0.1:8000 and the frontend uses Vite (http://localhost:5173).
+- API documentation is available at http://127.0.0.1:8000/docs
 
-### Backend Development
-- **Database**: Uses SQLAlchemy with automatic table creation
-- **Testing**: In-memory test database with mock data
-- **API Documentation**: Automatic OpenAPI/Swagger documentation
+## ADK agents
 
-### Frontend Development
-- **Hot Reload**: Vite provides fast development experience
-- **Type Safety**: Full TypeScript coverage
-- **Component Library**: Reusable components with consistent styling
-- **Mock Data**: Development-time data for testing UI components
-
-## API Endpoints
-
-### Ideas
-- `GET /ideas` - List all ideas with filtering
-- `POST /ideas` - Create new idea
-- `GET /ideas/{id}` - Get specific idea
-- `PUT /ideas/{id}` - Update idea
-- `DELETE /ideas/{id}` - Delete idea
-
-### Comments
-- `GET /ideas/{id}/comments` - List comments for an idea
-- `POST /ideas/{id}/comments` - Create comment
-- `PUT /comments/{id}` - Update comment
-- `DELETE /comments/{id}` - Delete comment
-
-## Technology Stack
-
-### Backend
-- FastAPI
-- SQLAlchemy ORM
-- PostgreSQL/SQLite
-- Pydantic for data validation
-
-### Frontend
-- React 18
-- TypeScript
-- Vite
-- CSS Modules
-- React Router
+This repository includes example agents built with Google ADK under adk_agents/. See adk_agents/README.md for details on configuration, running the agents, and required Google API keys.
 
 ## Contributing
 
+Contributions are welcome! Typical workflow:
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test your changes
-5. Submit a pull request
+2. Create a feature branch (git checkout -b feature/name)
+3. Make changes and add tests
+4. Open a pull request describing your changes
+
+Please follow standard code formatting and include a clear commit message.
+
+## License
+
+This project is licensed under the Apache 2.0 License. See the LICENSE file for details.
+
+## Contact
+
+If you have questions or need help, open an issue or contact the repository maintainer.
