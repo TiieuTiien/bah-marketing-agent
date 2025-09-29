@@ -1,0 +1,1102 @@
+[
+  {
+    "eval_id": "eval_case_001",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'African Cooking 101: African Recipes Cookbook for Beginners'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_002",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Collected Poems of Dylan Thomas'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_003",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Tisarian's Treasure'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_004",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Crazy Iris and Other Stories of the Atomic Aftermath'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_005",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Words for Relocation'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_006",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Oh Christmas Tree'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_007",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Parallel Universes: The Search for Other Worlds'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_008",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Alias Hook'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_009",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Byul's Will Ep.3'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_010",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Incanta Soul-Catcher (Lost Souls #1)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_011",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Hotter Than The Streetlife'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_012",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Mako’s Birth (Mako to Rumi to Chii, #1)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_013",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Mission of Poubalov'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_014",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Lion's Game (John Corey, #2)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_015",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'A Family Like Hannah's'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_016",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Letters of a Post-Impressionist Being the Familiar Correspondence of Vincent Van Gogh'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_017",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Children of the Days: A Calendar of Human History'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_018",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Bodyguard Reunion (Guardians, Inc., #6)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_019",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Iron Trial (Magisterium, #1)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_020",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Guilty Pleasures (Anita Blake, Vampire Hunter, #1)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_021",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Fact of a Body: A Murder and a Memoir'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_022",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Wicked Intentions (Maiden Lane, #1)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_023",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Prince of Tennis, Volume 12: Invincible Man (The Prince of Tennis, #12)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_024",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Til Death Do Us Part'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_025",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Mud Between Your Toes: A Rhodesian Farm'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_026",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Dark and Stormy Knights'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_027",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Under the North Star (Under the North Star, #1)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_028",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Sweet Damage: A Novel'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_029",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Malice of Angels (Esme Quentin Mystery #3)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_030",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Pharmacist of Auschwitz: The Untold Story'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_031",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Poetry : Wings of Emotions Volume II'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_032",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Empire at War Box Set'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_033",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Shackleton: The Voyage of the James Caird: A Graphic Account'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_034",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Perilous Sea (The Elemental Trilogy, #2)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_035",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Portrait of Lisane de Patagnia'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_036",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Rest Of Our Lives (The Rest of Our Lives, #1)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_037",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Smitten (Smitten, #1)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_038",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The new complete guide to women's running'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_039",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Omega's Pack (The Omega Geek #2)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_040",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Future of Our Past (The Remembrance Trilogy, #1)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_041",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Confessions of a Domestic Failure'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_042",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Coco Butternut'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_043",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Jake (Inked Brothers #2)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_044",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Glenrannoch'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_045",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Bitten'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_046",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Nightlight Tales'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_047",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Peter Pan and Wendy'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_048",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Highlander's Folly (Loch Moigh, #3)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_049",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Complete Far Side, 1980–1994'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_050",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Open Secret'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_051",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Hellblazer issues #93-95'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_052",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Little Miss Quick'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_053",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Ricochet'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_054",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Future in America'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_055",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Mystery of the Giant Masks of Sanxingdui'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_056",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'A Risk Worth Taking (Grayson County, #1)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_057",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Portrait in Death (In Death, #16)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_058",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Runaway Bunny'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_059",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The City Wants You Alone (Girl, #3)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_060",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'What Comes From The Earth'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_061",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The First Men in the Moon'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_062",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Bearly Midnight (Midnight, Mississippi, #1)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_063",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Forty Nights (Neima's Ark, #2)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_064",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Beezus and Ramona'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_065",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'To Kill a Mockingbird'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_066",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'In the Devil's Heart (World of de Wolfe Pack; Sins of the Duke, #2)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_067",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Kian'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_068",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Persistence: All Ways Butch and Femme'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_069",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách '180 Proof Vega'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_070",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Fighting Ruben Wolfe : Every Dog has his Day'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_071",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Life Swap'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_072",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Marking Melody (Ashland Pride #3)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_073",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Maybe Baby'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_074",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Small Town Sinners'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_075",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Lonely Road'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_076",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'In The Clear'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_077",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Meditations'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_078",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'IA: Initiate  (IA #1)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_079",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Indiana Jones and the Sargasso Pirates Vol. 2'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_080",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Trouble Maker (The MacKenzie Family #10.5)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_081",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Conflicted Interest (The Conflicted Series, #1)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_082",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Hacking Exposed: Network Security Secrets & Solutions, Second Edition'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_083",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Cowboy Dreams (Love's Legacy, #2)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_084",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Países imaginarios'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_085",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Too Many Crooks Spoil the Broth (An Amish Bed and Breakfast Mystery with Recipes (PennDutch #1))'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_086",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Ascendance'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_087",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'A Place Of Our Own (Texas Heat #3)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_088",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Vermin'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_089",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Night Watch'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_090",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Have Tech Will Travel (Starfleet Corps of Engineers Omnibus, #1)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_091",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Children of the Dark Light (Haunted Minds, #4)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_092",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Fred and Ginger'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_093",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Ghost Moon (Moon #7)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_094",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Blacksmith'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_095",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Shadows Return (Nightrunner, #4)'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_096",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'Forever Amber'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_097",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Billionaire's Puppy - Book 3: Broken In'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_098",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'They Fight Like Soldiers, They Die Like Children: The Global Quest to Eradicate the Use of Child Soldiers'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_099",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'The Ego and the Id'"
+        }
+      ],
+      "role": "user"
+    }
+  },
+  {
+    "eval_id": "eval_case_100",
+    "user_content": {
+      "parts": [
+        {
+          "text": "Tóm tắt nội dung chính của cuốn sách 'His PhD Is in Hypocrisy: And Other Poems about My Crappy Ex-Boyfriend'"
+        }
+      ],
+      "role": "user"
+    }
+  }
+]
