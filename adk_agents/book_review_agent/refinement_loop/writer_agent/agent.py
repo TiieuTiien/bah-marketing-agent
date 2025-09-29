@@ -2,8 +2,7 @@
 This is the main entry point for the Book Review Assistant application.
 It defines the root agent and its sub-agents to form a multi-agent system.
 """
-from google.adk.agents import LlmAgent, LoopAgent, SequentialAgent
-from google.adk.evaluation.agent_evaluator import AgentEvaluator
+from google.adk.agents import LlmAgent
 
 writer_agent = LlmAgent(
     name="writer_agent",

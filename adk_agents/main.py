@@ -2,6 +2,7 @@
 import os
 from google.adk.cli.fast_api import get_fast_api_app
 from google.adk.tools import ToolContext
+from google.adk.artifacts import InMemoryArtifactService # Or GcsArtifactService
 from dotenv import load_dotenv
 import uvicorn
 

@@ -3,8 +3,7 @@ from google.genai import types
 
 async def save_draft_content(tool_context: ToolContext) -> dict:
     """
-    Sử dụng tool này NGAY SAU KHI hiển thị bản nháp cuối cùng cho người dùng.
-    Tool sẽ lưu văn bản bản nháp (`current_draft`) thành artifact để tham khảo và xuất bản sau.
+    Tool để lưu văn bản bản nháp `current_draft` thành artifact để tham khảo và xuất bản sau.
     Luôn gọi với toàn bộ nội dung draft.
     """
     filename = f"current_draft.txt"
