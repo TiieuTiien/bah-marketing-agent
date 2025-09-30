@@ -55,24 +55,6 @@ export const aiApi = {
         }
     },
 
-    listAISession: async (userId: number): Promise<number> => {
-        try {
-            const response = await aiApiClient.get<SessionResponse>(
-                `/apps/${APP_NAME}/users/${userId}/sessions`
-            );
-
-            if (Array.isArray(response?.data) && response?.data.length > 0) {
-                return 1
-            }
-            return 0
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                console.error("Failed to create AI session: ", error.response?.data[0]?.detail);
-            }
-            throw new Error('Không thể tạo phiên chat với AI');
-        }
-    },
-    
     deleteSession: async (userId: number, ideaId: number): Promise<void> => {
         await aiApiClient.delete(`/apps/${APP_NAME}/users/${userId}/sessions/${ideaId}`);
     },
@@ -143,6 +125,19 @@ export const aiApi = {
         }
     },
 
+    listSessionId: async (userId: number): Promise<number[]> => {
+        try {
+            const response = await aiApiClient.get(`/apps/${APP_NAME}/users/${userId}/sessions`)
+            if (Array.isArray(response.data)) {
+                return response.data.map((session: any) => Number(session.id))
+            }
+            return []
+        } catch (error) {
+            handleError(error);
+            return []
+        }
+    },
+
     getSessionLogs: async (userId: number, sessionId: string): Promise<AIMessage[]> => {
         try {
             const response = await aiApiClient.get(`/apps/${APP_NAME}/users/${userId}/sessions/${sessionId}`);
@@ -190,8 +185,6 @@ export const aiApi = {
 
             return messages;
         } catch (error) {
-            handleError(error);
-            console.error("Failed to fetch session logs: ", error);
             throw new Error('Không thể lấy log cuộc trò chuyện');
         }
     },

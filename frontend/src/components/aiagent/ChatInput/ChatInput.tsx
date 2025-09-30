@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./ChatInput.css";
+import { FaPaperPlane, FaPlus } from "react-icons/fa";
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
@@ -13,25 +14,6 @@ interface ChatInputProps {
   userId?: number;
   ideaId?: number;
 }
-
-// Simple inline SVG icons
-const IconPlus = ({ className = "w-4 h-4" }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
-    <path
-      d="M12 5v14M5 12h14"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const IconSend = ({ className = "w-4 h-4" }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
-    <path d="M2 21L23 12 2 3v7l15 2-15 2z" fill="currentColor" />
-  </svg>
-);
 
 const IconChart = ({ className = "w-4 h-4" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -112,6 +94,7 @@ export default function ChatInput(
   // Internal value supports both controlled and uncontrolled use
   const [internalValue, setInternalValue] = useState<string>(value ?? "");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [lineCount, setLineCount] = useState<number>(1);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -144,7 +127,12 @@ export default function ChatInput(
     // Auto-resize textarea
     const textarea = e.target;
     textarea.style.height = "auto";
-    textarea.style.height = `${Math.min(textarea.scrollHeight, 120)}px`;
+    textarea.style.height = `${Math.min(textarea.scrollHeight, 300)}px`;
+
+    const computedStyle = getComputedStyle(textarea);
+    let lineHeight = parseFloat(computedStyle.lineHeight);
+    const calculatedRows = Math.ceil(textarea.scrollHeight / lineHeight);
+    setLineCount(calculatedRows);
   };
 
   // Async submit logic: ensure session exists before sending
@@ -177,7 +165,7 @@ export default function ChatInput(
 
   return (
     <div className="chat-input-wrapper">
-      <div className="chat-input-container">
+      <div className={`chat-input-container ${lineCount === 1 ? 'single-line' : 'multi-line'}`}>
         {/* Left action (+) */}
         {showQuickActions && (
           <div className="chat-input-left" ref={dropdownRef}>
@@ -190,7 +178,7 @@ export default function ChatInput(
                 isDropdownOpen ? "active" : ""
               }`}
             >
-              <IconPlus />
+              <FaPlus />
             </button>
             {/* Dropdown Menu */}
             {isDropdownOpen && (
@@ -237,7 +225,7 @@ export default function ChatInput(
           disabled={disabled || !internalValue.trim() || isLoading}
           className="chat-input-send-btn"
         >
-          <IconSend />
+          <FaPaperPlane />
         </button>
       </div>
       <div className="chat-input-warnning">

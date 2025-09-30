@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import { aiApi } from "@/services/aiAgentApi";
 import { AIMessage } from "@/types/aiagent";
-import {
-  FaEllipsisV,
-  FaTrash,
-} from "react-icons/fa";
+import { FaEllipsisV, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 import ChatWindow from "./ChatWindow/ChatWindow";
 import ChatInput from "./ChatInput/ChatInput";
 import "react-toastify/dist/ReactToastify.css";
 import "./AiAgentPanel.css";
+import { handleError } from "@/helpers/ErrorHandler";
 
 // const actions = [
 //   {
@@ -53,32 +51,37 @@ const AiAgentPanel: React.FC<AIAgentPanelProps> = ({
   const [menuOpen, setMenuOpen] = useState(false);
   const [sessionExists, setSessionExists] = useState(false);
 
-  useEffect(() => {
-    const loadInitialLogs = async () => {
-      if (!showAIPanel || !userId || !ideaId) {
-        return;
-      }
+  const loadInitialLogs = async () => {
+    if (!showAIPanel || !userId || !ideaId) {
+      return;
+    }
 
-      setIsLoading(true);
-      setError(null);
+    setIsLoading(true);
+    setError(null);
 
-      try {
-        // Chỉ thử lấy logs.
-        const logs = await aiApi.getSessionLogs(userId, ideaId.toString());
-        setMessages(logs);
-        // Nếu lấy logs thành công, nghĩa là session đã tồn tại.
-        setSessionExists(true);
-      } catch (error) {
-        // Nếu có bất kỳ lỗi nào (kể cả 404 Not Found),
-        // chỉ cần hiển thị một cửa sổ trống và không báo lỗi.
-        console.warn("Could not fetch session logs (maybe it's new):", error);
+    try {
+      const listSessionId = await aiApi.listSessionId(userId);
+      
+      if (listSessionId.includes(ideaId)) {        
+        try {
+          const logs = await aiApi.getSessionLogs(userId, ideaId.toString());
+          setMessages(logs);
+          setSessionExists(true);
+        } catch (error) {
+          handleError(error);
+        }
+      } else {
         setMessages([]);
         setSessionExists(false);
-      } finally {
-        setIsLoading(false);
       }
-    };
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     loadInitialLogs();
   }, [showAIPanel, ideaId, userId]);
 

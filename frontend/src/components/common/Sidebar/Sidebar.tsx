@@ -64,18 +64,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [ideas, setIdeas] = React.useState<Idea[]>([]);
   const [visibleCount, setVisibleCount] = React.useState(10);
 
-  const user = {
-    name: "John Doe",
-    email: "john@example.com",
-    role: "Member",
-    avatarUrl: avatarPlaceholder,
-    stats: {
-      totalIdeas: 5,
-      inProgress: 2,
-      completed: 3,
-    },
-  };
-
   useEffect(() => {
     loadIdeas();
   }, []);
@@ -189,7 +177,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
       </div>
       <div className="sidebar-bottom">
-        <UserProfile user={user} isCollapsed={isCollapsed} />
+        <UserProfile isCollapsed={isCollapsed} />
       </div>
     </aside>
   );
