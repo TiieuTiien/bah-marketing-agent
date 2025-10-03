@@ -41,9 +41,11 @@ export const UserProvider = ({ children }: Props) => {
       getProfileApi().then((res) => {
         if (res) {
           const userObj = {
+            user_id: res.data.user_id,
             username: res.data.username,
             email: res.data.email,
           };
+          
           localStorage.setItem("user", JSON.stringify(userObj));
           setUser(userObj);
         }
@@ -65,6 +67,7 @@ export const UserProvider = ({ children }: Props) => {
         if (res) {
           localStorage.setItem("token", res?.data.access_token);
           const userObj = {
+            user_id: res?.data.user_id,
             username: res?.data.username,
             email: res?.data.email,
           };
@@ -92,6 +95,7 @@ export const UserProvider = ({ children }: Props) => {
           
           if (profileRes) {
             const userObj = {
+              user_id: profileRes?.data.user_id,
               username: profileRes?.data.username,
               email: profileRes?.data.email,
             };

@@ -1,147 +1,126 @@
-# BAH Marketing Agent
+# BAH-Marketing-Agent
 
-BAH-Marketing-Agent is an AI Agent system designed to support and enhance marketing content creation for the Book and Action HaUI Club, leveraging advanced AI to efficiently generate diverse content.
+**BAH-Marketing-Agent** is an AI-powered system that supports **marketing content creation** for the **Book and Action HaUI Club**.
+It combines a **React frontend**, a **FastAPI backend**, and an **Agent Development Kit (ADK) service** to build, run, and manage AI-driven content generation workflows.
 
-## Project Structure
+## ✨ Features
 
-```
+* 🖥️ **Frontend (React/TypeScript)** — user-friendly interface for managing content
+* ⚙️ **Backend (FastAPI/Python)** — API layer handling business logic and integrations
+* 🤖 **ADK Agents** — modular AI agents built with the Agent Development Kit
+* 📦 **Extensible** — designed for future AI service integrations and multi-agent workflows
+
+## 🏗️ Architecture Overview
+
+* **Frontend** calls the backend API.
+* **Backend** coordinates requests, validates inputs, and triggers AI tasks.
+* **ADK Agents** run independently, providing AI-powered capabilities (text generation, summarization, etc.).
+
+## 🛠 Tech Stack
+
+* **Frontend**: React + TypeScript, CSS
+* **Backend**: Python + FastAPI
+* **Agents**: Agent Development Kit (FastAPI)
+
+## 📂 Project Structure
+
+```text
 bah-marketing-agent/
-├── api/
-│   ├── app/
-│   │   ├── __init__.py
-│   │   ├── main.py
-│   │   ├── models.py
-│   │   ├── schemas.py
-│   │   ├── db.py
-│   │   └── test_db.py
-│   └── requirements.txt
-│
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── aiagent/
-│   │   │   │   ├── ChatInput/
-│   │   │   │   └── ChatWindow/
-│   │   │   ├── auth/
-│   │   │   ├── common/
-│   │   │   ├── comments/
-│   │   │   ├── dashboard/
-│   │   │   ├── discussion/
-│   │   │   ├── ideadetails/
-│   │   │   ├── ideaform/
-│   │   │   ├── idealist/
-│   │   │   └── workspace/
-│   │   ├── hooks/
-│   │   ├── mocks/
-│   │   ├── pages/
-│   │   │   └── MainApp/
-│   │   ├── services/
-│   │   ├── types/
-│   │   ├── utils/
-│   │   ├── App.tsx
-├── .gitignore
-└── README.md
+├── frontend/                # React app (TypeScript)
+│   ├── package.json
+│   └── src/
+├── api/                     # FastAPI app (Python)
+│   ├── requirements.txt
+│   └── app/
+├── adk_agents/              # Agent Development Kit implementations
+│   ├── main.py              # ADK FastAPI entrypoint
+│   ├── requirements.txt
+│   └── README.md
+├── README.md
+└── LICENSE
 ```
 
-## Architecture
+## ⚡ Quick Start (Docker)
 
-### Backend (FastAPI)
-- **Framework**: FastAPI with Python
-- **Database**: SQLAlchemy ORM with PostgreSQL/SQLite support
-- **API**: RESTful endpoints for ideas and comments management
-- **Models**: User, Idea, Comment, and Tag entities with proper relationships
+For the fastest setup, use Docker:
 
-### Frontend (React + TypeScript)
-- **Framework**: React 18 with TypeScript and Vite
-- **Styling**: Custom CSS with responsive design
-- **State Management**: React hooks with local state management
-- **Components**: Modular component architecture for reusability
+```bash
+git clone https://github.com/your-org/bah-marketing-agent.git
+cd bah-marketing-agent
+docker-compose up --build
+```
 
-## Features
+Services will be available at:
 
-### Core Functionality
-- **Idea Management**: Create, read, update, delete marketing ideas
-- **Comment System**: Threaded discussions on ideas
-- **Tag System**: Categorize and filter ideas with tags
-- **User Management**: User authentication and profile management
-- **AI Agent Integration**: Chat interface for AI-powered assistance
+* Frontend: [http://localhost:3000](http://localhost:3000)
+* Backend: [http://localhost:8080](http://localhost:8080)
+* ADK Agents: [http://localhost:8000](http://localhost:8000)
 
-### UI Components
-- **Dashboard**: Overview of projects and activities
-- **Workspace**: Collaborative environment for idea development
-- **Discussion Panel**: Real-time commenting and feedback
-- **Idea Forms**: Intuitive forms for idea creation and editing
-- **Authentication**: Secure login and registration system
+## ⚙️ Environment Variables
 
-## Getting Started
+Configure your `.env` files as needed for each service.  
+**Do not commit `.env` with secrets.**
 
-### Prerequisites
-- Node.js 18+ and npm/yarn
-- Python 3.8+
-- PostgreSQL (optional, can use SQLite for development)
+## 🔧 Running Services (Manual Dev Mode)
 
-### Backend Setup
+### 1. Backend (FastAPI)
+
 ```bash
 cd api
+python -m venv .venv
+.\.venv\Scripts\activate    # Windows
 pip install -r requirements.txt
-python -m app.main
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8080
 ```
 
-### Frontend Setup
+* Health: [http://127.0.0.1:8080/](http://127.0.0.1:8080/)
+* Docs: [http://127.0.0.1:8080/docs](http://127.0.0.1:8080/docs)
+
+### 2. ADK Agents
+
+```bash
+cd adk_agents
+python -m venv .venv
+.\.venv\Scripts\activate    # Windows
+pip install -r requirements.txt
+python main.py
+```
+
+* Health: [http://localhost:8000/](http://localhost:8000/)
+
+### 3. Frontend (React)
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-## Development
+* App: [http://localhost:3000](http://localhost:3000)
 
-### Backend Development
-- **Database**: Uses SQLAlchemy with automatic table creation
-- **Testing**: In-memory test database with mock data
-- **API Documentation**: Automatic OpenAPI/Swagger documentation
+## ✅ Health Checks
 
-### Frontend Development
-- **Hot Reload**: Vite provides fast development experience
-- **Type Safety**: Full TypeScript coverage
-- **Component Library**: Reusable components with consistent styling
-- **Mock Data**: Development-time data for testing UI components
+* Backend: [http://127.0.0.1:8080/](http://127.0.0.1:8080/)
+* ADK Agents: [http://localhost:8000/](http://localhost:8000/)
+* Frontend: [http://localhost:3000](http://localhost:3000)
 
-## API Endpoints
+## 🐞 Troubleshooting
 
-### Ideas
-- `GET /ideas` - List all ideas with filtering
-- `POST /ideas` - Create new idea
-- `GET /ideas/{id}` - Get specific idea
-- `PUT /ideas/{id}` - Update idea
-- `DELETE /ideas/{id}` - Delete idea
+* **Service not reachable?**
+  * Check correct folder (`api/` vs `adk_agents/`).
+  * Verify ports: backend `8080`, agents `8000`.
+  * Ensure `.env` contains required keys.
+* **Frontend API errors?**
+  * Confirm frontend is configured to point to the backend API.
+* **Dependency errors?**
+  * Reinstall with `pip install -r requirements.txt` or `npm install`.
 
-### Comments
-- `GET /ideas/{id}/comments` - List comments for an idea
-- `POST /ideas/{id}/comments` - Create comment
-- `PUT /comments/{id}` - Update comment
-- `DELETE /comments/{id}` - Delete comment
+## 🤝 Contributing
 
-## Technology Stack
+* Keep service-specific setup in their respective `README.md` (`frontend/`, `adk_agents/`).
+* Open issues for missing docs, bugs, or runtime problems.
+* Follow standard practices: run linters/tests before PR.
 
-### Backend
-- FastAPI
-- SQLAlchemy ORM
-- PostgreSQL/SQLite
-- Pydantic for data validation
+## 📜 License
 
-### Frontend
-- React 18
-- TypeScript
-- Vite
-- CSS Modules
-- React Router
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test your changes
-5. Submit a pull request
+Licensed under the **Apache 2.0 License** — see [LICENSE](./LICENSE).

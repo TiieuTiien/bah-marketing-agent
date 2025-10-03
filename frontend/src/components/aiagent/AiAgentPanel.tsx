@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { aiApi } from "@/services/aiAgentApi";
 import { AIMessage } from "@/types/aiagent";
+import { Idea } from "@/types/idea";
 import { FaEllipsisV, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 
@@ -36,6 +37,7 @@ interface AIAgentPanelProps {
   ideaId?: number;
   className?: string;
   showAIPanel: boolean;
+  idea?: Idea;
 }
 
 const AiAgentPanel: React.FC<AIAgentPanelProps> = ({
@@ -43,6 +45,7 @@ const AiAgentPanel: React.FC<AIAgentPanelProps> = ({
   ideaId,
   className = "",
   showAIPanel,
+  idea,
 }) => {
   const [messages, setMessages] = useState<AIMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -226,6 +229,8 @@ const AiAgentPanel: React.FC<AIAgentPanelProps> = ({
           messages={messages}
           isLoading={isLoading}
           showWelcome={showWelcome}
+          idea={idea}
+          onSendMessage={handleSendMessage}
         />
 
         <ChatInput

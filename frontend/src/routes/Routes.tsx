@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
           { path: "workspace", element: <Workspace /> },
           { path: "idealist", element: <IdeaList /> },
           { path: "discussion/:ideaId", element: <DiscussionPanel /> },
-          { index: true, element: <Navigate to="/app/dashboard" replace /> },
+          { index: true, element: <Navigate to="/app/idealist" replace /> },
         ],
       },
       { path: "*", element: <Navigate to="/login" replace /> },

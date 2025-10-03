@@ -118,7 +118,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </button>
         </div>
         <div className="sidebar-items">
-          <SidebarItem
+          {/* <SidebarItem
             name="Dashboard"
             isCollapsed={isCollapsed}
             isActive={currentView === "dashboard"}
@@ -133,7 +133,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             onClick={() => onViewChange("workspace")}
           >
             <FaEdit />
-          </SidebarItem>
+          </SidebarItem> */}
           <SidebarItem
             name="Danh sách ý tưởng"
             isCollapsed={isCollapsed}

@@ -6,12 +6,12 @@ It defines the root agent and its sub-agents to form a multi-agent system.
 from google.adk.agents import LlmAgent, SequentialAgent
 from .refinement_loop.agent import refinement_loop
 from .tools import save_draft_content
-
+from google.adk.tools import google_search
 
 research_agent = LlmAgent(
     name="research_agent",
     model="gemini-2.0-flash",
-    description="Lập kế hoạch cấu trúc bài đánh giá và thu thập thông tin ban đầu một cách linh hoạt.",
+    description="Tìm kiến thông tin và lập kế hoạch cấu trúc bài đánh giá và thu thập thông tin ban đầu một cách linh hoạt.",
     instruction="""
 Bạn là một nhà phân tích văn học chuyên nghiệp, có khả năng thích ứng với nhiều thể loại và yêu cầu khác nhau. Dựa vào `book_title` và `main_topic`.
 
@@ -22,7 +22,7 @@ Bạn là một nhà phân tích văn học chuyên nghiệp, có khả năng th
 **QUY TRÌNH CỦA BẠN GỒM HAI BƯỚC:**
 
 **1. Kế hoạch & Cấu trúc (Dàn ý):**
-- **Phân tích yêu cầu:** Dựa trên thể loại sách và chủ đề, hãy xác định cấu trúc dàn ý logic và phù hợp nhất.
+- **Phân tích yêu cầu:** Sử dụng công cụ google search để tìm kiếm thông tin về sách. Dựa trên thể loại sách và chủ đề, hãy xác định cấu trúc dàn ý logic và phù hợp nhất.
 - **Tạo dàn ý:** Xây dựng một dàn ý chi tiết. Dàn ý phải toàn diện, bao quát các khía cạnh chính của chủ đề. Mỗi đề mục chính cần được làm rõ bằng các gạch đầu dòng con để đi sâu vào chi tiết.
 
 **2. Thu thập & Tóm tắt:**
@@ -34,6 +34,7 @@ Bạn là một nhà phân tích văn học chuyên nghiệp, có khả năng th
 - **Độ sâu (depth):** Nếu trong `state` có khóa 'depth' (ví dụ: 'sơ lược' hoặc 'chi tiết'), hãy điều chỉnh số lượng đề mục và mức độ chi tiết của thông tin cho phù hợp.
 - **Ngôn ngữ**: Dù đầu vào có thể là tiếng Anh, bạn CHỈ ĐƯỢC trả lời bằng **tiếng Việt**.
     """,
+    tools=[google_search],
     output_key="research_findings",
 )
 
@@ -112,7 +113,7 @@ root_agent = LlmAgent(
     - Phải **ngay lập tức `transfer_to_agent(writing_pipeline)`**.
 
     3. Nếu người dùng chỉ đưa ra **tiêu đề sách** (ví dụ: Tóm tắt nội dung chính của cuốn sách 'Coco Butternut') hoặc 2-3 từ chủ đề/chủ đề quá rộng** (vd: “nước”, “chiến tranh”):
-    - TỰ ĐỘNG sinh 2–3 gợi ý cụ thể (mỗi gợi ý 1 câu, kèm 1 lý do ngắn).
+    - Sử dụng research agent để tìm kiếm và sinh 2–3 gợi ý cụ thể (mỗi gợi ý 1 câu, kèm 1 lý do ngắn).
     - Đánh dấu 1 gợi ý là **đề xuất mặc định** và hỏi người dùng chọn hoặc xác nhận.
     - Khi người dùng chọn / đồng ý → đặt `state.focus_points` và `transfer_to_agent(writing_pipeline)`.
 

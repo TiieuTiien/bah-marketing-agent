@@ -19,7 +19,7 @@ const DiscussionPanel = () => {
   const [idea, setIdea] = useState<Idea | null>(null);
   const [loading, setLoading] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [showAIPanel, setShowAIPanel] = useState(false);
+  const [showAIPanel, setShowAIPanel] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>("Lỗi thử");
 
   useEffect(() => {
@@ -182,6 +182,7 @@ const DiscussionPanel = () => {
                 ideaId={idea.idea_id}
                 className="discussion-panel__ai-panel"
                 showAIPanel={showAIPanel}
+                idea={idea}
               />
             </div>
           )}
