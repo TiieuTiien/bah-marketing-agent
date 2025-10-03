@@ -132,7 +132,7 @@ const IdeaList: React.FC = () => {
             </label>
           ))}
         </div>
-        <button className="create-idea-btn" onClick={handleCreateIdea}>
+        <button className="create-idea-btn btn" onClick={handleCreateIdea}>
           + Tạo ý tưởng mới
         </button>
       </div>

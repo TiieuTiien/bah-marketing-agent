@@ -35,3 +35,12 @@ export const registerApi = async (
     handleError(error);
   }
 };
+
+export const getProfileApi = async () => {
+  try {
+    const data = await axios.get(API_URL + "me");
+    return data;
+  } catch (error) {
+    handleError(error);
+  }
+};

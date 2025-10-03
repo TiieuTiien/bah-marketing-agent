@@ -1,10 +1,12 @@
 export type UserProfileToken = {
-  userName: string;
+  user_id: string;
+  username: string;
   email: string;
   access_token: string;
 };
 
 export type UserProfile = {
-  userName: string;
+  user_id: string;
+  username: string;
   email: string;
 };

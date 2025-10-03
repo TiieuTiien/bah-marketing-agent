@@ -1,6 +1,6 @@
 # BAH-Marketing-Agent
 
-[**BAH-Marketing-Agent**](https://github.com/TiieuTiien/bah-marketing-agent) is an AI-powered system that supports **marketing content creation** for the **Book and Action HaUI Club**.
+**BAH-Marketing-Agent** is an AI-powered system that supports **marketing content creation** for the **Book and Action HaUI Club**.
 It combines a **React frontend**, a **FastAPI backend**, and an **Agent Development Kit (ADK) service** to build, run, and manage AI-driven content generation workflows.
 
 ## ✨ Features

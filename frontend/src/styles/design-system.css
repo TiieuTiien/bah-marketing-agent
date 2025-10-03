@@ -97,6 +97,7 @@
   --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
     "Liberation Mono", monospace;
 
+  --font-size-s: 0.65rem; /* 12px */
   --font-size-xs: 0.75rem; /* 12px */
   --font-size-sm: 0.875rem; /* 14px */
   --font-size-base: 1rem; /* 16px */
@@ -145,6 +146,7 @@
   --radius-lg: 0.75rem; /* 12px */
   --radius-xl: 1rem; /* 16px */
   --radius-2xl: 1.5rem; /* 24px */
+  --radius-3xl: 2rem; /* 32px */
   --radius-full: 9999px;
 
   /* === SHADOWS === */

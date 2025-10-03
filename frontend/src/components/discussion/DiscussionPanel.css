@@ -129,9 +129,9 @@
 }
 
 .discussion-panel__ai {
-  flex: 0 0 400px;
-  min-width: 340px;
-  max-width: 480px;
+  flex: 0 0 800px;
+  min-width: 480px;
+  max-width: 800px;
   position: sticky;
   top: var(--space-6);
 }

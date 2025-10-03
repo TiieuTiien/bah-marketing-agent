@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 
 type LoginFormsInputs = {
-  userName: string;
+  username: string;
   password: string;
 };
 
 const validation = Yup.object().shape({
-  userName: Yup.string().required("Username is required"),
+  username: Yup.string().required("Username is required"),
   password: Yup.string().required("Password is required"),
 });
 
@@ -26,7 +26,7 @@ const LoginPage: React.FC = () => {
   } = useForm<LoginFormsInputs>({ resolver: yupResolver(validation) });
 
   const handleLogin = (form: LoginFormsInputs) => {
-    loginUser(form.userName, form.password);
+    loginUser(form.username, form.password);
   };
   return (
     <section className="login-bg">
@@ -44,10 +44,10 @@ const LoginPage: React.FC = () => {
                   id="username"
                   className="login-input"
                   placeholder="Username"
-                  {...register("userName")}
+                  {...register("username")}
                 />
-                {errors.userName && (
-                  <p className="login-error">{errors.userName.message}</p>
+                {errors.username && (
+                  <p className="login-error">{errors.username.message}</p>
                 )}
               </div>
               <div>

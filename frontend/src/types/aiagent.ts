@@ -74,6 +74,11 @@ export interface ADKPart {
             }
         }
     }
+    functionCall?: {
+        id: string,
+        args: {},
+        name: string
+    }
 }
 
 export interface ADKContent {
@@ -83,6 +88,7 @@ export interface ADKContent {
 
 export interface ADKEvent {
     content: ADKContent;
+    timestamp?: number; // Added optional timestamp property
 }
 
 export interface AISession {

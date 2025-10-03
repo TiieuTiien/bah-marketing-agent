@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { AIMessage } from '@/types/aiagent';
+import { Idea } from '@/types/idea';
 import ReactMarkdown from 'react-markdown';
 import './ChatWindow.css';
 
@@ -8,13 +9,16 @@ interface ChatWindowProps {
   isLoading: boolean;
   ideaTitle?: string;
   showWelcome?: boolean;
+  idea?: Idea;
+  onSendMessage?: (message: string) => void;
 }
 
-const ChatWindow: React.FC<ChatWindowProps> = ({ 
-  messages, 
-  isLoading, 
-  ideaTitle, 
-  showWelcome = false 
+const ChatWindow: React.FC<ChatWindowProps> = ({
+  messages,
+  isLoading,
+  showWelcome = false,
+  idea,
+  onSendMessage,
 }) => {
   const chatEndRef = useRef<HTMLDivElement>(null);
 
@@ -38,13 +42,21 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
               <h4>👋 Chào mừng bạn!</h4>
               <p>Tôi là AI Marketing Agent, sẵn sàng hỗ trợ bạn phát triển ý tưởng này.</p>
               <div className="quick-suggestions">
-                <p><strong>Bạn có thể hỏi tôi về:</strong></p>
-                <ul>
-                  <li>📊 Phân tích thị trường cho ý tưởng</li>
-                  <li>🎯 Xác định đối tượng khách hàng</li>
-                  <li>💡 Gợi ý cải tiến và phát triển</li>
-                  <li>📈 Chiến lược marketing và quảng bá</li>
-                </ul>
+                <p><strong>Hành động nhanh:</strong></p>
+                <div className="quick-actions">
+                  <button
+                    className="quick-action-btn"
+                    onClick={() => onSendMessage?.(`Cho tôi thêm thông tin về ${idea?.title || 'ý tưởng này'}`)}
+                  >
+                    Thêm thông tin: {(idea?.title || 'ý tưởng này').length > 30 ? (idea?.title || 'ý tưởng này').substring(0, 30) + '...' : (idea?.title || 'ý tưởng này')}
+                  </button>
+                  <button
+                    className="quick-action-btn"
+                    onClick={() => onSendMessage?.(`Tạo đánh giá sách cho: ${idea?.title || 'ý tưởng này'} - ${(idea?.description || '')}`)}
+                  >
+                    Đánh giá sách: {(idea?.title || 'ý tưởng này').length > 15 ? (idea?.title || 'ý tưởng này').substring(0, 15) + '...' : (idea?.title || 'ý tưởng này')} - {(idea?.description || '').length > 30 ? (idea?.description || '').substring(0, 30) + '...' : (idea?.description || '')}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -79,7 +91,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                   <span></span>
                   <span></span>
                 </div>
-                <span className="typing-text">AI đang suy nghĩ...</span>
+                <span className="typing-text">Agents đang suy nghĩ...</span>
               </div>
             </div>
           </div>

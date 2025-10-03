@@ -10,13 +10,13 @@ type Props = {};
 
 type RegisterFormsInputs = {
   email: string;
-  userName: string;
+  username: string;
   password: string;
 };
 
 const validation = Yup.object().shape({
   email: Yup.string().required("Email is required"),
-  userName: Yup.string().required("Username is required"),
+  username: Yup.string().required("Username is required"),
   password: Yup.string().required("Password is required"),
 });
 
@@ -30,7 +30,7 @@ const RegisterPage = (props: Props) => {
   } = useForm<RegisterFormsInputs>({ resolver: yupResolver(validation) });
 
   const handleLogin = (form: RegisterFormsInputs) => {
-    registerUser(form.email, form.userName, form.password);
+    registerUser(form.email, form.username, form.password);
   };
   return (
     <section className="register-bg">
@@ -68,10 +68,10 @@ const RegisterPage = (props: Props) => {
                   id="username"
                   className="register-input"
                   placeholder="Username"
-                  {...register("userName")}
+                  {...register("username")}
                 />
-                {errors.userName ? (
-                  <p className="register-error">{errors.userName.message}</p>
+                {errors.username ? (
+                  <p className="register-error">{errors.username.message}</p>
                 ) : (
                   ""
                 )}

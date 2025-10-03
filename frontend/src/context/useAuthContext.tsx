@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { UserProfile } from "@/types/user";
-import { loginApi, registerApi } from "@/services/authService";
+import { loginApi, registerApi, getProfileApi } from "@/services/authService";
 
 
 type UserContextType = {
@@ -35,6 +35,24 @@ export const UserProvider = ({ children }: Props) => {
       setUser(JSON.parse(user));
       setToken(token);
       axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+    } else if (token) {
+      // If token exists but no user, fetch profile
+      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+      getProfileApi().then((res) => {
+        if (res) {
+          const userObj = {
+            user_id: res.data.user_id,
+            username: res.data.username,
+            email: res.data.email,
+          };
+          
+          localStorage.setItem("user", JSON.stringify(userObj));
+          setUser(userObj);
+        }
+      }).catch(() => {
+        // If fetch fails, clear token
+        localStorage.removeItem("token");
+      });
     }
     setIsReady(true);
   }, []);
@@ -49,7 +67,8 @@ export const UserProvider = ({ children }: Props) => {
         if (res) {
           localStorage.setItem("token", res?.data.access_token);
           const userObj = {
-            userName: res?.data.userName,
+            user_id: res?.data.user_id,
+            username: res?.data.username,
             email: res?.data.email,
           };
           localStorage.setItem("user", JSON.stringify(userObj));
@@ -66,18 +85,28 @@ export const UserProvider = ({ children }: Props) => {
 
   const loginUser = async (username: string, password: string) => {
     await loginApi(username, password)
-      .then((res) => {
+      .then(async (res) => {
         if (res) {
           localStorage.setItem("token", res?.data.access_token);
-          const userObj = {
-            userName: res?.data.userName,
-            email: res?.data.email,
-          };
-          localStorage.setItem("user", JSON.stringify(userObj));
-          setToken(res?.data.access_token!);
-          setUser(userObj!);
-          toast.success("Login Success!");
-          navigate("/app");
+          axios.defaults.headers.common["Authorization"] = "Bearer " + res?.data.access_token;
+          
+          const profileRes = await getProfileApi();
+          console.log("Profile result: ", profileRes);
+          
+          if (profileRes) {
+            const userObj = {
+              user_id: profileRes?.data.user_id,
+              username: profileRes?.data.username,
+              email: profileRes?.data.email,
+            };
+            localStorage.setItem("user", JSON.stringify(userObj));
+            setToken(res?.data.access_token!);
+            setUser(userObj!);
+            toast.success("Login Success!");
+            navigate("/app");
+          } else {
+            toast.warning("Failed to fetch user profile");
+          }
         }
       })
       .catch((e) => toast.warning("Server error occured"));
